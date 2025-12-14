@@ -156,9 +156,9 @@ const MethodologyCases = () => {
               }
 
               return (
-                <div key={index} className="flex items-center gap-6">
-              <div className="flex-1">
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 inline-block">
+                <div key={index} className="flex items-center gap-3 sm:gap-4 lg:gap-6">
+              <div className="flex-1 min-w-0">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 block">
                       {renderTitle(benefit.title)}
                 </h2>
                     <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-3">
@@ -167,9 +167,19 @@ const MethodologyCases = () => {
                     <div className="border-t-2 border-[#DD0000] w-full"></div>
               </div>
                   <div className="flex-shrink-0 w-20 h-20 bg-black rounded-full flex items-center justify-center">
-                    <svg className="w-10 h-10 text-[#DD0000]" fill="currentColor" viewBox="0 0 24 24">
-                      {icons[index]}
-                </svg>
+                    {index === 0 ? (
+                      // Первая иконка - graduation cap (PNG)
+                      <img 
+                        src="/fi-rr-graduation-cap.png" 
+                        alt="" 
+                        className="w-10 h-10 object-contain"
+                      />
+                    ) : (
+                      // Остальные иконки - SVG
+                      <svg className="w-10 h-10 text-[#DD0000]" fill="currentColor" viewBox="0 0 24 24">
+                        {icons[index]}
+                      </svg>
+                    )}
               </div>
               </div>
               )
