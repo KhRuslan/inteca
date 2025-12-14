@@ -45,7 +45,7 @@ const TopBar = () => {
           {/* Left side - Navigation links */}
           {/* Mobile: centered, no scroll */}
           {/* Desktop: left aligned */}
-          <div className="flex-1 lg:flex-initial flex items-center justify-center lg:justify-start gap-2 sm:gap-3 lg:gap-6 text-xs lg:text-sm whitespace-nowrap">
+          <div className="flex-1 lg:flex-initial flex items-center justify-center lg:justify-start gap-1.5 sm:gap-2 lg:gap-6 text-[10px] sm:text-xs lg:text-sm whitespace-nowrap">
             <Link to="/for-universities" className="hover:text-gray-300 transition">{links.universities}</Link>
             <Link to="/for-corporate-clients" className="hover:text-gray-300 transition">{links.corporate}</Link>
             <Link to="/for-students" className="hover:text-gray-300 transition">{links.students}</Link>
