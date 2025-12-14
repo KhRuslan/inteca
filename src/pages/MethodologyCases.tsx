@@ -227,44 +227,44 @@ const MethodologyCases = () => {
       {/* Detail Modal */}
       {selectedCase && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-fadeIn"
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4 animate-fadeIn"
           onClick={() => setSelectedCase(null)}
         >
           <div 
-            className="bg-gray-50 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-slideUp"
+            className="bg-gray-50 rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-slideUp"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-8 sm:p-12">
+            <div className="p-4 sm:p-6 lg:p-8 xl:p-12">
               {/* Back Button */}
               <button
                 onClick={() => setSelectedCase(null)}
-                className="mb-6 text-gray-600 hover:text-gray-900 transition flex items-center gap-2 text-sm font-semibold"
+                className="mb-3 sm:mb-4 lg:mb-6 text-gray-600 hover:text-gray-900 transition flex items-center gap-2 text-xs sm:text-sm font-semibold"
               >
                 <span>←</span>
                 {language === 'ru' ? 'Назад' : language === 'kz' ? 'Артқа' : 'Back'}
                 </button>
 
               {/* Title */}
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
                 {selectedCase.title}
               </h2>
-              <div className="border-b-4 border-[#DD0000] w-24 mb-8"></div>
+              <div className="border-b-2 sm:border-b-4 border-[#DD0000] w-16 sm:w-20 lg:w-24 mb-4 sm:mb-6 lg:mb-8"></div>
 
               {/* Detailed Description */}
-              <div className="mb-8">
-                <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
+              <div className="mb-4 sm:mb-6 lg:mb-8">
+                <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-3 sm:mb-4 lg:mb-6">
                   {selectedCase.detailedDescription || selectedCase.description}
                 </p>
 
                 {selectedCase.keyFacts && selectedCase.keyFacts.length > 0 && (
                   <>
-                    <p className="text-lg font-semibold text-gray-900 mb-4">
+                    <p className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 lg:mb-4">
                       {language === 'ru' ? 'Ключевые факты' : language === 'kz' ? 'Негізгі фактілер' : 'Key Facts'}
                     </p>
-                    <ul className="space-y-2 mb-6">
+                    <ul className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 lg:mb-6">
                       {selectedCase.keyFacts.map((fact, index) => (
-                        <li key={index} className="flex items-start text-gray-700">
-                          <span className="mr-3 text-[#DD0000] font-bold">—</span>
+                        <li key={index} className="flex items-start text-sm sm:text-base text-gray-700">
+                          <span className="mr-2 sm:mr-3 text-[#DD0000] font-bold flex-shrink-0">—</span>
                           <span>{fact}</span>
                         </li>
                       ))}
@@ -278,9 +278,9 @@ const MethodologyCases = () => {
                 <Link 
                   to="/contacts#hero"
                   onClick={() => setSelectedCase(null)}
-                  className="bg-white p-6 rounded-lg border-l-4 border-[#DD0000] block hover:bg-gray-50 transition cursor-pointer"
+                  className="bg-white p-3 sm:p-4 lg:p-6 rounded-lg border-l-2 sm:border-l-4 border-[#DD0000] block hover:bg-gray-50 transition cursor-pointer"
                 >
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p className="text-sm sm:text-base lg:text-lg font-semibold text-gray-900">
                     {selectedCase.callToAction}
                   </p>
                 </Link>
