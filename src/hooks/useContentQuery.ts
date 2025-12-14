@@ -43,7 +43,7 @@ export const useUpdateContent = (language: string = 'ru') => {
       return { previousContent }
     },
     // Если ошибка - откатываем
-    onError: (err, newContent, context) => {
+    onError: (_err, _newContent, context) => {
       if (context?.previousContent) {
         queryClient.setQueryData(queryKey, context.previousContent)
       }

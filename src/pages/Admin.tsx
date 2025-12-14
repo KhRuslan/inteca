@@ -3,6 +3,7 @@ import { useContent, useUpdateContent, useResetContent } from '../hooks/useConte
 import { useBlogPosts, useCreatePost, useUpdatePost, useDeletePost } from '../hooks/useBlogQuery'
 import { useContactSubmissions, useUpdateSubmissionStatus, useDeleteSubmission } from '../hooks/useContactSubmissions'
 import { defaultContent } from '../types/content'
+import type { AboutContent, FounderPageContent, MethodologyPageContent, ForUniversitiesPageContent, ForCorporateClientsPageContent } from '../types/content'
 import ImageUpload from '../components/ImageUpload'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import type { User } from '@supabase/supabase-js'
@@ -625,9 +626,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.about.hero.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        about: { ...content.about, hero: { ...content.about.hero, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.about) return
+                        updateContentMutation.mutate({ 
+                          about: { ...content.about, hero: { ...content.about.hero, title: e.target.value } } as AboutContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -635,9 +639,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.about.hero.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        about: { ...content.about, hero: { ...content.about.hero, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.about) return
+                        updateContentMutation.mutate({ 
+                          about: { ...content.about, hero: { ...content.about.hero, description: e.target.value } } as AboutContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -647,9 +654,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.about.hero.formula}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        about: { ...content.about, hero: { ...content.about.hero, formula: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.about) return
+                        updateContentMutation.mutate({ 
+                          about: { ...content.about, hero: { ...content.about.hero, formula: e.target.value } } as AboutContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -673,7 +683,7 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.about!.managementChallenges]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ about: { ...content.about, managementChallenges: updated } })
+                          updateContentMutation.mutate({ about: { ...content.about, managementChallenges: updated } as AboutContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -686,7 +696,7 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.about!.managementChallenges]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ about: { ...content.about, managementChallenges: updated } })
+                          updateContentMutation.mutate({ about: { ...content.about, managementChallenges: updated } as AboutContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -713,9 +723,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.about.afterCompleting.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        about: { ...content.about, afterCompleting: { ...content.about.afterCompleting, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.about) return
+                        updateContentMutation.mutate({ 
+                          about: { ...content.about, afterCompleting: { ...content.about.afterCompleting, title: e.target.value } } as AboutContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -723,9 +736,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.about.afterCompleting.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        about: { ...content.about, afterCompleting: { ...content.about.afterCompleting, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.about) return
+                        updateContentMutation.mutate({ 
+                          about: { ...content.about, afterCompleting: { ...content.about.afterCompleting, description: e.target.value } } as AboutContent
+                        })
+                      }}
                       rows={5}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -735,9 +751,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.about.afterCompleting.buttonText}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        about: { ...content.about, afterCompleting: { ...content.about.afterCompleting, buttonText: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.about) return
+                        updateContentMutation.mutate({ 
+                          about: { ...content.about, afterCompleting: { ...content.about.afterCompleting, buttonText: e.target.value } } as AboutContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -759,7 +778,7 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.about!.coreCompetencies]
                             updated[index] = { ...updated[index], category: e.target.value }
-                            updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } })
+                            updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } as AboutContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -772,7 +791,7 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.about!.coreCompetencies]
                             updated[index] = { ...updated[index], mainTitle: e.target.value }
-                            updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } })
+                            updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } as AboutContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -786,7 +805,7 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.about!.coreCompetencies]
                           updated[index] = { ...updated[index], subtitle: e.target.value }
-                          updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } })
+                          updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } as AboutContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -798,7 +817,7 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.about!.coreCompetencies]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } })
+                          updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } as AboutContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -812,7 +831,7 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.about!.coreCompetencies]
                           updated[index] = { ...updated[index], linkText: e.target.value }
-                          updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } })
+                          updateContentMutation.mutate({ about: { ...content.about, coreCompetencies: updated } as AboutContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -830,9 +849,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.founderPage.hero.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, title: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -840,9 +862,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.founderPage.hero.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, description: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       rows={3}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -851,9 +876,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Дополнительное описание</label>
                     <textarea
                       value={content.founderPage.hero.secondaryDescription}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, secondaryDescription: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, secondaryDescription: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -868,8 +896,9 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.founderPage!.hero.keyFacts]
                           updated[index] = e.target.value
+                          if (!content.founderPage) return
                           updateContentMutation.mutate({ 
-                            founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, keyFacts: updated } } 
+                            founderPage: { ...content.founderPage, hero: { ...content.founderPage.hero, keyFacts: updated } } as FounderPageContent
                           })
                         }}
                         className="w-full px-4 py-2 border rounded mb-2"
@@ -888,9 +917,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.founderPage.practitionerTitle}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, practitionerTitle: e.target.value } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, practitionerTitle: e.target.value } as FounderPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -899,9 +931,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.founderPage.practitionerSubtitle}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, practitionerSubtitle: e.target.value } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, practitionerSubtitle: e.target.value } as FounderPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -909,9 +944,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание (черный блок)</label>
                     <textarea
                       value={content.founderPage.practitionerDescription}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, practitionerDescription: e.target.value } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, practitionerDescription: e.target.value } as FounderPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -933,7 +971,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.founderPage!.cards]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ founderPage: { ...content.founderPage, cards: updated } })
+                          if (!content.founderPage) return
+                          updateContentMutation.mutate({ founderPage: { ...content.founderPage, cards: updated } as FounderPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -945,7 +984,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.founderPage!.cards]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ founderPage: { ...content.founderPage, cards: updated } })
+                          if (!content.founderPage) return
+                          updateContentMutation.mutate({ founderPage: { ...content.founderPage, cards: updated } as FounderPageContent })
                         }}
                         rows={4}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -959,7 +999,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.founderPage!.cards]
                           updated[index] = { ...updated[index], linkText: e.target.value }
-                          updateContentMutation.mutate({ founderPage: { ...content.founderPage, cards: updated } })
+                          if (!content.founderPage) return
+                          updateContentMutation.mutate({ founderPage: { ...content.founderPage, cards: updated } as FounderPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -977,9 +1018,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.founderPage.biography.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, title: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -987,9 +1031,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Параграф 1</label>
                     <textarea
                       value={content.founderPage.biography.paragraph1}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, paragraph1: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, paragraph1: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -998,9 +1045,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Параграф 2</label>
                     <textarea
                       value={content.founderPage.biography.paragraph2}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, paragraph2: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, paragraph2: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1009,9 +1059,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Текст в черном блоке снизу</label>
                     <textarea
                       value={content.founderPage.biography.bottomText}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, bottomText: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.founderPage) return
+                        updateContentMutation.mutate({ 
+                          founderPage: { ...content.founderPage, biography: { ...content.founderPage.biography, bottomText: e.target.value } } as FounderPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1027,9 +1080,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Заголовок</label>
                     <textarea
                       value={content.methodologyPage.hero.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        methodologyPage: { ...content.methodologyPage, hero: { ...content.methodologyPage.hero, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.methodologyPage) return
+                        updateContentMutation.mutate({ 
+                          methodologyPage: { ...content.methodologyPage, hero: { ...content.methodologyPage.hero, title: e.target.value } } as MethodologyPageContent
+                        })
+                      }}
                       rows={2}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1038,9 +1094,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.methodologyPage.hero.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        methodologyPage: { ...content.methodologyPage, hero: { ...content.methodologyPage.hero, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.methodologyPage) return
+                        updateContentMutation.mutate({ 
+                          methodologyPage: { ...content.methodologyPage, hero: { ...content.methodologyPage.hero, description: e.target.value } } as MethodologyPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1050,9 +1109,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.methodologyPage.hero.buttonText}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        methodologyPage: { ...content.methodologyPage, hero: { ...content.methodologyPage.hero, buttonText: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.methodologyPage) return
+                        updateContentMutation.mutate({ 
+                          methodologyPage: { ...content.methodologyPage, hero: { ...content.methodologyPage.hero, buttonText: e.target.value } } as MethodologyPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -1073,7 +1135,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.benefits]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, benefits: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, benefits: updated } as MethodologyPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1085,7 +1148,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.benefits]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, benefits: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, benefits: updated } as MethodologyPageContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1103,9 +1167,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.methodologyPage.casesTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      methodologyPage: { ...content.methodologyPage, casesTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.methodologyPage) return
+                    updateContentMutation.mutate({
+                        methodologyPage: { ...content.methodologyPage, casesTitle: e.target.value } as MethodologyPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1120,7 +1187,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.cases]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } as MethodologyPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1132,7 +1200,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.cases]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } as MethodologyPageContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1145,7 +1214,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.cases]
                           updated[index] = { ...updated[index], detailedDescription: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } as MethodologyPageContent })
                         }}
                         rows={5}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1160,7 +1230,8 @@ const Admin = () => {
                           const updated = [...content.methodologyPage!.cases]
                           const keyFacts = e.target.value.split('\n').filter(line => line.trim() !== '')
                           updated[index] = { ...updated[index], keyFacts }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } as MethodologyPageContent })
                         }}
                         rows={4}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1175,7 +1246,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.cases]
                           updated[index] = { ...updated[index], callToAction: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } as MethodologyPageContent })
                         }}
                         rows={2}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1190,7 +1262,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.methodologyPage!.cases]
                           updated[index] = { ...updated[index], linkText: e.target.value }
-                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } })
+                          if (!content.methodologyPage) return
+                          updateContentMutation.mutate({ methodologyPage: { ...content.methodologyPage, cases: updated } as MethodologyPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1208,9 +1281,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.forUniversitiesPage.hero.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forUniversitiesPage: { ...content.forUniversitiesPage, hero: { ...content.forUniversitiesPage.hero, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forUniversitiesPage) return
+                        updateContentMutation.mutate({ 
+                          forUniversitiesPage: { ...content.forUniversitiesPage, hero: { ...content.forUniversitiesPage.hero, title: e.target.value } } as ForUniversitiesPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -1218,9 +1294,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.forUniversitiesPage.hero.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forUniversitiesPage: { ...content.forUniversitiesPage, hero: { ...content.forUniversitiesPage.hero, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forUniversitiesPage) return
+                        updateContentMutation.mutate({ 
+                          forUniversitiesPage: { ...content.forUniversitiesPage, hero: { ...content.forUniversitiesPage.hero, description: e.target.value } } as ForUniversitiesPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1236,9 +1315,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.forUniversitiesPage.benefitsTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      forUniversitiesPage: { ...content.forUniversitiesPage, benefitsTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.forUniversitiesPage) return
+                    updateContentMutation.mutate({
+                        forUniversitiesPage: { ...content.forUniversitiesPage, benefitsTitle: e.target.value } as ForUniversitiesPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1253,7 +1335,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.benefits]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, benefits: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, benefits: updated } as ForUniversitiesPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1265,7 +1348,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.benefits]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, benefits: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, benefits: updated } as ForUniversitiesPageContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1279,7 +1363,8 @@ const Admin = () => {
                           const updated = [...content.forUniversitiesPage!.benefits]
                           const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                           updated[index] = { ...updated[index], list: list.length > 0 ? list : undefined }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, benefits: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, benefits: updated } as ForUniversitiesPageContent })
                         }}
                         rows={4}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1298,9 +1383,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.forUniversitiesPage.integrationFormatsTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormatsTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.forUniversitiesPage) return
+                    updateContentMutation.mutate({
+                        forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormatsTitle: e.target.value } as ForUniversitiesPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1315,7 +1403,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.integrationFormats]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1328,7 +1417,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.integrationFormats]
                           updated[index] = { ...updated[index], bestFor: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1341,7 +1431,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.integrationFormats]
                           updated[index] = { ...updated[index], bestForText: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1353,7 +1444,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.integrationFormats]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1369,7 +1461,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], howUsed: { ...format.howUsed!, header: e.target.value } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1380,7 +1473,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], howUsed: { ...format.howUsed!, list } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1396,7 +1490,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], whatWeManage: { ...format.whatWeManage!, header: e.target.value } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1407,7 +1502,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], whatWeManage: { ...format.whatWeManage!, list } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1423,7 +1519,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], themes: { ...format.themes!, header: e.target.value } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1434,7 +1531,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], themes: { ...format.themes!, list } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1450,7 +1548,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], idealUses: { ...format.idealUses!, header: e.target.value } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1461,7 +1560,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], idealUses: { ...format.idealUses!, list } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1477,7 +1577,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], integration: { ...format.integration!, header: e.target.value } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1488,7 +1589,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], integration: { ...format.integration!, list } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1504,7 +1606,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], includes: { ...format.includes!, header: e.target.value } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1515,7 +1618,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], includes: { ...format.includes!, list } }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1530,7 +1634,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.integrationFormats]
                             updated[index] = { ...updated[index], note: e.target.value }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, integrationFormats: updated } as ForUniversitiesPageContent })
                           }}
                           rows={2}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1549,9 +1654,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.forUniversitiesPage.processTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      forUniversitiesPage: { ...content.forUniversitiesPage, processTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.forUniversitiesPage) return
+                    updateContentMutation.mutate({
+                        forUniversitiesPage: { ...content.forUniversitiesPage, processTitle: e.target.value } as ForUniversitiesPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1566,7 +1674,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forUniversitiesPage!.processSteps]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } })
+                          if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } as ForUniversitiesPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1580,7 +1689,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.processSteps]
                             updated[index] = { ...updated[index], header: e.target.value }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } as ForUniversitiesPageContent })
                           }}
                           className="w-full px-3 py-2 border rounded text-sm"
                         />
@@ -1594,7 +1704,8 @@ const Admin = () => {
                           onChange={(e) => {
                             const updated = [...content.forUniversitiesPage!.processSteps]
                             updated[index] = { ...updated[index], description: e.target.value }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } as ForUniversitiesPageContent })
                           }}
                           rows={3}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1610,7 +1721,8 @@ const Admin = () => {
                             const updated = [...content.forUniversitiesPage!.processSteps]
                             const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                             updated[index] = { ...updated[index], list: list.length > 0 ? list : undefined }
-                            updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } })
+                            if (!content.forUniversitiesPage) return
+                          updateContentMutation.mutate({ forUniversitiesPage: { ...content.forUniversitiesPage, processSteps: updated } as ForUniversitiesPageContent })
                           }}
                           rows={4}
                           className="w-full px-3 py-2 border rounded text-sm"
@@ -1629,9 +1741,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Заголовок</label>
                     <textarea
                       value={content.forUniversitiesPage.cta.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forUniversitiesPage: { ...content.forUniversitiesPage, cta: { ...content.forUniversitiesPage.cta, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forUniversitiesPage) return
+                        updateContentMutation.mutate({ 
+                          forUniversitiesPage: { ...content.forUniversitiesPage, cta: { ...content.forUniversitiesPage.cta, title: e.target.value } } as ForUniversitiesPageContent
+                        })
+                      }}
                       rows={2}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1640,9 +1755,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Подзаголовок</label>
                     <textarea
                       value={content.forUniversitiesPage.cta.subtitle}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forUniversitiesPage: { ...content.forUniversitiesPage, cta: { ...content.forUniversitiesPage.cta, subtitle: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forUniversitiesPage) return
+                        updateContentMutation.mutate({ 
+                          forUniversitiesPage: { ...content.forUniversitiesPage, cta: { ...content.forUniversitiesPage.cta, subtitle: e.target.value } } as ForUniversitiesPageContent
+                        })
+                      }}
                       rows={2}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1652,9 +1770,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.forUniversitiesPage.cta.buttonText}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forUniversitiesPage: { ...content.forUniversitiesPage, cta: { ...content.forUniversitiesPage.cta, buttonText: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forUniversitiesPage) return
+                        updateContentMutation.mutate({ 
+                          forUniversitiesPage: { ...content.forUniversitiesPage, cta: { ...content.forUniversitiesPage.cta, buttonText: e.target.value } } as ForUniversitiesPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -1670,9 +1791,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.forCorporateClientsPage.hero.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, hero: { ...content.forCorporateClientsPage.hero, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, hero: { ...content.forCorporateClientsPage.hero, title: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -1681,9 +1805,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.forCorporateClientsPage.hero.subtitle}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, hero: { ...content.forCorporateClientsPage.hero, subtitle: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, hero: { ...content.forCorporateClientsPage.hero, subtitle: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -1691,9 +1818,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.forCorporateClientsPage.hero.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, hero: { ...content.forCorporateClientsPage.hero, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, hero: { ...content.forCorporateClientsPage.hero, description: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       rows={4}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1710,9 +1840,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.forCorporateClientsPage.whyCaseMethodWorks.title}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, title: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, title: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>
@@ -1720,9 +1853,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Описание</label>
                     <textarea
                       value={content.forCorporateClientsPage.whyCaseMethodWorks.description}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, description: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, description: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       rows={3}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1733,8 +1869,9 @@ const Admin = () => {
                       value={content.forCorporateClientsPage.whyCaseMethodWorks.list.join('\n')}
                       onChange={(e) => {
                         const list = e.target.value.split('\n').filter(line => line.trim() !== '')
-                        updateContentMutation.mutate({ 
-                          forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, list } } 
+                        if (!content.forCorporateClientsPage) return
+                    updateContentMutation.mutate({
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, list } } as ForCorporateClientsPageContent
                         })
                       }}
                       rows={6}
@@ -1745,9 +1882,12 @@ const Admin = () => {
                     <label className="block mb-2 font-semibold">Заключение</label>
                     <textarea
                       value={content.forCorporateClientsPage.whyCaseMethodWorks.conclusion}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, conclusion: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, whyCaseMethodWorks: { ...content.forCorporateClientsPage.whyCaseMethodWorks, conclusion: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       rows={3}
                       className="w-full px-4 py-2 border rounded"
                     />
@@ -1763,9 +1903,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.forCorporateClientsPage.trainingFormatsTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormatsTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.forCorporateClientsPage) return
+                    updateContentMutation.mutate({
+                        forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormatsTitle: e.target.value } as ForCorporateClientsPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1780,7 +1923,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.trainingFormats]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } as ForCorporateClientsPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1792,7 +1936,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.trainingFormats]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } as ForCorporateClientsPageContent })
                         }}
                         rows={2}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1806,7 +1951,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.trainingFormats]
                           updated[index] = { ...updated[index], idealFor: e.target.value || undefined }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } as ForCorporateClientsPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1819,7 +1965,8 @@ const Admin = () => {
                           const updated = [...content.forCorporateClientsPage!.trainingFormats]
                           const list = e.target.value.split('\n').filter(line => line.trim() !== '')
                           updated[index] = { ...updated[index], list: list.length > 0 ? list : undefined }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, trainingFormats: updated } as ForCorporateClientsPageContent })
                         }}
                         rows={4}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1837,9 +1984,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.forCorporateClientsPage.sampleCasesTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      forCorporateClientsPage: { ...content.forCorporateClientsPage, sampleCasesTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.forCorporateClientsPage) return
+                    updateContentMutation.mutate({
+                        forCorporateClientsPage: { ...content.forCorporateClientsPage, sampleCasesTitle: e.target.value } as ForCorporateClientsPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1854,7 +2004,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.sampleCases]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, sampleCases: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, sampleCases: updated } as ForCorporateClientsPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1866,7 +2017,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.sampleCases]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, sampleCases: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, sampleCases: updated } as ForCorporateClientsPageContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1884,9 +2036,12 @@ const Admin = () => {
                   <input
                     type="text"
                     value={content.forCorporateClientsPage.businessResultsTitle}
-                    onChange={(e) => updateContentMutation.mutate({ 
-                      forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResultsTitle: e.target.value } 
-                    })}
+                    onChange={(e) => {
+                      if (!content.forCorporateClientsPage) return
+                    updateContentMutation.mutate({
+                        forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResultsTitle: e.target.value } as ForCorporateClientsPageContent
+                      })
+                    }}
                     className="w-full px-4 py-2 border rounded"
                   />
                 </div>
@@ -1901,7 +2056,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.businessResults]
                           updated[index] = { ...updated[index], title: e.target.value }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } as ForCorporateClientsPageContent })
                         }}
                         className="w-full px-3 py-2 border rounded text-sm"
                       />
@@ -1913,7 +2069,8 @@ const Admin = () => {
                         onChange={(e) => {
                           const updated = [...content.forCorporateClientsPage!.businessResults]
                           updated[index] = { ...updated[index], description: e.target.value }
-                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } })
+                          if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } as ForCorporateClientsPageContent })
                         }}
                         rows={3}
                         className="w-full px-3 py-2 border rounded text-sm"
@@ -1933,7 +2090,8 @@ const Admin = () => {
                                 const metrics = [...updated[index].metrics]
                                 metrics[metricIndex] = { ...metrics[metricIndex], value: e.target.value }
                                 updated[index] = { ...updated[index], metrics }
-                                updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } })
+                                if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } as ForCorporateClientsPageContent })
                               }}
                               className="w-full px-2 py-1 border rounded text-xs"
                             />
@@ -1948,7 +2106,8 @@ const Admin = () => {
                                 const metrics = [...updated[index].metrics]
                                 metrics[metricIndex] = { ...metrics[metricIndex], label: e.target.value }
                                 updated[index] = { ...updated[index], metrics }
-                                updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } })
+                                if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } as ForCorporateClientsPageContent })
                               }}
                               className="w-full px-2 py-1 border rounded text-xs"
                             />
@@ -1963,7 +2122,8 @@ const Admin = () => {
                                 const metrics = [...updated[index].metrics]
                                 metrics[metricIndex] = { ...metrics[metricIndex], sub: e.target.value || undefined }
                                 updated[index] = { ...updated[index], metrics }
-                                updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } })
+                                if (!content.forCorporateClientsPage) return
+                          updateContentMutation.mutate({ forCorporateClientsPage: { ...content.forCorporateClientsPage, businessResults: updated } as ForCorporateClientsPageContent })
                               }}
                               className="w-full px-2 py-1 border rounded text-xs"
                             />
@@ -1984,9 +2144,12 @@ const Admin = () => {
                     <input
                       type="text"
                       value={content.forCorporateClientsPage.cta.buttonText}
-                      onChange={(e) => updateContentMutation.mutate({ 
-                        forCorporateClientsPage: { ...content.forCorporateClientsPage, cta: { ...content.forCorporateClientsPage.cta, buttonText: e.target.value } } 
-                      })}
+                      onChange={(e) => {
+                        if (!content.forCorporateClientsPage) return
+                        updateContentMutation.mutate({ 
+                          forCorporateClientsPage: { ...content.forCorporateClientsPage, cta: { ...content.forCorporateClientsPage.cta, buttonText: e.target.value } } as ForCorporateClientsPageContent
+                        })
+                      }}
                       className="w-full px-4 py-2 border rounded"
                     />
                   </div>

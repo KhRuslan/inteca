@@ -26,17 +26,7 @@ const Header = () => {
     }
   }, [languageMenuOpen])
 
-  const langMap: Record<string, Language> = {
-    'KZ': 'kz',
-    'RU': 'ru',
-    'EN': 'en'
-  }
-
-  const reverseLangMap: Record<Language, string> = {
-    'kz': 'KZ',
-    'ru': 'RU',
-    'en': 'EN'
-  }
+  // Removed unused langMap and reverseLangMap
 
   const languageLabels = {
     ru: { full: 'Русский', short: 'RU' },

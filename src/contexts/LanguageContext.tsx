@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode } from 'react'
+// Removed unused useEffect import
 
 type Language = 'ru' | 'en' | 'kz'
 

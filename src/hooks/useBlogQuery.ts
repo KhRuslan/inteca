@@ -71,16 +71,16 @@ export const useUpdatePost = (language: string = 'ru') => {
 
       return { previousPost, previousPosts }
     },
-    onError: (err, { id }, context) => {
+    onError: (_err, variables, context) => {
       if (context?.previousPost) {
-        queryClient.setQueryData(BLOG_POST_KEY(id), context.previousPost)
+        queryClient.setQueryData(BLOG_POST_KEY(variables.id), context.previousPost)
       }
       if (context?.previousPosts) {
         queryClient.setQueryData(postsKey, context.previousPosts)
       }
     },
-    onSuccess: (data, { id }) => {
-      queryClient.invalidateQueries({ queryKey: BLOG_POST_KEY(id) })
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: BLOG_POST_KEY(variables.id) })
       queryClient.invalidateQueries({ queryKey: postsKey })
     },
   })
@@ -108,7 +108,7 @@ export const useDeletePost = (language: string = 'ru') => {
 
       return { previousPosts }
     },
-    onError: (err, id, context) => {
+    onError: (_err, _id, context) => {
       if (context?.previousPosts) {
         queryClient.setQueryData(postsKey, context.previousPosts)
       }
