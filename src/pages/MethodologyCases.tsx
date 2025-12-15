@@ -14,6 +14,18 @@ const MethodologyCases = () => {
   const [selectedCase, setSelectedCase] = useState<MethodologyCase | null>(null)
   const location = useLocation()
 
+  // Гарантируем, что новый кейс виден даже если в Supabase пока нет данных
+  const englishDevCase =
+    defaultContent.methodologyPage?.cases.find(
+      (c) => c.title === 'Case-Based English Development'
+    ) || null
+
+  const cases = (() => {
+    const list = methodologyPage.cases || []
+    const exists = list.some((c) => c.title === englishDevCase?.title)
+    return exists || !englishDevCase ? list : [...list, englishDevCase]
+  })()
+
   // Плавный скролл к hero section при переходе по ссылке с якорем
   useEffect(() => {
     if (location.hash === '#hero') {
@@ -196,32 +208,54 @@ const MethodologyCases = () => {
               {methodologyPage.casesTitle}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {methodologyPage.cases.map((caseItem, index) => (
+            {(() => {
+              const specialTitles = new Set<string>([
+                'Human Resource Management (HR)',
+                'Case-Based English Development',
+              ])
+
+              const mainCases = cases.filter((c) => !specialTitles.has(c.title))
+              const specialCases = cases.filter((c) => specialTitles.has(c.title))
+
+              const renderCard = (caseItem: MethodologyCase, key: number | string) => (
                 <div 
-                  key={index} 
-                  className={`bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer ${
-                    index === methodologyPage.cases.length - 1 ? 'sm:col-span-2 lg:col-span-3' : ''
-                  }`}
+                  key={key} 
+                  className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer h-full flex flex-col"
                 >
-                <h3 className="text-xl font-bold text-gray-900 mb-2 border-b-2 border-[#DD0000] pb-2 inline-block">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 border-b-2 border-[#DD0000] pb-2 inline-block">
                     {caseItem.title}
-                </h3>
-                <p className="text-sm text-gray-600 mt-4 mb-4 leading-relaxed">
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-4 leading-relaxed">
                     {caseItem.description}
-                </p>
-                  <button 
-                    onClick={() => setSelectedCase(caseItem)}
-                    className="text-sm font-semibold text-gray-900 hover:text-[#DD0000] transition flex items-center gap-2"
-                  >
-                    {caseItem.linkText}
-                  <span>→</span>
-                </button>
-              </div>
-              ))}
-            </div>
-              </div>
-              </div>
+                  </p>
+                  <div className="mt-auto pt-4">
+                    <button 
+                      onClick={() => setSelectedCase(caseItem)}
+                      className="text-sm font-semibold text-gray-900 hover:text-[#DD0000] transition flex items-center gap-2"
+                    >
+                      {caseItem.linkText}
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+              )
+
+              return (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {mainCases.map((caseItem, index) => renderCard(caseItem, index))}
+                  </div>
+
+                  {specialCases.length > 0 && (
+                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {specialCases.map((caseItem, index) => renderCard(caseItem, `special-${index}`))}
+                    </div>
+                  )}
+                </>
+              )
+            })()}
+          </div>
+        </div>
       </section>
 
       {/* Detail Modal */}

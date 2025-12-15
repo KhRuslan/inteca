@@ -646,6 +646,19 @@ export const defaultContent: SiteContent = {
           'Prepares for real managerial decisions'
         ],
         callToAction: 'As a result, the program becomes more competitive, more attractive to applicants, and better aligned with international academic benchmarks.'
+      },
+      {
+        title: 'Case-Based English Development',
+        description: 'Natural English development through HBPE cases with an English-friendly approach for mixed proficiency groups. Each session adds business vocabulary from original cases, glossary support, and optional Duolingo team practice.',
+        linkText: 'More Info',
+        detailedDescription: 'Beyond case learning and practical business skills, our sessions include a soft, English-friendly approach designed for listeners with different proficiency levels. Students expand vocabulary through original Harvard Business Publishing Education cases, use it in discussions when they wish, and practice in a supportive environment.',
+        keyFacts: [
+          'Business vocabulary from real Harvard cases in every session',
+          'Dedicated glossary for each case to reinforce new terms naturally',
+          'Optional group practice on Duolingo with light competition and peer support',
+          'Not a formal English course, but delivers real confidence and removes the language barrier'
+        ],
+        callToAction: 'Case-based learning gives a natural stimulus to improve English while mastering real business decisions.'
       }
     ]
   },
