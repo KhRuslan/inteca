@@ -94,9 +94,19 @@ const MethodologyCases = () => {
                 </h1>
                 <div className="border-t-2 border-[#DD0000] w-full mb-8"></div>
 
-                <p className="text-xl sm:text-2xl lg:text-3xl text-gray-700 mb-10 leading-relaxed">
-                  {methodologyPage.hero.description}
-                </p>
+                <div className="text-base sm:text-lg lg:text-xl text-gray-700 mb-10 leading-relaxed space-y-4">
+                  {methodologyPage.hero.description.split(/\. /).filter(p => p.trim()).map((sentence, index, array) => {
+                    const trimmed = sentence.trim()
+                    if (!trimmed) return null
+                    const isFirst = index === 0
+                    const isLast = index === array.length - 1
+                    return (
+                      <p key={index} className={isFirst ? 'text-lg sm:text-xl lg:text-2xl font-semibold' : ''}>
+                        {trimmed}{!isLast && !trimmed.endsWith('.') ? '.' : ''}
+                      </p>
+                    )
+                  })}
+                </div>
 
                 <Link to="/contacts#hero" className="text-2xl sm:text-3xl font-bold text-gray-900 hover:text-[#DD0000] transition inline-flex items-center gap-3 border-b-2 border-[#DD0000] pb-1">
                   {methodologyPage.hero.buttonText}
@@ -167,17 +177,39 @@ const MethodologyCases = () => {
                 return title
               }
 
+              const isLongText = benefit.description.length > 200
+              const shortDescription = isLongText 
+                ? benefit.description.substring(0, 200) + '...' 
+                : benefit.description
+
               return (
-                <div key={index} className="flex items-center gap-3 sm:gap-4 lg:gap-6">
-              <div className="flex-1 min-w-0">
+                <div key={index} className="flex items-start gap-3 sm:gap-4 lg:gap-6">
+                  <div className="flex-1 min-w-0">
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 block">
                       {renderTitle(benefit.title)}
-                </h2>
+                    </h2>
                     <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-3">
-                      {benefit.description}
-                </p>
+                      {shortDescription}
+                    </p>
+                    {isLongText && (
+                      <button
+                        onClick={() => {
+                          const modalCase = {
+                            title: benefit.title,
+                            description: benefit.description,
+                            detailedDescription: benefit.description,
+                            linkText: language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'
+                          } as MethodologyCase
+                          setSelectedCase(modalCase)
+                        }}
+                        className="text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1 mb-3"
+                      >
+                        {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
+                        <span>→</span>
+                      </button>
+                    )}
                     <div className="border-t-2 border-[#DD0000] w-full"></div>
-              </div>
+                  </div>
                   <div className="flex-shrink-0 w-20 h-20 bg-black rounded-full flex items-center justify-center">
                     {index === 0 ? (
                       // Первая иконка - graduation cap (PNG)
@@ -192,8 +224,8 @@ const MethodologyCases = () => {
                         {icons[index]}
                       </svg>
                     )}
-              </div>
-              </div>
+                  </div>
+                </div>
               )
             })}
           </div>
@@ -209,49 +241,33 @@ const MethodologyCases = () => {
             </h2>
 
             {(() => {
-              const specialTitles = new Set<string>([
-                'Human Resource Management (HR)',
-                'Case-Based English Development',
-              ])
+              // Показываем только Case-Based English Development
+              const englishCase = cases.find((c) => c.title === 'Case-Based English Development')
 
-              const mainCases = cases.filter((c) => !specialTitles.has(c.title))
-              const specialCases = cases.filter((c) => specialTitles.has(c.title))
-
-              const renderCard = (caseItem: MethodologyCase, key: number | string) => (
-                <div 
-                  key={key} 
-                  className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer h-full flex flex-col"
-                >
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 border-b-2 border-[#DD0000] pb-2 inline-block">
-                    {caseItem.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-4 leading-relaxed">
-                    {caseItem.description}
-                  </p>
-                  <div className="mt-auto pt-4">
-                    <button 
-                      onClick={() => setSelectedCase(caseItem)}
-                      className="text-sm font-semibold text-gray-900 hover:text-[#DD0000] transition flex items-center gap-2"
-                    >
-                      {caseItem.linkText}
-                      <span>→</span>
-                    </button>
-                  </div>
-                </div>
-              )
+              if (!englishCase) return null
 
               return (
-                <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {mainCases.map((caseItem, index) => renderCard(caseItem, index))}
-                  </div>
-
-                  {specialCases.length > 0 && (
-                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {specialCases.map((caseItem, index) => renderCard(caseItem, `special-${index}`))}
+                <div className="max-w-2xl mx-auto">
+                  <div 
+                    className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer h-full flex flex-col"
+                  >
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 border-b-2 border-[#DD0000] pb-2 inline-block">
+                      {englishCase.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-4 leading-relaxed">
+                      {englishCase.description}
+                    </p>
+                    <div className="mt-auto pt-4">
+                      <button 
+                        onClick={() => setSelectedCase(englishCase)}
+                        className="text-sm font-semibold text-gray-900 hover:text-[#DD0000] transition flex items-center gap-2"
+                      >
+                        {englishCase.linkText}
+                        <span>→</span>
+                      </button>
                     </div>
-                  )}
-                </>
+                  </div>
+                </div>
               )
             })()}
           </div>

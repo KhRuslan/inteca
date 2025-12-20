@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import TopBar from '../components/TopBar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -12,6 +12,7 @@ const Founder = () => {
   const { data: content } = useContent(language)
   const founderPage = content?.founderPage || defaultContent.founderPage!
   const location = useLocation()
+  const [isBiographyModalOpen, setIsBiographyModalOpen] = useState(false)
 
   // Плавный скролл к hero section при переходе по ссылке с якорем
   useEffect(() => {
@@ -24,6 +25,34 @@ const Founder = () => {
       }, 100)
     }
   }, [location.hash])
+
+  // Блокировка скролла при открытии модального окна
+  useEffect(() => {
+    if (isBiographyModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isBiographyModalOpen])
+
+  // Функция для получения краткого текста биографии
+  const getShortBiography = () => {
+    // Берем только первые два предложения из paragraph1
+    const firstSentenceEnd = founderPage.biography.paragraph1.indexOf('.')
+    if (firstSentenceEnd > 0) {
+      const firstPart = founderPage.biography.paragraph1.substring(0, firstSentenceEnd + 1)
+      const secondSentenceEnd = founderPage.biography.paragraph1.indexOf('.', firstSentenceEnd + 1)
+      if (secondSentenceEnd > 0) {
+        return founderPage.biography.paragraph1.substring(0, secondSentenceEnd + 1)
+      }
+      return firstPart
+    }
+    // Если нет точки, берем первые 200 символов
+    return founderPage.biography.paragraph1.substring(0, 200) + '...'
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -82,11 +111,8 @@ const Founder = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Title */}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3">
-              {founderPage.practitionerTitle}
-            </h2>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
-              {founderPage.practitionerSubtitle}
+              {founderPage.practitionerTitle}. {founderPage.practitionerSubtitle}
             </h2>
             <div className="border-t-4 border-[#DD0000] w-32 sm:w-48 mb-8 sm:mb-12"></div>
 
@@ -177,10 +203,17 @@ const Founder = () => {
                 </h2>
                 <div className="border-t border-[#DD0000] w-24 sm:w-32 mb-6 sm:mb-8"></div>
 
-                <div className="space-y-4 sm:space-y-6 text-gray-700 text-sm sm:text-base leading-relaxed">
-                  <p>{founderPage.biography.paragraph1}</p>
-                  <p>{founderPage.biography.paragraph2}</p>
+                <div className="space-y-4 sm:space-y-6 text-gray-700 text-base sm:text-lg lg:text-xl leading-relaxed mb-4">
+                  <p>{getShortBiography()}</p>
                 </div>
+
+                <button
+                  onClick={() => setIsBiographyModalOpen(true)}
+                  className="text-sm sm:text-base font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1 self-start"
+                >
+                  {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
+                  <span>→</span>
+                </button>
               </div>
 
               {/* Image - на всю высоту */}
@@ -193,15 +226,141 @@ const Founder = () => {
               </div>
             </div>
 
-            {/* Black Box at Bottom */}
-            <div className="mt-8 sm:mt-12 bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg">
-              <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
-                {founderPage.biography.bottomText}
-              </p>
+            {/* Educational Path Section */}
+            <div className="mt-8 sm:mt-12">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
+                Путь преподавателя в образовании
+              </h3>
+              <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg mb-6 sm:mb-8">
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
+                  {founderPage.biography.bottomText}
+                </p>
+              </div>
+              
+              {/* Why Teaching Experience Important */}
+              <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg mb-6 sm:mb-8">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 pb-2 relative">
+                  {founderPage.biography.whyTeachingExperienceImportant.title}
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
+                </h3>
+                <p className="text-base sm:text-lg text-gray-300 mb-4">
+                  Такой путь — от производственных площадок до Executive MBA — обеспечивает преподавателю исключительное понимание:
+                </p>
+                <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 space-y-2">
+                  {founderPage.biography.whyTeachingExperienceImportant.points.map((point, index) => (
+                    <li key={index}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Why Experience Important for Case Learning */}
+              <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 pb-2 relative">
+                  {founderPage.biography.whyExperienceImportant.title}
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
+                </h3>
+                <p className="text-base sm:text-lg text-gray-300 mb-4">
+                  {founderPage.biography.whyExperienceImportant.description}
+                </p>
+                <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 mb-4 space-y-2">
+                  {founderPage.biography.whyExperienceImportant.points.map((point, index) => (
+                    <li key={index}>{point}</li>
+                  ))}
+                </ul>
+                <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                  {founderPage.biography.whyExperienceImportant.conclusion}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Modal for Biography Details */}
+      {isBiographyModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4 animate-fadeIn"
+          onClick={() => setIsBiographyModalOpen(false)}
+        >
+          <div 
+            className="bg-gray-50 rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 sm:p-6 lg:p-8 xl:p-12">
+              <button
+                onClick={() => setIsBiographyModalOpen(false)}
+                className="mb-4 text-gray-600 hover:text-gray-900 transition flex items-center gap-2 text-sm font-semibold"
+              >
+                <span>←</span>
+                {language === 'ru' ? 'Назад' : language === 'kz' ? 'Артқа' : 'Back'}
+              </button>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                {founderPage.biography.title}
+              </h2>
+              <div className="border-b-2 border-[#DD0000] w-16 sm:w-20 mb-6"></div>
+              
+              <div className="space-y-4 sm:space-y-6 text-gray-700 leading-relaxed">
+                <p className="text-lg sm:text-xl lg:text-2xl font-semibold">
+                  Разнообразное и уникальное образование преподавателя. Наш преподаватель обладает редким сочетанием юридического, финансового, управленческого и международного бизнес-образования.
+                </p>
+                <p className="text-base sm:text-lg">
+                  {founderPage.biography.paragraph1}
+                </p>
+                <p className="text-base sm:text-lg">{founderPage.biography.paragraph2}</p>
+                
+                {/* Education Timeline */}
+                <div className="mt-8 sm:mt-12">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block">
+                    {founderPage.biography.educationTimeline.title}
+                    <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-[#DD0000]"></span>
+                  </h3>
+                  
+                  <div className="relative">
+                    {/* Vertical Timeline Line */}
+                    <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-[#DD0000]"></div>
+                    
+                    {/* Timeline Items */}
+                    <div className="space-y-8 sm:space-y-10">
+                      {founderPage.biography.educationTimeline.items.map((item, index) => (
+                        <div key={index} className="relative pl-12 sm:pl-16">
+                          {/* Timeline Dot */}
+                          <div className="absolute left-2 sm:left-4 top-2 w-4 h-4 sm:w-5 sm:h-5 bg-[#DD0000] rounded-full border-4 border-white shadow-lg"></div>
+                          
+                          {/* Content Card */}
+                          <div className="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6 hover:border-[#DD0000] transition-all duration-300 hover:shadow-lg">
+                            {item.period && (
+                              <div className="text-lg sm:text-xl font-bold text-[#DD0000] mb-2">
+                                {item.period}
+                              </div>
+                            )}
+                            <h4 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-2">
+                              {item.institution}
+                            </h4>
+                            {item.specialty && (
+                              <p className="text-sm sm:text-base text-gray-600 mb-2 font-medium">
+                                {item.specialty}
+                              </p>
+                            )}
+                            {item.details && (
+                              <p className="text-sm sm:text-base text-gray-500 mb-2 italic">
+                                {item.details}
+                              </p>
+                            )}
+                            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

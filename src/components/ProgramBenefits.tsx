@@ -1,8 +1,12 @@
 import { useContent } from '../hooks/useContentQuery'
 import { useLanguage } from '../contexts/LanguageContext'
-import { defaultContent } from '../types/content'
+import { defaultContent, ProgramBenefit } from '../types/content'
 
-const ProgramBenefits = () => {
+interface ProgramBenefitsProps {
+  onBenefitClick?: (benefit: ProgramBenefit) => void
+}
+
+const ProgramBenefits = ({ onBenefitClick }: ProgramBenefitsProps) => {
   const { language } = useLanguage()
   const { data: content } = useContent(language)
   const benefits = content?.programBenefits || defaultContent.programBenefits
@@ -28,20 +32,67 @@ const ProgramBenefits = () => {
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-          {benefits.map((benefit, index) => (
-            <div 
-              key={index}
-              className="bg-gray-50 border border-gray-200 p-4 sm:p-6 rounded-lg hover:shadow-lg transition"
-            >
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
-                {benefit.title}
-              </h3>
-              <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4 leading-relaxed">
-                {benefit.description}
-              </p>
-              <div className="text-[#DD0000] text-lg sm:text-xl">→</div>
-            </div>
-          ))}
+          {benefits.map((benefit, index) => {
+            // Извлекаем первое предложение как catchy phrase
+            const firstSentenceEnd = benefit.description.search(/[.!?]/)
+            let catchyPhrase = ''
+            let shortDescription = ''
+            let isLongText = false
+
+            if (firstSentenceEnd > 0 && firstSentenceEnd < benefit.description.length) {
+              catchyPhrase = benefit.description.substring(0, firstSentenceEnd + 1).trim()
+              const restOfText = benefit.description.substring(firstSentenceEnd + 1).trim()
+              
+              // Берем еще одно предложение для краткого описания
+              const secondSentenceEnd = restOfText.search(/[.!?]/)
+              if (secondSentenceEnd > 0) {
+                shortDescription = restOfText.substring(0, secondSentenceEnd + 1).trim()
+                isLongText = benefit.description.length > (catchyPhrase.length + shortDescription.length + 30)
+              } else {
+                // Если нет второго предложения, берем часть текста
+                shortDescription = restOfText.substring(0, 80).trim()
+                isLongText = benefit.description.length > (catchyPhrase.length + shortDescription.length + 30)
+              }
+            } else {
+              // Если нет точки, берем первые 100 символов как catchy phrase
+              catchyPhrase = benefit.description.substring(0, 100).trim()
+              isLongText = benefit.description.length > 100
+            }
+
+            return (
+              <div 
+                key={index}
+                className="bg-gray-50 border border-gray-200 p-4 sm:p-6 rounded-lg hover:shadow-lg transition flex flex-col h-full"
+              >
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 min-h-[3.5rem] sm:min-h-[4rem] flex items-start">
+                  {benefit.title}
+                </h3>
+                <div className="flex-grow">
+                  <p className="text-sm sm:text-base text-gray-900 font-semibold mb-2 leading-relaxed">
+                    {catchyPhrase}
+                  </p>
+                  {isLongText && shortDescription && (
+                    <p className="text-sm sm:text-base text-gray-700 mb-3 leading-relaxed">
+                      {shortDescription}
+                    </p>
+                  )}
+                </div>
+                <div className="mt-auto pt-2">
+                  {isLongText && onBenefitClick ? (
+                    <button
+                      onClick={() => onBenefitClick(benefit)}
+                      className="text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
+                    >
+                      {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
+                      <span>→</span>
+                    </button>
+                  ) : (
+                    <div className="text-[#DD0000] text-lg sm:text-xl">→</div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

@@ -1,15 +1,17 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import TopBar from '../components/TopBar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useContent } from '../hooks/useContentQuery'
 import { useLanguage } from '../contexts/LanguageContext'
-import { defaultContent } from '../types/content'
+import { defaultContent, CoreCompetency } from '../types/content'
 
 const About = () => {
   const { language } = useLanguage()
   const { data: content } = useContent(language)
   const about = content?.about || defaultContent.about!
+  const [selectedCompetency, setSelectedCompetency] = useState<CoreCompetency | null>(null)
 
   // Локализация заголовков секций (не редактируются в админке)
   const getSectionTitles = () => {
@@ -31,6 +33,18 @@ const About = () => {
   }
 
   const titles = getSectionTitles()
+
+  // Блокировка скролла при открытии модального окна
+  useEffect(() => {
+    if (selectedCompetency) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedCompetency])
 
   return (
     <div className="min-h-screen bg-white">
@@ -121,25 +135,38 @@ const About = () => {
             </p>
 
             <div className="space-y-8">
-              {about.flexibleFormats.map((format, index) => (
-              <div key={index} className={`pb-8 ${index < about.flexibleFormats.length - 1 ? 'border-b border-gray-200' : ''}`}>
-                <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8">
-                  <div className="sm:w-1/3">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                      <span className="border-b-2 border-[#DD0000] pb-0.5">{format.title}</span> —
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-semibold">{format.subtitle}</span>
-                    </p>
+              {about.flexibleFormats.map((format, index) => {
+                // Разделяем заголовок на слова и берем первые два
+                const titleWords = format.title.split(' ')
+                const firstTwoWords = titleWords.slice(0, 2).join(' ')
+                const restOfTitle = titleWords.slice(2).join(' ')
+
+                return (
+                  <div key={index} className={`pb-8 ${index < about.flexibleFormats.length - 1 ? 'border-b border-gray-200' : ''}`}>
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8">
+                      <div className="sm:w-1/3 flex-shrink-0">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                          <span className="relative inline-block">
+                            <span className="border-b-2 border-[#DD0000] pb-0.5">{firstTwoWords}</span>
+                            {restOfTitle && <span className="ml-1">{restOfTitle}</span>}
+                          </span>
+                          {format.subtitle && <span className="text-gray-600 font-normal"> —</span>}
+                        </h3>
+                        {format.subtitle && (
+                          <p className="text-sm text-gray-600 mt-1">
+                            <span className="font-semibold">{format.subtitle}</span>
+                          </p>
+                        )}
+                      </div>
+                      <div className="sm:w-2/3">
+                        <p className="text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-line">
+                          {format.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="sm:w-2/3">
-                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                      {format.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              ))}
+                )
+              })}
             </div>
 
             {/* Button */}
@@ -170,13 +197,7 @@ const About = () => {
                 <hr className="border-t border-gray-300 w-16 sm:w-20 mb-8" />
                 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                  {language === 'en' ? (
-                    <>After completing the program,<br className="hidden sm:block" /> participants will:</>
-                  ) : language === 'ru' ? (
-                    <>После завершения программы,<br className="hidden sm:block" /> участники смогут:</>
-                  ) : (
-                    <>Бағдарламаны аяқтағаннан кейін,<br className="hidden sm:block" /> қатысушылар:</>
-                  )}
+                  {about.afterCompleting.title}
                 </h2>
                 <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-8">
                   {about.afterCompleting.description}
@@ -216,32 +237,86 @@ const About = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {about.coreCompetencies.map((competency, index) => (
-              <div key={index} className="border border-gray-200 p-8 sm:p-10 lg:p-12 rounded-lg hover:shadow-lg transition">
-                <div className="text-sm text-gray-600 mb-3">{competency.category}</div>
-                <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  {competency.mainTitle}
-                  <span className="text-[#DD0000] text-3xl sm:text-4xl">↗</span>
-                </h3>
-                <div className="mb-4">
-                  <div className="text-sm font-semibold text-gray-900 mb-2">{competency.subtitle}</div>
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {competency.description}
-                  </p>
-                </div>
-                <Link 
-                  to="/for-universities#hero"
-                  className="inline-flex items-center gap-1 text-sm text-[#DD0000] font-semibold hover:underline"
-                >
-                  {competency.linkText}
-                  <span>→</span>
-                </Link>
-              </div>
-              ))}
+              {about.coreCompetencies.map((competency, index) => {
+                const isLongText = competency.description.length > 150
+                const shortDescription = isLongText 
+                  ? competency.description.substring(0, 150) + '...' 
+                  : competency.description
+
+                return (
+                  <div key={index} className="border border-gray-200 p-8 sm:p-10 lg:p-12 rounded-lg hover:shadow-lg transition">
+                    <div className="text-sm text-gray-600 mb-3">{competency.category}</div>
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                      <span className="inline-flex items-center gap-2 sm:gap-3 flex-wrap">
+                        <span className="break-words min-w-0">{competency.mainTitle}</span>
+                        <span className="text-[#DD0000] text-xl sm:text-2xl lg:text-3xl flex-shrink-0">↗</span>
+                      </span>
+                    </h3>
+                    <div className="mb-4">
+                      <div className="text-sm font-semibold text-gray-900 mb-2">{competency.subtitle}</div>
+                      <p className="text-sm text-gray-700 leading-relaxed mb-2">
+                        {shortDescription}
+                      </p>
+                      {isLongText && (
+                        <button
+                          onClick={() => setSelectedCompetency(competency)}
+                          className="text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
+                        >
+                          {competency.linkText}
+                          <span>→</span>
+                        </button>
+                      )}
+                      {!isLongText && (
+                        <Link 
+                          to="/for-universities#hero"
+                          className="inline-flex items-center gap-1 text-sm text-[#DD0000] font-semibold hover:underline"
+                        >
+                          {competency.linkText}
+                          <span>→</span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
       </section>
+
+      {/* Modal for Core Competency Details */}
+      {selectedCompetency && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4 animate-fadeIn"
+          onClick={() => setSelectedCompetency(null)}
+        >
+          <div 
+            className="bg-gray-50 rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 sm:p-6 lg:p-8 xl:p-12">
+              <button
+                onClick={() => setSelectedCompetency(null)}
+                className="mb-4 text-gray-600 hover:text-gray-900 transition flex items-center gap-2 text-sm font-semibold"
+              >
+                <span>←</span>
+                {language === 'ru' ? 'Назад' : language === 'kz' ? 'Артқа' : 'Back'}
+              </button>
+
+              <div className="text-sm text-gray-600 mb-3">{selectedCompetency.category}</div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                {selectedCompetency.mainTitle} <span className="text-[#DD0000]">↗</span>
+              </h2>
+              <div className="border-b-2 border-[#DD0000] w-16 sm:w-20 mb-6"></div>
+              
+              <div className="text-lg font-semibold text-gray-900 mb-4">{selectedCompetency.subtitle}</div>
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed whitespace-pre-line">
+                {selectedCompetency.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

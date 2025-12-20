@@ -28,20 +28,23 @@ const WhoProgramFor = () => {
         </h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-          {cards.map((card, index) => (
-            <div 
-              key={index}
-              className="bg-white p-6 sm:p-8 rounded-lg shadow-md text-center hover:shadow-xl transition border-2 border-transparent hover:border-[#DD0000]"
-            >
-              <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">{card.icon}</div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                {card.title}
-              </h3>
-              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                {card.description}
-              </p>
-            </div>
-          ))}
+          {cards.map((card, index) => {
+            // Показываем полный текст, так как он уже оптимизирован
+            return (
+              <div 
+                key={index}
+                className="bg-white p-6 sm:p-8 rounded-lg shadow-md text-center hover:shadow-xl transition border-2 border-transparent hover:border-[#DD0000]"
+              >
+                <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">{card.icon}</div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  {card.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                  {card.description}
+                </p>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

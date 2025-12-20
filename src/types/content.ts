@@ -106,12 +106,38 @@ export interface FounderCard {
   linkText: string
 }
 
+export interface EducationTimelineItem {
+  period: string
+  institution: string
+  specialty?: string
+  description: string
+  details?: string
+}
+
 export interface FounderBiography {
   title: string
   paragraph1: string
   paragraph2: string
   bottomText: string
   image: string
+  educationTimeline: {
+    title: string
+    items: EducationTimelineItem[]
+  }
+  whatEducationGives: {
+    title: string
+    points: string[]
+  }
+  whyExperienceImportant: {
+    title: string
+    description: string
+    points: string[]
+    conclusion: string
+  }
+  whyTeachingExperienceImportant: {
+    title: string
+    points: string[]
+  }
 }
 
 export interface FounderPageContent {
@@ -144,8 +170,14 @@ export interface MethodologyCase {
   callToAction?: string
 }
 
+export interface WhyLecturesDontWork {
+  title: string
+  description: string
+}
+
 export interface MethodologyPageContent {
   hero: MethodologyHero
+  whyLecturesDontWork?: WhyLecturesDontWork
   benefits: MethodologyBenefit[]
   casesTitle: string
   cases: MethodologyCase[]
@@ -216,6 +248,8 @@ export interface ForUniversitiesPageContent {
   integrationFormats: IntegrationFormat[]
   processTitle: string
   processSteps: ProcessStep[]
+  faqTitle: string
+  faq: FAQItem[]
   cta: ForUniversitiesCTA
 }
 
@@ -258,15 +292,23 @@ export interface ForCorporateClientsCTA {
   buttonText: string
 }
 
+export interface WhatEducationGives {
+  title: string
+  points: string[]
+}
+
 export interface ForCorporateClientsPageContent {
   hero: ForCorporateClientsHero
   whyCaseMethodWorks: WhyCaseMethodWorks
+  whatEducationGives?: WhatEducationGives
   trainingFormatsTitle: string
   trainingFormats: TrainingFormat[]
   sampleCasesTitle: string
   sampleCases: SampleCaseExample[]
   businessResultsTitle: string
   businessResults: BusinessResult[]
+  faqTitle: string
+  faq: FAQItem[]
   cta: ForCorporateClientsCTA
 }
 
@@ -304,11 +346,67 @@ export interface ForStudentsCTA {
   buttonText: string
 }
 
+export interface CaseLearningPath {
+  title: string
+  intro: string
+  howItWorks: {
+    title: string
+    description: string
+    lightPace: string
+    mediumPace: string
+    conclusion: string
+  }
+  whyValuable: {
+    title: string
+    description: string
+    points: string[]
+  }
+  whatDevelops: {
+    title: string
+    description: string
+    directions: string[]
+    conclusion: string
+  }
+  ecosystem: {
+    title: string
+    description: string
+    competencies: string[]
+    conclusion: string
+  }
+  benefits: Array<{
+    title: string
+    description: string
+  }>
+}
+
+export interface InvestmentInLeadership {
+  title: string
+  intro: string
+  understanding: string[]
+  futureLeadership: {
+    title: string
+    description: string
+    points: string[]
+  }
+  conclusion: string
+}
+
+export interface PracticalSkills {
+  title: string
+  description: string
+  skills: string[]
+  conclusion: string
+}
+
 export interface ForStudentsPageContent {
   hero: ForStudentsHero
   whatYouGain: WhatYouGain
   skillsTitle: string
   skills: Skill[]
+  whatEducationGives?: WhatEducationGives
+  caseLearningPath: CaseLearningPath
+  practicalSkills: PracticalSkills
+  investmentInLeadership: InvestmentInLeadership
   certificates: CertificateContent
   faqTitle: string
   faq: FAQItem[]
@@ -320,6 +418,7 @@ export interface SiteContent {
   programBenefits: ProgramBenefit[]
   whoProgramFor: WhoProgramForCard[]
   caseBasedLearning: CaseBasedLearningContent
+  whyLecturesDontWork?: WhyLecturesDontWork
   keyBenefits: KeyBenefit[]
   founder: FounderContent
   cta: CTAContent
@@ -334,59 +433,63 @@ export interface SiteContent {
 export const defaultContent: SiteContent = {
   hero: {
     title: 'Harvard Innovated — We Adapted — You Advance!',
-    description: 'The case method is a practical learning format based on real business situations. Students analyze problems, propose solutions, debate, and learn to think like decision-makers.',
+    description: 'Кейс-метод — это практический формат обучения, основанный на разборе реальных бизнес-ситуаций. Вместо пассивных лекций студенты активно анализируют проблему, предлагают решения, спорят, защищают позицию и учатся мыслить как руководители.',
     buttonText: 'Apply now',
     backgroundImage: '/hero-section.png'
   },
   programBenefits: [
     {
-      title: 'Classroom Work',
-      description: 'The instructor guides discussions, manages group dynamics, and rotates teams to foster collaboration and diverse thinking.'
+      title: 'Определение уровня группы',
+      description: 'На первом этапе преподаватель оценивает каждого слушателя: возраст, управленческий и профессиональный опыт, текущую должность, образование и специализацию, уровень английского языка (если кейсы в оригинале). Это позволяет подобрать кейсы, которые будут одновременно посильными и развивающими.'
     },
     {
-      title: 'Determining Group Level',
-      description: 'The instructor first assesses each participant\'s experience, position, education, and English level.'
+      title: 'Подбор кейсов',
+      description: 'Преподаватель формирует серию кейсов: короткие кейсы (до 6 страниц) — для быстрого анализа, полные кейсы (до 30 страниц) — для глубоких стратегических обсуждений. Темы подбираются под уровень группы и реальные ситуации, которые слушатели могут встретить в своей работе.'
     },
     {
-      title: 'Case Selection',
-      description: 'The instructor prepares short and full cases, chosen to match the group\'s level and real work situations.'
+      title: 'Подготовка учебных материалов',
+      description: 'Преподаватель готовит вводные и финальные тесты, создаёт опросники и чек-листы, отвечает на вопросы в чате, рассылает дополнительные материалы. До 70% изучения кейса происходит вне класса, поэтому ответственность за подготовку несут обе стороны.'
     },
     {
-      title: 'Course Material Preparation',
-      description: 'The instructor provides materials, answers clarifying cases, while preparation is shared between the instructor and participants.'
+      title: 'Работа в классе',
+      description: 'Во время обсуждения преподаватель: учитывает, кто как подготовился до занятия, мотивирует пассивных участников, поддерживает более скромных, корректирует чрезмерно активных, направляет дискуссию в правильное русло. Также преподаватель заранее формирует рабочие группы и меняет их состав от кейса к кейсу, чтобы слушатели учились взаимодействовать с разными людьми и стилями мышления.'
     },
     {
-      title: 'Discussion Guidance',
-      description: 'The instructor listens, asks precise questions, answers the group, explains key facts and shows relevant statistics.'
+      title: 'Навигация обсуждения',
+      description: 'Роль преподавателя включает: умение слушать, задавать точные вопросы, отвечать на вопросы группы, пояснять факты, контекст и ключевые цифры, делиться релевантной статистикой и практическим опытом.'
     },
     {
-      title: 'Summary & Application',
-      description: 'At the session\'s end, the instructor helps participants summarize takeaways and grow as valuable professionals.'
+      title: 'Завершение и практическое применение',
+      description: 'В финале занятия преподаватель помогает группе сформулировать: какие выводы сделаны, как применять знания в работе, как использовать полученные навыки в собственном развитии, как выстраивать себя как личную Экосистему — ценного специалиста для компании, партнёров и рынка.'
     }
   ],
   whoProgramFor: [
     {
       icon: '🏢',
       title: 'Companies',
-      description: 'Think globally, act locally, and grow the skills to turn global ideas into local impact.'
+      description: 'Создаём образовательную систему под задачи вашей компании. Внедряем Case Learning Path для развития управленческих навыков сотрудников без необходимости создавать собственный учебный центр.'
     },
     {
       icon: '🎓',
       title: 'Students',
-      description: 'Develop people who think globally, grow strong skills, and deliver real market-focused results.'
+      description: 'Кейс-обучение учит принимать решения как лидер компании. Студент анализирует реальные бизнес-ситуации, оценивает риски и выбирает стратегию, развивая практические управленческие навыки.'
     },
     {
       icon: '🏛️',
       title: 'Universities',
-      description: 'Learn to think broadly, build a strong skill ecosystem, and become a professional.'
+      description: 'Университет получает партнёра, который полностью берёт на себя администрирование кейс-обучения. Это позволяет внедрить международный уровень подготовки без перегрузки штата преподавателей.'
     }
   ],
   caseBasedLearning: {
-    title: 'What is Case-Based Learning?',
-    description: 'Case-based learning is a practical educational approach built on analyzing real business situations. Instead of passive lectures, students actively examine problems, propose solutions, debate, defend their perspectives, and learn to think like decision-makers.',
+    title: 'Что такое кейс-обучение',
+    description: 'Кейс-метод — это практический формат обучения, основанный на разборе реальных бизнес-ситуаций. Вместо пассивных лекций студенты активно анализируют проблему, предлагают решения, спорят, защищают позицию и учатся мыслить как руководители. В Гарвардской школе бизнеса (Harvard Business School) студенты MBA за два года изучают более 500 кейсов, в среднем по два кейса в день. Если лекция показывает о чём думать, то кейс-метод учит как думать: как анализировать ситуацию, находить причинно-следственные связи, принимать управленческие решения и видеть несколько вариантов развития событий. Кейс-методу более 120 лет. Он возник в юридическом и медицинском образовании и позже стал основой современной бизнес-педагогики.',
     link1Text: 'Learn more about how case-based learning works',
     link2Text: 'Explore our full methodology',
     image: '/case-based.jpeg'
+  },
+  whyLecturesDontWork: {
+    title: 'Почему классические лекции перестают работать',
+    description: 'Сегодня, когда информация доступна каждому в один клик, традиционный формат обучения через чтение лекций теряет практическую ценность — особенно если лектор не обладает уникальными знаниями или реальным управленческим опытом.'
   },
   keyBenefits: [
     { label: 'Strategic Thinking', percentage: 35, color: '#DC2626' },
@@ -396,17 +499,18 @@ export const defaultContent: SiteContent = {
   ],
   founder: {
     title: 'Founder — Oleg Tsoy',
-    description: 'Oleg Tsoy applies the Harvard case method to develop strategic thinking and managerial skills in universities and corporate teams.',
+    description: 'Наш преподаватель имеет официальный статус, подтверждённый Harvard Business Publishing Education (HBPE) — подразделением Harvard Business School, ответственным за глобальное распространение кейс-метода. Преподаватель прошёл специальную профессиональную программу Fundamentals of Case Teaching и получил статус Registered Harvard Business Publishing Educator и Certified Harvard Business Publishing Educator.',
     keyFacts: [
-      'Executive education at London Business School',
-      'Expert in Harvard case-based learning methodology',
-      'Focused on practical decision-making and leadership development'
+      'Registered & Certified Harvard Business Publishing Educator',
+      'Более 250 кейсов Harvard Business School и London Business School',
+      '12+ лет опыта государственной службы и 12+ лет опыта в бизнесе и преподавании',
+      'Официальная лицензия на преподавание и дистрибуцию кейсов Harvard Business School'
     ],
     linkText: 'Learn More',
     image: '/founder.jpg'
   },
   cta: {
-    title: 'Ready to develop strategic thinking and managerial skills?',
+    title: 'Готовы развивать стратегическое мышление и управленческие навыки?',
     buttonText: 'Apply Now'
   },
   about: {
@@ -417,78 +521,74 @@ export const defaultContent: SiteContent = {
       image: '/about1.jpeg'
     },
     managementChallenges: [
-      { title: '• Strategic Leadership', description: 'Market entry, competitive advantage' },
-      { title: '• Organizational Behavior', description: 'Conflict resolution, motivation' },
-      { title: '• Crisis Management', description: 'Decision-making under pressure' },
-      { title: '• Digital Transformation', description: 'Innovation, process redesign' },
-      { title: '• Financial Thinking', description: 'Data-driven decisions' },
-      { title: '• Data-driven decisions', description: 'Data-driven decisions' }
+      { title: '• Стратегия', description: 'Стратегическое планирование, конкурентные преимущества' },
+      { title: '• Финансы', description: 'Финансовый анализ, принятие решений на основе данных' },
+      { title: '• Маркетинг', description: 'Продвижение, позиционирование, работа с клиентами' },
+      { title: '• HR', description: 'Управление персоналом, мотивация, развитие команды' },
+      { title: '• Продажи', description: 'Переговоры, работа с клиентами, увеличение выручки' },
+      { title: '• Лидерство', description: 'Управление командой, принятие решений, развитие сотрудников' },
+      { title: '• Экономика', description: 'Экономический анализ, рыночные процессы, бизнес-модели' }
     ],
-    flexibleFormatsTitle: 'Flexible Formats for Different Teams',
-    flexibleFormatsSubtitle: 'The program offers several delivery formats to match organizational needs:',
+    flexibleFormatsTitle: 'Форматы обучения',
+    flexibleFormatsSubtitle: 'Мы предлагаем несколько гибких форматов обучения, которые подходят как для корпоративных клиентов, так и для университетов. Каждый формат адаптируется под цели компании, уровень участников и нужную глубину проработки кейсов.',
     flexibleFormats: [
       {
-        title: 'Intensive Workshops',
-        subtitle: 'short, high-impact sessions with group analysis',
-        description: 'these workshops are ideal for teams who need a fast immersion into the Case Method and immediate practical application. Participants work through one core business case in an intensive, real-time situation analysis, fostering rapid decision-making under time constraint.'
+        title: 'Корпоративные тренинги — однодневные и двухдневные',
+        subtitle: 'интенсивные форматы, которые включают разбор до 6 кейсов за один уикенд',
+        description: 'Это интенсивные форматы, которые включают разбор до 6 кейсов за один уикенд. Подходят для компаний, которым необходимо быстро развить конкретный навык (лидерство, продажи, переговоры, управление персоналом и др.); погрузить команду в новую управленческую среду; отработать принятие решений в условиях неопределённости; обучить сотрудников кейсам, подобранным под определённую индустрию или специализацию. Формат эффективен как для топ-менеджеров, так и для команд, проходящих трансформации или готовящихся к новым задачам.'
       },
       {
-        title: 'Full Training Program',
-        subtitle: 'deep immersion with multiple case discussions',
-        description: 'a comprehensive program that blends classroom theory with real-world case studies. Multiple sessions are held over weeks, allowing participants to work through problems, propose strategic options and receive expert feedback.'
+        title: 'Модульные программы',
+        subtitle: 'серия занятий, проходящая раз в неделю или несколько раз в месяц',
+        description: 'Серия занятий, проходящая раз в неделю или несколько раз в месяц. Это наиболее сбалансированный и продуктивный формат, позволяющий совмещать обучение с рабочим графиком, не перегружать участников за короткий период, закреплять навыки постепенно, сохранять высокий уровень вовлечённости, формировать устойчивый Case Learning Path в компании. Модульные программы идеально подходят для длительных курсов развития: от 10 до 20 кейсов, рассчитанных на 2–6 месяцев.'
       },
       {
-        title: 'Corporate Cohorts',
-        subtitle: 'tailored programs built around company needs',
-        description: 'corporate cohorts receive fully customized content, cases selected for their industry, and curated case sets that align with current challenges. This format helps align managers, build collaboration culture, and create a shared decision-making training across teams and develop a unified approach to decision-making.'
+        title: 'Интеграция в программы MBA',
+        subtitle: 'наши модули и кейсовые курсы могут быть включены в структуру действующих программ MBA',
+        description: 'Наши модули и кейсовые курсы могут быть включены в структуру действующих программ MBA, программ Executive MBA, модулей Pre-MBA, дисциплин по выбору. Интеграция позволяет университетам укреплять академический статус, повышать практическую составляющую обучения, предлагать студентам доступ к оригинальным кейсам Harvard Business School, внедрять современный, международный формат обучения без увеличения нагрузки на штат преподавателей.'
       },
       {
-        title: 'Online Sessions',
-        subtitle: 'remote access to live, instructor-led case learning materials',
-        description: 'flexible and engaging format where participants join remotely, work with digital case packs, and take part in interactive debates. This option keeps the discussion-driver spirit of the Case Method alive and distributed teams.'
-      },
-      {
-        title: 'Hybrid Format',
-        subtitle: 'combining in-person and online learning materials',
-        description: 'The hybrid model merges the strengths of live interaction and online resources. Instructor-facilitated in-person sessions for deep discussion, while the materials that enhance preparation guides by digital materials that enhance preparation and continuous learning.'
+        title: 'Почему наши форматы эффективны',
+        subtitle: 'наши форматы эффективны потому что',
+        description: 'Наши форматы эффективны потому что: обучают через реальные ситуации, развивают стратегическое и критическое мышление, дают опыт принятия решений без риска, развивают навыки коммуникации и публичных выступлений, подходят для сотрудников с разным уровнем подготовки, масштабируются от одной команды до всей компании, могут быть встроены в корпоративный календарь.'
       }
     ],
     formatButtonText: 'Choose Your Format',
     formatFooterText: 'All formats emphasize the outcome: learn of the Case Method.',
     afterCompleting: {
-      title: 'After completing the program, participants will:',
-      description: 'Participants will be able to analyze complex business problems, make confident decisions in uncertain conditions, and communicate their reasoning to stakeholders. They will leverage strategic thinking and decision-making frameworks in real work scenarios. The program is especially valuable for managers and executives in high-pressure discussions.',
+      title: 'Почему бизнес-образование — это инвестиция в людей и будущее компании',
+      description: 'Современное бизнес-образование стоит недёшево, а доступ к международным материалам чаще всего возможен только на английском языке. Поэтому компании инвестируют в обучение не всех сотрудников, а только самых перспективных и мотивированных — тех, кто способен расти, брать ответственность и приносить больше пользы бизнесу. Когда руководство принимает решение оплатить обучение, это означает: «Мы видим в тебе потенциал и готовы инвестировать в твоё развитие». Это взаимовыгодная модель: компания помогает сотруднику расти, сотрудник повышает свою ценность, компетентность и уверенность, организация получает сильных людей, которые принимают лучшие решения и двигают бизнес вперёд.',
       buttonText: 'Apply for the Program',
       image: '/about2.jpeg'
     },
-    coreCompetenciesTitle: 'Core Competencies Developed',
+    coreCompetenciesTitle: 'Развивай себя как Экосистему',
     coreCompetencies: [
       {
-        category: 'Strategic Thinking',
-        mainTitle: 'Advanced',
-        subtitle: 'Strategic Thinking',
-        description: 'Participants build the ability to analyze complex situations, structure problems, and develop clear strategic options.',
+        category: 'Case Learning Path',
+        mainTitle: 'Систематическое',
+        subtitle: 'развитие через кейсы',
+        description: 'В лучших бизнес-школах мира существует система Case Learning Path (CLP) — путь развития через систематическое изучение кейсов. Это не просто обучение, а стиль жизни, при котором человек постоянно развивается, накапливает управленческий опыт и расширяет своё мышление. CLP позволяет встроить обучение в собственный жизненный ритм: лёгкий темп — около 30 кейсов в год, средне-высокий темп — 70–100 кейсов в год. Следуя такой траектории, за 4–5 лет можно самостоятельно пройти объём управленческих кейсов, сопоставимый с программой MBA Harvard Business School — не выезжая из страны и не прекращая работу.',
         linkText: 'Learn more'
       },
       {
-        category: 'Decision-Making',
-        mainTitle: 'Confident',
-        subtitle: 'Decision-Making',
-        description: 'Decision-makers learn to evaluate risks, compare alternatives, and make sound choices even under uncertainty.',
+        category: 'Думай глобально — действуй локально',
+        mainTitle: 'Глобальное',
+        subtitle: 'мышление, локальные действия',
+        description: 'Эта фраза часто звучит в ведущих бизнес-школах мира. Она означает, что хороший руководитель должен уметь смотреть на ситуацию шире, чем рамки своей компании или даже своей страны. Это способность брать лучшие мировые практики и применять их здесь и сейчас, в условиях нашего рынка и наших правил игры. Лидер, который думает глобально, но действует локально: эффективнее решает сложные задачи, быстрее находит новые возможности, лучше понимает конкурентов и клиентов, становится интереснее для своей компании как специалист, растёт профессионально значительно быстрее.',
         linkText: 'See benefits'
       },
       {
-        category: 'Leadership & Communication',
-        mainTitle: 'Stronger',
-        subtitle: 'Leadership Presence',
-        description: 'Through group case discussions, participants learn to communicate ideas with evidence, and lead team discussions more effectively.',
+        category: 'Практические навыки',
+        mainTitle: 'Реальное',
+        subtitle: 'применение в работе',
+        description: 'В групповой работе сотрудники развивают критическое и стратегическое мышление, учатся публично выступать, учатся спорить конструктивно, принимают решения и видят последствия в безопасной среде, пробуют разные управленческие модели, переносят полученный опыт в реальную работу уже на следующий день. Кейсы расширяют кругозор, учат ставить долгосрочные цели и выстраивать стратегию развития — как в карьере, так и в жизни.',
         linkText: 'Explore skills'
       },
       {
-        category: 'Practical Application',
-        mainTitle: 'Real-World',
-        subtitle: 'Analytical Skills',
-        description: 'The program\'s focus on real cases allows participants to apply learning to their daily work, improving efficiency across tasks and teams.',
+        category: 'Личная экосистема компетенций',
+        mainTitle: 'Ты — своя',
+        subtitle: 'Экосистема развития',
+        description: 'Когда человек год за годом проходит десятки кейсов, в нём формируется полноценная личная экосистема компетенций: знания из разных отраслей, навыки принятия решений, аналитическое мышление, способность видеть взаимосвязи, уверенность в управлении людьми и проектами, умение прогнозировать последствия. Такой специалист становится интересным любой команде, партнёрам, инвесторам и руководителям.',
         linkText: 'Full program'
       }
     ]
@@ -496,68 +596,145 @@ export const defaultContent: SiteContent = {
   founderPage: {
     hero: {
       title: 'Founder — Oleg Tsoy',
-      description: 'Oleg Tsoy applies the Harvard case method to develop strategic thinking and managerial skills in universities and corporate teams.',
-      secondaryDescription: 'With over 25 years of experience spanning public service, banking, industry leadership, and executive education, Oleg has developed a unique approach to teaching managerial decision-making. He combines real-world executive experience with rigorous academic methodology from Harvard Business School and London Business School.',
-      keyFactsTitle: 'Key Facts:',
+      description: 'Наш преподаватель имеет официальный статус, подтверждённый Harvard Business Publishing Education (HBPE) — подразделением Harvard Business School, ответственным за глобальное распространение кейс-метода.',
+      secondaryDescription: 'Преподаватель прошёл специальную профессиональную программу Fundamentals of Case Teaching и получил статус Registered Harvard Business Publishing Educator и Certified Harvard Business Publishing Educator, официальную лицензию на преподавание и дистрибуцию кейсов, право проводить обучение в соответствии со стандартами HBS, право формировать и выдавать сертификаты установленного образца.',
+      keyFactsTitle: 'Ключевые факты:',
       keyFacts: [
-        'Executive education at London Business School',
-        'Expert in Harvard case-based learning methodology',
-        'Focused on practical decision-making and leadership development',
-        'Certified Tutor of Harvard Business Publishing Education',
-        '250+ case studies completed across various industries'
+        'Registered & Certified Harvard Business Publishing Educator',
+        'Более 140 кейсов Harvard Business School',
+        'Более 100 кейсов London Business School',
+        '12+ лет опыта государственной службы',
+        '12+ лет опыта в бизнесе и преподавании',
+        '250+ кейсов изучено лично'
       ],
       image: '/founder-hero.jpeg'
     },
-    practitionerTitle: 'Oleg Tsoy — Case Method Practitioner &',
-    practitionerSubtitle: 'Harvard-Certified Educator',
-    practitionerDescription: 'Oleg Tsoy brings 25+ years of leadership experience across public service, banking, industry and executive education. He teaches real managerial decision-making using Harvard Business School case studies adapted for Central Asia.',
+    practitionerTitle: 'Статус преподавателя Harvard Business Publishing Education',
+    practitionerSubtitle: 'Сертифицированный и зарегистрированный преподаватель HBPE',
+    practitionerDescription: 'Наш преподаватель имеет официальный статус, подтверждённый Harvard Business Publishing Education (HBPE) — подразделением Harvard Business School, ответственным за глобальное распространение кейс-метода. Преподаватель прошёл специальную профессиональную программу Fundamentals of Case Teaching и получил статус Registered Harvard Business Publishing Educator и Certified Harvard Business Publishing Educator.',
     cards: [
       {
-        title: '• Harvard-Certified Educator',
-        description: 'Registered and officially certified by Harvard Business Publishing Education, adapt and facilitate case-based learning using licensed HBP materials. Global teaching standards.',
+        title: '• Статус Registered & Certified HBPE Educator',
+        description: 'Статус Registered & Certified HBPE Educator гарантирует: использование оригинальных и легальных кейсов Harvard Business School, официальную платформу HBPE и персональные лицензии студентов, соответствие мировым стандартам преподавания кейс-метода, признание сертификатов на международном уровне, обучение, основанное на практическом опыте и академической методологии, качество, сравнимое с ведущими бизнес-школами мира.',
         linkText: 'Learn more'
       },
       {
-        title: '• 250+ Case Studies Completed',
-        description: 'A portfolio of 250+ cases across Harvard, LBS and modern business scenarios — spanning strategy, leadership, crisis management, negotiations and organizational behavior.',
+        title: '• Личный опыт обучения — более 250 кейсов',
+        description: 'Наш преподаватель является слушателем двух ведущих бизнес-школ мира и прошёл обучение более чем по 250 кейсам, включая 140+ кейсов Harvard Business School, 100+ кейсов London Business School, десятки дополнительных современных кейсов по стратегии, финансам, лидерству, экономике и управлению. Этот опыт обеспечивает глубокий взгляд на разные отрасли, бизнес-модели, управленческие подходы и международные практики.',
         linkText: 'Learn more'
       },
       {
-        title: '• Harvard-Certified Educator',
-        description: 'Chairman, CEO and Board Member across major holdings — bringing real executive practice into every case.',
+        title: '• Непрерывное развитие и соответствие стандартам HBPE',
+        description: 'Преподаватель продолжает постоянное обучение на платформе HBPE и следует принципу "Lifetime Development as a Tutor" — пожизненное профессиональное развитие преподавателя. Это означает: регулярное изучение новых кейсов, повышение квалификации, участие в тренингах и семинарах для преподавателей, соблюдение международных методологических стандартов HBS, постоянное обновление образовательных подходов.',
         linkText: 'Learn more'
       }
     ],
     biography: {
-      title: 'Biography',
-      paragraph1: 'A multidisciplinary executive with legal, financial, and international business education. Graduated from London Business School and completed executive programs at Harvard Business School, later becoming a Certified Tutor of Harvard Business Publishing Education.',
-      paragraph2: 'He began his career in public service, working in criminal investigations and cybercrime, developing sharp analytical and decision-making skills. Transitioned to the private sector in 2010, holding senior executive positions as Chairman, CEO, and Board Member across industrial holdings, automotive production, real-estate development, and financial institutions.',
-      bottomText: 'Since 2015, he has been an active educator, teaching case-based strategy, leadership, and decision-making. He created and directs Kazakhstan\'s first ProMBA Real Estate Development program and teaches in Executive MBA cohorts, combining global best practices with real executive experience.',
-      image: '/founder-bio.png'
+      title: 'Биография',
+      paragraph1: 'Разнообразное и уникальное образование преподавателя. Наш преподаватель обладает редким сочетанием юридического, финансового, управленческого и международного бизнес-образования. Такой многопрофильный путь формирует глубокий кругозор и способность смотреть на бизнес с разных точек зрения — правовой, экономической, стратегической и управленческой.',
+      paragraph2: 'Путь от оперативной службы до управления крупными холдингами. Преподаватель начал свой профессиональный путь с работы в органах уголовного преследования: Оперуполномоченный уголовного розыска, Руководитель отдела уголовного розыска, В управлении криминальной полиции — оперуполномоченный по особо важным делам по борьбе с киберпреступлениями. После государственной службы преподаватель перешёл в корпоративный сектор и возглавил службу безопасности Каспийского банка. Затем занимал ключевые позиции в крупных отраслях национальной экономики: Председатель Правления АО «АгромашХолдинг», Президент АО «Аллюр Авто», Президент АО «Доступное жильё», Член Правления многопрофильного холдинга Caspian Group.',
+      bottomText: 'Наш преподаватель начал свой образовательный путь в 2015 году и за это время стал одним из наиболее опытных и практико-ориентированных преподавателей кейс-метода в Казахстане. Образовательная работа началась в Костанайском социально-техническом университете. С 2021 года совместно с Каспийским университетом была разработана и запущена программа подготовки профессионалов в сфере недвижимости. За время работы программы обучение прошли более 500 специалистов. Пять лет назад была создана первая и единственная в Казахстане программа PreMBA "Real Estate Development". Программу прошло более 120 человек. Преподаватель также ведёт дисциплины Эмоциональный интеллект, Фондовые рынки, Лидерство в рамках программы Executive MBA и является постоянным членом экзаменационной комиссии.',
+      image: '/founder-bio.png',
+      whatEducationGives: {
+        title: 'Что даёт такое образование студентам и компаниям',
+        points: [
+          'глубокое понимание бизнеса с разных сторон — права, экономики, стратегии и управления;',
+          'способность адаптировать международные практики под местные условия;',
+          'международное мышление, подкреплённое практическим опытом;',
+          'обучение по мировым стандартам кейс-метода;',
+          'уверенность, что преподаватель использует только лицензированные материалы и собственный международный опыт.'
+        ]
+      },
+      whyExperienceImportant: {
+        title: 'Почему такой опыт важен для кейс-обучения',
+        description: 'Преподаватель не просто модерирует обсуждение, а:',
+        points: [
+          'задаёт правильные вопросы,',
+          'направляет дискуссию,',
+          'объясняет логику решений,',
+          'делится реальными ситуациями из практики,',
+          'подсказывает, как действовать в сложных или спорных кейсах,',
+          'помогает слушателям научиться мыслить как руководители.'
+        ],
+        conclusion: 'Студенты получают не теоретическую абстракцию, а доступ к настоящему управленческому опыту — накопленному в госслужбе, банковской сфере, промышленности, автомобильной индустрии, девелопменте и холдинговом управлении.'
+      },
+      whyTeachingExperienceImportant: {
+        title: 'Почему этот опыт важен',
+        points: [
+          'как обучать начинающих специалистов,',
+          'как работать с опытными руководителями,',
+          'как адаптировать кейсы под разные уровни слушателей,',
+          'как соединять международные стандарты с казахстанской практикой,',
+          'как развивать управленческие компетенции на каждом этапе карьерного роста.'
+        ]
+      },
+      educationTimeline: {
+        title: 'Хронология образования и профессионального развития',
+        items: [
+          {
+            period: '1993–1997',
+            institution: 'Алматинская высшая школа Государственного следственного комитета (ныне Академия МВД РК)',
+            specialty: 'Специальность: правовед',
+            description: 'Фундамент юридического образования, понимание регуляторных процессов, государственного управления и правовых систем.'
+          },
+          {
+            period: '2002–2004',
+            institution: 'Академия экономики и права',
+            specialty: 'Специальность: финансы и кредит',
+            description: 'Экономическое и финансовое образование, понимание корпоративных финансов, банковских механизмов и экономических моделей.'
+          },
+          {
+            period: '2012–2013',
+            institution: 'Интенсивное изучение английского языка',
+            specialty: 'Уровень с Elementary до IELTS 6.5',
+            description: 'Самостоятельная целевая подготовка для выхода на международный уровень образования.',
+            details: 'Письмо (writing): 7.5'
+          },
+          {
+            period: '2013–2014',
+            institution: 'London Business School — Executive Program',
+            description: 'Обучение современному менеджменту, лидерству и глобальным подходам к управлению в одной из ведущих бизнес-школ мира.'
+          },
+          {
+            period: '2014–2015',
+            institution: 'Harvard Business School — Executive Program',
+            description: 'Международное образование в области стратегии, лидерства и бизнес-анализа, интенсивное обучение по кейсам.'
+          },
+          {
+            period: '',
+            institution: 'Certified Tutor by Harvard Business Publishing Education',
+            description: 'Официальный статус зарегистрированного и сертифицированного преподавателя, лицензированного на преподавание и дистрибуцию кейсов Harvard Business School.'
+          }
+        ]
+      }
     }
   },
   methodologyPage: {
     hero: {
-      title: 'Strategic Leadership & Case-Based Executive Education',
-      description: 'Harvard-certified educator with deep executive and public-sector leadership experience. Teaching strategic decision-making through world-class cases and real-industry practice.',
+      title: 'Как это работает',
+      description: 'Harvard Business School обладает одной из крупнейших в мире библиотек бизнес-кейсов: более 70 000 кейсов и статей о тысячах компаний из разных стран и отраслей, охватывающих все ключевые аспекты управления. Мы предоставляем официальный доступ к платформе Harvard Business Publishing Education — той же самой, которой пользуются студенты HBS, London Business School и других ведущих мировых школ. Наш преподаватель, прошедший обучение и изучивший более 140 кейсов Harvard Business School, более 100 кейсов London Business School, а также имеющий 12+ лет опыта государственной службы и 12+ лет опыта в бизнесе и преподавании, отбирает кейсы, которые действительно применимы к нашим реалиям.',
       buttonText: 'Start a Program'
+    },
+    whyLecturesDontWork: {
+      title: 'Почему классические лекции перестают работать',
+      description: 'Сегодня, когда информация доступна каждому в один клик, традиционный формат обучения через чтение лекций теряет практическую ценность — особенно если лектор не обладает уникальными знаниями или реальным управленческим опытом.'
     },
     benefits: [
       {
-        title: 'Real Decision-Making',
-        description: 'Participants step into the role of decision-makers and solve real cases from business, industry and the public sector — not theoretical exercises.'
+        title: 'Реальное принятие решений',
+        description: 'Кейс-обучение позволяет студенту не просто получать информацию, а проживать реальную ситуацию и принимать решения так, как это делает лидер компании. Во время анализа кейса студент фактически оказывается в кресле героя, оценивает риски, выбирает стратегию и несёт ответственность за принятие решений.'
       },
       {
-        title: 'Structured Thinking First',
-        description: 'Every case begins with facts, alternatives and risks — helping students develop analytical discipline before choosing a solution.'
+        title: 'Стратегическое мышление',
+        description: 'Такой подход развивает стратегическое мышление, способность анализировать сложные ситуации, умение аргументировать и защищать свою позицию, навыки командного обсуждения, уверенность в управленческих решениях.'
       },
       {
-        title: 'Leadership Under Pressure',
-        description: 'Cases recreate time pressure, limited information and conflict of interests — the same conditions executives face in real life.'
+        title: 'Применение к нашему рынку',
+        description: 'Разбирая кейсы международных и глобальных компаний, студенты учатся применять решения к нашему рынку, развивают стратегическое и глобальное мышление, получают опыт, близкий к реальной управленческой практике, одновременно улучшают уровень бизнес-английского языка, работая с оригинальными материалами.'
       },
       {
         title: 'Global → Local',
-        description: 'Insights from Harvard and London Business School adapted for local industries, corporate realities and national markets.'
+        description: 'Думай глобально — действуй локально. Эта фраза часто звучит в ведущих бизнес-школах мира. Она означает, что хороший руководитель должен уметь смотреть на ситуацию шире, чем рамки своей компании или даже своей страны. Это способность брать лучшие мировые практики и применять их здесь и сейчас, в условиях нашего рынка и наших правил игры.'
       }
     ],
     casesTitle: 'Methodology & Cases',
@@ -665,182 +842,172 @@ export const defaultContent: SiteContent = {
   forUniversitiesPage: {
     hero: {
       title: 'For Universities',
-      description: 'We help universities enrich their academic programs by providing real-world business cases that develop students\' decision-making, analytical thinking, and leadership skills. Our cases are designed to complement existing coursework, support interactive learning, and prepare students for practical challenges in their future careers.'
+      description: 'Сотрудничая с нами, университет получает образовательного партнёра, который полностью берёт на себя администрирование и организацию кейс-обучения. Это позволяет внедрить международный уровень подготовки без перегрузки внутреннего штата преподавателей.'
     },
-    benefitsTitle: 'Benefits of Implementing the Case Method',
+    benefitsTitle: 'Что получают университеты',
     benefits: [
       {
-        title: 'International Academic Standards',
-        description: 'We provide universities with official Harvard Business School cases, ensuring every student receives a legally purchased, individually assigned copy for study and discussion.'
+        title: 'Полное администрирование учебного процесса',
+        description: 'Мы обеспечиваем: формирование и организацию учебных групп; сопровождение студентов при знакомстве с кейсами; проведение вводных и итоговых тестов; создание опросников и контрольных материалов; регистрацию слушателей на платформе Harvard Business Publishing Education (HBPE); подборку кейсов под цели и уровень программы; контроль посещаемости и активности; сопровождение в чате и ответы на вопросы студентов.'
       },
       {
-        title: 'Practice-Driven Learning',
-        description: 'The case method helps students:',
-        list: [
-          'analyze real cases;',
-          'defend solutions;',
-          'work in teams;',
-          'develop strategic thinking.'
-        ]
+        title: 'Индивидуальная кейс-книга для каждого слушателя',
+        description: 'Для каждого участника мы формируем именную кейс-книгу (Case Book), включающую материалы по программе. Все кейсы приобретаются официально на платформе HBPE под лицензией нашего преподавателя. Каждый кейс автоматически формируется с фамилией студента, что подтверждает юридическую чистоту и академическую прозрачность.'
       },
       {
-        title: 'Natural English Development',
-        description: 'Our sessions use an English-friendly approach:',
-        list: [
-          'core business vocabulary;',
-          'personal glossary;',
-          'discussion-based practice;',
-          'Duolingo group work.'
-        ]
+        title: 'Гибкий формат внедрения',
+        description: 'Мы предлагаем разные модели интеграции в учебный процесс университета: разовые мастер-классы; тематические мини-серии из 3–5 кейсов; полноформатные курсы на 10–20 кейсов; внедрение в структуру действующей программы MBA; создание самостоятельных модулей, Pre-MBA и Executive Education. Это дает университету возможность масштабировать сотрудничество в удобном темпе.'
       },
       {
-        title: 'Enhanced Academic Reputation',
-        description: 'Using Harvard Business School cases helps universities:',
-        list: [
-          'attract stronger applicants;',
-          'meet AACSB/AMBA/EQUIS standards;',
-          'boost international standing.'
-        ]
+        title: 'Повышение академического статуса',
+        description: 'Работа с оригинальными кейсами Harvard Business School: усиливает международный имидж университета; поддерживает требования международных аккредитаций (AACSB, AMBA, EQUIS); повышает привлекательность программ для абитуриентов; позволяет позиционировать университет как партнера глобальной образовательной экосистемы.'
       }
     ],
-    integrationFormatsTitle: 'Integration Formats',
+    integrationFormatsTitle: 'Форматы обучения',
     integrationFormats: [
       {
-        title: 'Masterclasses (1 session)',
+        title: 'Корпоративные тренинги — однодневные и двухдневные',
         bestFor: 'Best for:',
-        bestForText: 'University events, open lectures, program promotions, guest sessions, and providing a "taste of the case method."',
-        description: 'A single 60-120 minute discussion built around one Harvard case.',
+        bestForText: 'Компании, которым необходимо быстро развить конкретный навык (лидерство, продажи, переговоры, управление персоналом и др.); погрузить команду в новую управленческую среду; отработать принятие решений в условиях неопределённости; обучить сотрудников кейсам, подобранным под определённую индустрию или специализацию.',
+        description: 'Это интенсивные форматы, которые включают разбор до 6 кейсов за один уикенд. Формат эффективен как для топ-менеджеров, так и для команд, проходящих трансформации или готовящихся к новым задачам.',
         howUsed: {
-          header: 'Universities use this format to:',
+          header: 'Подходят для компаний, которым необходимо:',
           list: [
-            'Enrich academic events with a high-level international component.',
-            'Introduce students to the case method.',
-            'Promote new programs or majors.',
-            'Enhance marketing and admissions activities.'
+            'быстро развить конкретный навык (лидерство, продажи, переговоры, управление персоналом и др.);',
+            'погрузить команду в новую управленческую среду;',
+            'отработать принятие решений в условиях неопределённости;',
+            'обучить сотрудников кейсам, подобранным под определённую индустрию или специализацию.'
           ]
         },
         whatWeManage: {
-          header: 'We manage:',
+          header: 'Формат эффективен:',
           list: [
-            'Case selection.',
-            'All HBPE purchases.',
-            'Student preparation materials.',
-            'Full discussion facilitation.'
+            'как для топ-менеджеров, так и для команд, проходящих трансформации или готовящихся к новым задачам.'
           ]
         }
       },
       {
-        title: 'Mini-Series (3-5 cases)',
+        title: 'Модульные программы',
         bestFor: 'Best for:',
-        bestForText: 'Strengthening specific disciplines or adding practical modules.',
-        description: 'A structured block that fits easily into an existing course or can function as a standalone module.',
+        bestForText: 'Совмещение обучения с рабочим графиком, постепенное закрепление навыков, формирование устойчивого Case Learning Path в компании.',
+        description: 'Серия занятий, проходящая раз в неделю или несколько раз в месяц. Это наиболее сбалансированный и продуктивный формат, позволяющий совмещать обучение с рабочим графиком, не перегружать участников за короткий период, закреплять навыки постепенно, сохранять высокий уровень вовлечённости, формировать устойчивый Case Learning Path в компании.',
         themes: {
-          header: 'Common themes include:',
+          header: 'Модульные программы идеально подходят для:',
           list: [
-            'Leadership & organizational behavior.',
-            'Strategy & decision-making.',
-            'HR management & talent development.',
-            'Operations & processes.',
-            'Marketing & customer behavior.',
-            'Innovation & entrepreneurship.'
+            'длительных курсов развития: от 10 до 20 кейсов, рассчитанных на 2–6 месяцев.'
           ]
         },
         idealUses: {
-          header: 'Mini-series are ideal for:',
+          header: 'Этот формат позволяет:',
           list: [
-            'Accelerating practical learning.',
-            'Improving English exposure through 3-5 Harvard cases.',
-            'Preparing students for internships or competitions.',
-            'Enhancing regular academic material with real managerial challenges.'
+            'совмещать обучение с рабочим графиком,',
+            'не перегружать участников за короткий период,',
+            'закреплять навыки постепенно,',
+            'сохранять высокий уровень вовлечённости,',
+            'формировать устойчивый Case Learning Path в компании.'
           ]
         }
       },
       {
-        title: 'Full Case Courses (10-20 cases)',
+        title: 'Интеграция в программы MBA',
         bestFor: 'Best for:',
-        bestForText: 'Academic programs fully adopting practice-oriented learning. A complete course built entirely on case methodology, with a full sequence of Harvard cases, assignments, quizzes, and student-level diagnostics.',
-        description: 'A complete course built entirely on case methodology, with a full sequence of Harvard cases, assignments, quizzes, and student-level diagnostics.',
+        bestForText: 'Укрепление академического статуса, повышение практической составляющей обучения, внедрение современного международного формата обучения без увеличения нагрузки на штат преподавателей.',
+        description: 'Наши модули и кейсовые курсы могут быть включены в структуру действующих программ MBA, программ Executive MBA, модулей Pre-MBA, дисциплин по выбору.',
         integration: {
-          header: 'Can be integrated into:',
+          header: 'Интеграция позволяет университетам:',
           list: [
-            'Bachelor programs (3rd-4th year),',
-            'Master\'s programs,',
-            'MBA and EMBA cohorts,',
-            'Corporate training programs,',
-            'Joint university-industry projects.'
+            'укреплять академический статус,',
+            'повышать практическую составляющую обучения,',
+            'предлагать студентам доступ к оригинальным кейсам Harvard Business School,',
+            'внедрять современный, международный формат обучения без увеличения нагрузки на штат преподавателей.'
           ]
         },
         includes: {
-          header: 'A full case course includes:',
+          header: 'Могут быть включены в структуру:',
           list: [
-            '10-20 original HBPE cases,',
-            'structured weekly preparation,',
-            'group work and debates,',
-            'English-support materials (glossaries, context notes),',
-            'midterm and final assessment,',
-            'certificates and personal Case Books.'
+            'действующих программ MBA,',
+            'программ Executive MBA,',
+            'модулей Pre-MBA,',
+            'дисциплин по выбору.'
           ]
         },
-        note: 'This format is the strongest for boosting program quality and supporting accreditation standards (AACSB, AMBA, EQUIS).'
+        note: 'Почему наши форматы эффективны: обучают через реальные ситуации, развивают стратегическое и критическое мышление, дают опыт принятия решений без риска, развивают навыки коммуникации и публичных выступлений, подходят для сотрудников с разным уровнем подготовки, масштабируются от одной команды до всей компании, могут быть встроены в корпоративный календарь.'
       }
     ],
-    processTitle: 'How the Process Works',
+    processTitle: 'Как это работает',
+    faqTitle: 'Часто задаваемые вопросы',
+    faq: [
+      {
+        question: 'Какие форматы сотрудничества доступны для университетов?',
+        answer: 'Мы предлагаем гибкие форматы интеграции: разовые мастер-классы, тематические мини-серии из 3–5 кейсов, полноформатные курсы на 10–20 кейсов, внедрение в структуру действующей программы MBA, создание самостоятельных модулей, Pre-MBA и Executive Education. Это позволяет университету масштабировать сотрудничество в удобном темпе.'
+      },
+      {
+        question: 'Кто занимается администрированием учебного процесса?',
+        answer: 'Мы полностью берём на себя администрирование: формирование и организацию учебных групп, сопровождение студентов при знакомстве с кейсами, проведение вводных и итоговых тестов, создание опросников и контрольных материалов, регистрацию слушателей на платформе Harvard Business Publishing Education (HBPE), подборку кейсов под цели и уровень программы, контроль посещаемости и активности, сопровождение в чате и ответы на вопросы студентов.'
+      },
+      {
+        question: 'Что такое именная кейс-книга (Case Book)?',
+        answer: 'Для каждого участника мы формируем именную кейс-книгу, включающую материалы по программе. Все кейсы приобретаются официально на платформе HBPE под лицензией нашего преподавателя. Каждый кейс автоматически формируется с фамилией студента, что подтверждает юридическую чистоту и академическую прозрачность.'
+      },
+      {
+        question: 'Как работа с кейсами Harvard Business School влияет на академический статус университета?',
+        answer: 'Работа с оригинальными кейсами Harvard Business School усиливает международный имидж университета, поддерживает требования международных аккредитаций (AACSB, AMBA, EQUIS), повышает привлекательность программ для абитуриентов и позволяет позиционировать университет как партнера глобальной образовательной экосистемы.'
+      },
+      {
+        question: 'Какие преимущества получает университет от сотрудничества?',
+        answer: 'Университет получает преподавателя, прошедшего обучение в HBS и LBS, со значительным практическим опытом. Формируется уникальная образовательная среда, которая повышает конкурентоспособность программ. Внедрение кейсов улучшает качество обучения и удовлетворенность студентов.'
+      },
+      {
+        question: 'Нужно ли университету создавать дополнительную инфраструктуру для кейс-обучения?',
+        answer: 'Нет, мы полностью берём на себя администрирование и организацию кейс-обучения. Это позволяет внедрить международный уровень подготовки без перегрузки внутреннего штата преподавателей. Университету не нужно создавать дополнительную инфраструктуру или расширять штат.'
+      }
+    ],
     processSteps: [
       {
-        title: 'Needs Assessment',
-        header: 'We identify:',
+        title: 'Формирование и организация учебных групп',
+        description: 'Мы обеспечиваем формирование и организацию учебных групп, сопровождение студентов при знакомстве с кейсами.'
+      },
+      {
+        title: 'Регистрация на платформе HBPE',
+        description: 'Регистрация слушателей на платформе Harvard Business Publishing Education (HBPE), подборка кейсов под цели и уровень программы.'
+      },
+      {
+        title: 'Проведение занятий',
+        header: 'Преподаватель:',
         list: [
-          'academic programs,',
-          'student level,',
-          'learning goals,',
-          'language level.'
+          'модерирует обсуждения,',
+          'направляет дискуссию,',
+          'объясняет логику решений,',
+          'делится реальными ситуациями из практики.'
         ]
       },
       {
-        title: 'Case & Format Selection',
-        header: 'We build a tailored program:',
+        title: 'Контроль и сопровождение',
+        header: 'Мы обеспечиваем:',
         list: [
-          'case selection by level,',
-          'learning flow,',
-          'assignments and testing,',
-          'supporting materials.'
+          'проведение вводных и итоговых тестов,',
+          'создание опросников и контрольных материалов,',
+          'контроль посещаемости и активности,',
+          'сопровождение в чате и ответы на вопросы студентов.'
         ]
       },
       {
-        title: 'HBPE Registration',
-        description: 'We register each student in the Harvard Business Publishing Education system, assign each case individually.'
+        title: 'Формирование кейс-книг',
+        description: 'Для каждого участника мы формируем именную кейс-книгу (Case Book), включающую материалы по программе. Все кейсы приобретаются официально на платформе HBPE под лицензией нашего преподавателя.'
       },
       {
-        title: 'Case Sessions',
-        header: 'The instructor:',
+        title: 'Повышение академического статуса',
+        header: 'Работа с оригинальными кейсами Harvard Business School:',
         list: [
-          'moderates discussions,',
-          'guides analysis,',
-          'encourages participation,',
-          'explains context.'
-        ]
-      },
-      {
-        title: 'Monitoring & Analytics',
-        header: 'The university receives:',
-        list: [
-          'performance data,',
-          'attendance and activity reports,',
-          'recommendations.'
-        ]
-      },
-      {
-        title: 'Certification',
-        header: 'Students receive:',
-        list: [
-          'partner university certificate,',
-          'personalized Case Book summarizing the materials.'
+          'усиливает международный имидж университета,',
+          'поддерживает требования международных аккредитаций (AACSB, AMBA, EQUIS),',
+          'повышает привлекательность программ для абитуриентов.'
         ]
       }
     ],
     cta: {
-      title: 'Ready to Bring Global-Level Case Learning to Your University?',
-      subtitle: 'Let\'s build a customized case-based program tailored to your students, faculty, and academic goals.',
+      title: 'Готовы внедрить международный уровень кейс-обучения в ваш университет?',
+      subtitle: 'Давайте создадим индивидуальную программу, адаптированную под ваших студентов, преподавателей и академические цели.',
       buttonText: 'Contact Us for a Custom Proposal →'
     }
   },
@@ -862,6 +1029,16 @@ export const defaultContent: SiteContent = {
       conclusion: 'Learning becomes practical, engaging, and directly applicable to future careers.'
     },
     skillsTitle: 'Skills You Will Develop',
+    whatEducationGives: {
+      title: 'Что даёт такое образование студентам и компаниям',
+      points: [
+        'глубокое понимание бизнеса с разных сторон — права, экономики, стратегии и управления;',
+        'способность адаптировать международные практики под местные условия;',
+        'международное мышление, подкреплённое практическим опытом;',
+        'обучение по мировым стандартам кейс-метода;',
+        'уверенность, что преподаватель использует только лицензированные материалы и собственный международный опыт.'
+      ]
+    },
     skills: [
       {
         title: 'Strategic thinking',
@@ -888,6 +1065,116 @@ export const defaultContent: SiteContent = {
         description: 'Understanding how international companies operate and how to apply global practices locally.'
       }
     ],
+    caseLearningPath: {
+      title: 'Развивай себя как Экосистему',
+      intro: 'В лучших бизнес-школах мира существует система Case Learning Path (CLP) — путь развития через систематическое изучение кейсов. Это не просто обучение, а стиль жизни, при котором человек постоянно развивается, накапливает управленческий опыт и расширяет своё мышление.',
+      howItWorks: {
+        title: 'Как работает Case Learning Path',
+        description: 'CLP позволяет встроить обучение в собственный жизненный ритм:',
+        lightPace: 'Лёгкий темп: около 30 кейсов в год.',
+        mediumPace: 'Средне-высокий темп: 70–100 кейсов в год.',
+        conclusion: 'Следуя такой траектории, за 4–5 лет можно самостоятельно пройти объём управленческих кейсов, сопоставимый с программой MBA Harvard Business School — не выезжая из страны и не прекращая работу. Это даёт человеку редкое конкурентное преимущество: вы развиваетесь в реальном времени, не выпадая из профессии и постоянно усиливая свою компетентность.'
+      },
+      whyValuable: {
+        title: 'Почему CLP повышает вашу ценность',
+        description: 'Систематическое изучение кейсов высоко ценится:',
+        points: [
+          'Работодателями — как признак зрелого мышления и управленческого потенциала.',
+          'Коллегами — как показатель профессионального роста.',
+          'Конкурентами — как фактор, который сложно повторить без дисциплины и системного развития.'
+        ]
+      },
+      whatDevelops: {
+        title: 'Что именно развивает CLP',
+        description: 'Изучая кейсы по ключевым направлениям:',
+        directions: [
+          'маркетинг,',
+          'экономика,',
+          'стратегия,',
+          'финансы,',
+          'лидерство,',
+          'продажи,',
+          'управление персоналом (HR)'
+        ],
+        conclusion: '— вы поддерживаете мозг в состоянии постоянного анализа и формируете глобальное управленческое мышление. Это похоже на регулярные тренировки для лидеров: каждый кейс — это новая ситуация, новый вызов и новое управленческое решение.'
+      },
+      ecosystem: {
+        title: 'Ты — своя Экосистема развития',
+        description: 'Когда человек год за годом проходит десятки кейсов, в нём формируется полноценная личная экосистема компетенций:',
+        competencies: [
+          'знания из разных отраслей,',
+          'навыки принятия решений,',
+          'аналитическое мышление,',
+          'способность видеть взаимосвязи,',
+          'уверенность в управлении людьми и проектами,',
+          'умение прогнозировать последствия.'
+        ],
+        conclusion: 'Такой специалист становится интересным любой команде, партнёрам, инвесторам и руководителям.'
+      },
+      benefits: [
+        {
+          title: 'Быстрое накопление управленческого опыта',
+          description: 'Каждый кейс — это опыт, который в реальности вы бы получали десятилетиями.'
+        },
+        {
+          title: 'Обучение без отрыва от работы',
+          description: 'Не нужно увольняться, уезжать или тратить сотни тысяч долларов.'
+        },
+        {
+          title: 'Постоянное расширение кругозора',
+          description: 'Человек начинает понимать не только свою отрасль, но и логики других рынков.'
+        },
+        {
+          title: 'Формирование управленческой интуиции',
+          description: 'Сотни кейсов создают "чувство бизнеса", которое невозможно прочитать в книгах.'
+        },
+        {
+          title: 'Умение мыслить как CEO',
+          description: 'CLP формирует мышление топ-менеджера — видеть картину выше, шире и глубже.'
+        },
+        {
+          title: 'Рост уверенности',
+          description: 'Когда ты уже "прожил" сотни ситуаций в кейсах — реальные задачи воспринимаются легче.'
+        },
+        {
+          title: 'Преимущество на карьерном рынке',
+          description: 'Люди с системным кейс-бэкграундом значительно быстрее растут в должностях.'
+        }
+      ]
+    },
+    practicalSkills: {
+      title: 'Практические навыки и рост эффективности',
+      description: 'В групповой работе студенты:',
+      skills: [
+        'развивают критическое и стратегическое мышление,',
+        'учатся публично выступать,',
+        'учатся спорить конструктивно,',
+        'принимают решения и видят последствия в безопасной среде,',
+        'пробуют разные управленческие модели,',
+        'переносят полученный опыт в реальную работу уже на следующий день.'
+      ],
+      conclusion: 'Кейсы расширяют кругозор, учат ставить долгосрочные цели и выстраивать стратегию развития — как в карьере, так и в жизни.'
+    },
+    investmentInLeadership: {
+      title: 'Инвестиции в вас — фундамент вашего будущего лидерства',
+      intro: 'Когда вы понимаете почему компания инвестирует именно в вас, вы начинаете глубже понимать:',
+      understanding: [
+        'что формирует ценность человека,',
+        'почему одни становятся лидерами, а другие — нет,',
+        'как работает логика корпоративных инвестиций,',
+        'что означает настоящая ответственность за собственное развитие.'
+      ],
+      futureLeadership: {
+        title: 'И однажды, когда вы сами займёте руководящую позицию, вы будете точно понимать:',
+        description: '',
+        points: [
+          'в кого и почему нужно инвестировать,',
+          'какие сотрудники действительно стремятся к росту и готовы брать на себя ответственность,',
+          'как формировать сильную команду и создавать среду, где люди растут.'
+        ]
+      },
+      conclusion: 'Понимание того, что сегодня кто-то инвестирует в вас, формирует в вас другой тип мышления — мышление лидера, который не только развивается сам, но и умеет развивать других. Потому что настоящее лидерство всегда про тех, кого вы поднимаете вместе с собой. А образование — самый мощный инструмент, который позволяет человеку вырасти, раскрыть потенциал и изменить свою жизнь.'
+    },
     certificates: {
       title: 'Certificates',
       description1: 'Students who successfully complete the program may receive an official certificate confirming participation in a case analysis program based on licensed Harvard Business School materials.',
@@ -919,6 +1206,241 @@ export const defaultContent: SiteContent = {
     ],
     cta: {
       buttonText: 'Apply Now'
+    }
+  },
+  forCorporateClientsPage: {
+    hero: {
+      title: 'For Corporate Clients',
+      subtitle: 'Что получают собственники компаний',
+      description: 'Неважно, есть ли у вашей компании корпоративный университет, учебный центр или отдельный отдел обучения — мы можем создать полноценную образовательную систему под ваши задачи и внедрить Case Learning Path для ваших сотрудников.'
+    },
+    whyCaseMethodWorks: {
+      title: 'Почему кейс-метод эффективнее',
+      description: 'Кейс-обучение позволяет студенту не просто получать информацию, а проживать реальную ситуацию и принимать решения так, как это делает лидер компании. Во время анализа кейса студент фактически оказывается в кресле героя, оценивает риски, выбирает стратегию и несёт ответственность за принятие решений.',
+      list: [
+        'стратегическое мышление,',
+        'способность анализировать сложные ситуации,',
+        'умение аргументировать и защищать свою позицию,',
+        'навыки командного обсуждения,',
+        'уверенность в управленческих решениях.'
+      ],
+      conclusion: 'Кейс-метод превращает обучение в практический опыт, максимально приближённый к реальному бизнесу.'
+    },
+    whatEducationGives: {
+      title: 'Что даёт такое образование студентам и компаниям',
+      points: [
+        'глубокое понимание бизнеса с разных сторон — права, экономики, стратегии и управления;',
+        'способность адаптировать международные практики под местные условия;',
+        'международное мышление, подкреплённое практическим опытом;',
+        'обучение по мировым стандартам кейс-метода;',
+        'уверенность, что преподаватель использует только лицензированные материалы и собственный международный опыт.'
+      ]
+    },
+    trainingFormatsTitle: 'Форматы обучения',
+    trainingFormats: [
+      {
+        title: 'Индивидуально разработанный курс под цели компании',
+        description: 'Мы создаём обучающую программу, учитывая специфику вашей отрасли, уровень сотрудников, стратегические задачи бизнеса, корпоративную культуру, требования руководства. Курс формируется так же, как в ведущих бизнес-школах, но адаптируется под реалии вашей компании.',
+        idealFor: 'Мы учитываем:',
+        list: [
+          'специфику вашей отрасли,',
+          'уровень сотрудников,',
+          'стратегические задачи бизнеса,',
+          'корпоративную культуру,',
+          'требования руководства.'
+        ]
+      },
+      {
+        title: 'Корпоративная система Case Learning Path',
+        description: 'Мы организуем для вашей компании полноценный путь обучения: подбор кейсов по нужным темам (лидерство, продажи, стратегия, управление людьми и др.); определение уровня групп; постоянное обучение по кейсам 1–2 раза в месяц; создание управленческой "внутренней школы" для вашего персонала; рост управленческих навыков сотрудников на всех уровнях. Это модель, по которой обучаются сотрудники крупных международных корпораций.',
+        idealFor: 'Мы организуем:',
+        list: [
+          'подбор кейсов по нужным темам (лидерство, продажи, стратегия, управление людьми и др.);',
+          'определение уровня групп;',
+          'постоянное обучение по кейсам 1–2 раза в месяц;',
+          'создание управленческой "внутренней школы" для вашего персонала;',
+          'рост управленческих навыков сотрудников на всех уровнях.'
+        ]
+      },
+      {
+        title: 'Сертификация',
+        description: 'По вашему выбору: выдаём сертификаты вашего корпоративного образца, или сертификаты университета-партнёра (Caspian Business School). В обоих случаях каждый участник получает именной Case Book — сборник изученных кейсов, оформленный по международным нормам.',
+        idealFor: 'Каждый участник получает:',
+        list: [
+          'сертификат вашего корпоративного образца или сертификат университета-партнёра,',
+          'именной Case Book — сборник изученных кейсов, оформленный по международным нормам.'
+        ]
+      },
+      {
+        title: 'Формат Customer Program — как в топовых бизнес-школах',
+        description: 'Во многих бизнес-школах мира существует формат Customer Program — обучение, разработанное под одну конкретную компанию. Мы реализуем аналогичный стандарт: отдельные программы для топ-менеджеров, для руководителей среднего звена, для специалистов и высокопотенциальных сотрудников. Каждый уровень получает кейсы под свои задачи, сложности и зону развития.',
+        idealFor: 'Мы предлагаем программы для:',
+        list: [
+          'топ-менеджеров,',
+          'руководителей среднего звена,',
+          'специалистов и высокопотенциальных сотрудников.'
+        ]
+      },
+      {
+        title: 'Преимущества для собственника и бизнеса',
+        description: 'Вы получаете: развитие сотрудников без необходимости создавать собственный учебный центр; повышение качества решений в компании; формирование команды с глобальным типом мышления; снижение ошибок, связанных с неопытностью или узким видением; улучшение корпоративной культуры и коммуникаций; повышение привлекательности компании как работодателя; создание среды, где сотрудники развиваются системно и регулярно.',
+        idealFor: 'Вы получаете:',
+        list: [
+          'развитие сотрудников без необходимости создавать собственный учебный центр;',
+          'повышение качества решений в компании;',
+          'формирование команды с глобальным типом мышления;',
+          'снижение ошибок, связанных с неопытностью или узким видением;',
+          'улучшение корпоративной культуры и коммуникаций;',
+          'повышение привлекательности компании как работодателя;',
+          'создание среды, где сотрудники развиваются системно и регулярно.'
+        ]
+      },
+      {
+        title: 'Обучение без отрыва от бизнеса',
+        description: 'В отличие от зарубежных программ, сотрудники учатся без выезда за границу, без долгих отлучек с работы, в формате, встроенном в рабочий график. Это особенно важно для компаний, где ключевые люди всегда должны быть на месте.',
+        idealFor: 'Сотрудники учатся:',
+        list: [
+          'без выезда за границу,',
+          'без долгих отлучек с работы,',
+          'в формате, встроенном в рабочий график.'
+        ]
+      },
+      {
+        title: 'Почему бизнес-образование — это инвестиция в людей и будущее компании',
+        description: 'Современное бизнес-образование стоит недёшево, а доступ к международным материалам чаще всего возможен только на английском языке. Поэтому компании инвестируют в обучение не всех сотрудников, а только самых перспективных и мотивированных — тех, кто способен расти, брать ответственность и приносить больше пользы бизнесу. Когда руководство принимает решение оплатить обучение, это означает: «Мы видим в тебе потенциал и готовы инвестировать в твоё развитие». Это взаимовыгодная модель: компания помогает сотруднику расти, сотрудник повышает свою ценность, компетентность и уверенность, организация получает сильных людей, которые принимают лучшие решения и двигают бизнес вперёд.',
+        idealFor: 'Это взаимовыгодная модель:',
+        list: [
+          'компания помогает сотруднику расти,',
+          'сотрудник повышает свою ценность, компетентность и уверенность,',
+          'организация получает сильных людей, которые принимают лучшие решения и двигают бизнес вперёд.'
+        ]
+      },
+      {
+        title: 'Актуальное обучение на современных кейсах',
+        description: 'Мы формируем подборку кейсов не ранее 2020 года, чтобы обучение отражало реальную динамику современного мира. Слушатели работают с кейсами по направлениям: стратегия, финансы, маркетинг, HR, продажи, лидерство, экономика, что поддерживает мозг в режиме постоянного анализа и формирует глобальное управленческое мышление.',
+        idealFor: 'Слушатели работают с кейсами по направлениям:',
+        list: [
+          'стратегия,',
+          'финансы,',
+          'маркетинг,',
+          'HR,',
+          'продажи,',
+          'лидерство,',
+          'экономика.'
+        ]
+      },
+      {
+        title: 'Практические навыки и рост эффективности сотрудников',
+        description: 'В групповой работе сотрудники развивают критическое и стратегическое мышление, учатся публично выступать, учатся спорить конструктивно, принимают решения и видят последствия в безопасной среде, пробуют разные управленческие модели, переносят полученный опыт в реальную работу уже на следующий день. Кейсы расширяют кругозор, учат ставить долгосрочные цели и выстраивать стратегию развития — как в карьере, так и в жизни.',
+        idealFor: 'В групповой работе сотрудники:',
+        list: [
+          'развивают критическое и стратегическое мышление,',
+          'учатся публично выступать,',
+          'учатся спорить конструктивно,',
+          'принимают решения и видят последствия в безопасной среде,',
+          'пробуют разные управленческие модели,',
+          'переносят полученный опыт в реальную работу уже на следующий день.'
+        ]
+      },
+      {
+        title: 'Инвестиции в вас — фундамент вашего будущего лидерства',
+        description: 'Когда вы понимаете почему компания инвестирует именно в вас, вы начинаете глубже понимать что формирует ценность человека, почему одни становятся лидерами, а другие — нет, как работает логика корпоративных инвестиций, что означает настоящая ответственность за собственное развитие. И однажды, когда вы сами займёте руководящую позицию, вы будете точно понимать в кого и почему нужно инвестировать, какие сотрудники действительно стремятся к росту и готовы брать на себя ответственность, как формировать сильную команду и создавать среду, где люди растут. Понимание того, что сегодня кто-то инвестирует в вас, формирует в вас другой тип мышления — мышление лидера, который не только развивается сам, но и умеет развивать других. Потому что настоящее лидерство всегда про тех, кого вы поднимаете вместе с собой. А образование — самый мощный инструмент, который позволяет человеку вырасти, раскрыть потенциал и изменить свою жизнь.',
+        idealFor: 'Вы начинаете понимать:',
+        list: [
+          'что формирует ценность человека,',
+          'почему одни становятся лидерами, а другие — нет,',
+          'как работает логика корпоративных инвестиций,',
+          'что означает настоящая ответственность за собственное развитие.'
+        ]
+      }
+    ],
+    sampleCasesTitle: 'Примеры кейсов',
+    sampleCases: [
+      {
+        title: 'Стратегия',
+        description: 'Кейсы по стратегии помогают развивать стратегическое мышление и принимать решения на уровне топ-менеджмента.'
+      },
+      {
+        title: 'Финансы',
+        description: 'Финансовые кейсы развивают навыки анализа данных, оценки рисков и принятия финансовых решений.'
+      },
+      {
+        title: 'Маркетинг',
+        description: 'Маркетинговые кейсы учат понимать клиентов, разрабатывать стратегии продвижения и управлять брендом.'
+      },
+      {
+        title: 'HR',
+        description: 'HR-кейсы помогают развивать навыки управления персоналом, мотивации команды и построения корпоративной культуры.'
+      },
+      {
+        title: 'Продажи',
+        description: 'Кейсы по продажам развивают навыки переговоров, работы с клиентами и управления продажами.'
+      },
+      {
+        title: 'Лидерство',
+        description: 'Кейсы по лидерству помогают развивать навыки управления командой, принятия решений в условиях неопределённости и мотивации сотрудников.'
+      },
+      {
+        title: 'Экономика',
+        description: 'Экономические кейсы развивают понимание макроэкономических процессов и их влияния на бизнес.'
+      }
+    ],
+    businessResultsTitle: 'Результаты для бизнеса',
+    businessResults: [
+      {
+        title: 'Strategic',
+        description: 'Участники улучшают способность мыслить стратегически, видеть долгосрочные последствия и принимать решения, соответствующие долгосрочным бизнес-целям.',
+        metrics: [
+          { value: 'Расширенное', label: 'Strategic Vision', sub: 'Улучшение долгосрочного мышления' },
+          { value: 'Повышенное', label: 'Decision Quality', sub: 'Лучшее соответствие целям' }
+        ]
+      },
+      {
+        title: 'Decision-Making',
+        description: 'Менеджеры развивают уверенность и структурированность в принятии решений, практикуя реальные бизнес-сценарии. Они учатся анализировать сложность, оценивать риски и обосновывать решения под давлением.',
+        metrics: [
+          { value: 'Укреплённая', label: 'Confidence Gain', sub: 'В принятии решений' },
+          { value: 'Улучшенная', label: 'Risk Assessment', sub: 'Улучшение навыков анализа' }
+        ]
+      },
+      {
+        title: 'Leadership',
+        description: 'Обсуждения кейсов укрепляют лидерское присутствие, ответственность и межкомандное сотрудничество. Менеджеры общаются более чётко, эффективно вовлекают команды и снижают стратегические и операционные ошибки.',
+        metrics: [
+          { value: 'Активное', label: 'Team Engagement', sub: 'Улучшение сотрудничества' },
+          { value: 'Сниженное', label: 'Error Reduction', sub: 'Меньше стратегических ошибок' }
+        ]
+      }
+    ],
+    faqTitle: 'Часто задаваемые вопросы',
+    faq: [
+      {
+        question: 'Как долго длится программа обучения для корпоративных клиентов?',
+        answer: 'Длительность программы зависит от выбранного формата и количества кейсов. Обычно программы рассчитаны на 3-6 месяцев с регулярными занятиями 1-2 раза в неделю. Мы можем адаптировать программу под ваши потребности и график работы сотрудников.'
+      },
+      {
+        question: 'Можно ли проводить обучение на рабочем месте?',
+        answer: 'Да, мы предлагаем гибкие форматы обучения, включая проведение занятий на территории вашей компании. Это позволяет сотрудникам учиться без отрыва от работы и применять полученные знания сразу в практической деятельности.'
+      },
+      {
+        question: 'Какие кейсы используются в программе?',
+        answer: 'Мы используем оригинальные кейсы Harvard Business School и London Business School, отобранные нашим сертифицированным преподавателем. Все кейсы не ранее 2020 года и охватывают различные направления: стратегия, финансы, маркетинг, HR, продажи, лидерство и экономику.'
+      },
+      {
+        question: 'Как формируются группы для обучения?',
+        answer: 'Группы формируются с учетом уровня участников, их управленческого опыта и должностных позиций. Мы предлагаем отдельные программы для топ-менеджеров, руководителей среднего звена и специалистов. Состав групп может быть адаптирован под ваши корпоративные потребности.'
+      },
+      {
+        question: 'Какие результаты можно ожидать от программы?',
+        answer: 'Участники развивают стратегическое мышление, улучшают качество принятия решений, укрепляют лидерские навыки и повышают эффективность командной работы. Компания получает команду с глобальным типом мышления, улучшенной корпоративной культурой и снижением ошибок, связанных с неопытностью.'
+      },
+      {
+        question: 'Предоставляются ли сертификаты по окончании программы?',
+        answer: 'Да, каждый участник, успешно прошедший программу, получает международный сертификат с официальной надписью Harvard Business Publishing Education, подтверждающий обучение с использованием оригинальных материалов Harvard Business School.'
+      }
+    ],
+    cta: {
+      buttonText: 'Связаться с нами'
     }
   }
 }

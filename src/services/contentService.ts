@@ -26,17 +26,28 @@ export const contentService = {
 
       if (error) {
         console.error('Error fetching content:', error)
-        // Fallback на localStorage при ошибке
+        // Если ошибка "не найдено" (PGRST116) - удаляем кэш и возвращаем defaultContent
+        if (error.code === 'PGRST116' || error.message?.includes('No rows')) {
+          localStorage.removeItem(localStorageKey)
+          return defaultContent
+        }
+        // Для других ошибок - fallback на localStorage
         const stored = localStorage.getItem(localStorageKey)
         return stored ? JSON.parse(stored) : defaultContent
       }
 
-      // Кэшируем в localStorage на случай offline
-      localStorage.setItem(localStorageKey, JSON.stringify(data.data))
-      
-      return data.data as SiteContent
+      // Если данные есть - кэшируем в localStorage на случай offline
+      if (data && data.data) {
+        localStorage.setItem(localStorageKey, JSON.stringify(data.data))
+        return data.data as SiteContent
+      }
+
+      // Если данных нет - удаляем кэш и возвращаем defaultContent
+      localStorage.removeItem(localStorageKey)
+      return defaultContent
     } catch (error) {
       console.error('Unexpected error:', error)
+      // При неожиданной ошибке - fallback на localStorage
       const stored = localStorage.getItem(localStorageKey)
       return stored ? JSON.parse(stored) : defaultContent
     }

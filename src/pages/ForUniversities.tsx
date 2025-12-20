@@ -1,16 +1,23 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import TopBar from '../components/TopBar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../components/ui/accordion'
 import { useContent } from '../hooks/useContentQuery'
 import { useLanguage } from '../contexts/LanguageContext'
-import { defaultContent } from '../types/content'
+import { defaultContent, ForUniversitiesBenefit } from '../types/content'
 
 const ForUniversities = () => {
   const { language } = useLanguage()
   const { data: content } = useContent(language)
   const location = useLocation()
+  const [selectedBenefit, setSelectedBenefit] = useState<ForUniversitiesBenefit | null>(null)
 
   // Плавный скролл к hero section при переходе по ссылке с якорем
   useEffect(() => {
@@ -48,6 +55,36 @@ const ForUniversities = () => {
 
   const integrationFormats = getIntegrationFormats()
   const processSteps = getProcessSteps()
+
+  // Блокировка скролла при открытии модального окна
+  useEffect(() => {
+    if (selectedBenefit) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedBenefit])
+
+  // Функция для получения краткого текста - только ключевая информация
+  const getShortDescription = (description: string) => {
+    // Берем только первое предложение или первые 80-100 символов
+    const firstSentenceEnd = description.indexOf('.')
+    if (firstSentenceEnd > 0 && firstSentenceEnd < 100) {
+      return description.substring(0, firstSentenceEnd + 1)
+    }
+    // Если первое предложение слишком длинное, берем первые 80 символов
+    if (description.length > 80) {
+      const cutPoint = description.substring(0, 80).lastIndexOf(' ')
+      if (cutPoint > 50) {
+        return description.substring(0, cutPoint) + '...'
+      }
+      return description.substring(0, 70) + '...'
+    }
+    return description
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -97,27 +134,35 @@ const ForUniversities = () => {
                     </h2>
                   </div>
                   <div className="grid grid-cols-4 gap-6">
-                    {(pageContent.benefits || []).map((benefit, index) => (
-                      <div key={index} className="bg-white p-6 lg:p-8 rounded-lg shadow-lg">
-                        <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3">
-                          {benefit.title}
-                        </h3>
-                        <div className="w-12 h-0.5 bg-[#DD0000] mb-4"></div>
-                        <p className="text-sm lg:text-base text-gray-700 mb-3 leading-relaxed">
-                          {benefit.description}
-                        </p>
-                        {benefit.list && benefit.list.length > 0 && (
-                          <ul className="space-y-1 text-sm lg:text-base text-gray-700">
-                            {benefit.list.map((item, idx) => (
-                              <li key={idx} className="flex items-start">
-                                <span className="text-gray-700 mr-2 flex-shrink-0">—</span>
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
+                    {(pageContent.benefits || []).map((benefit, index) => {
+                      const isLongText = benefit.description.length > 80 || (benefit.list && benefit.list.length > 0)
+                      const shortDescription = getShortDescription(benefit.description)
+                      
+                      return (
+                        <div key={index} className="bg-white p-6 lg:p-8 rounded-lg shadow-lg flex flex-col h-full">
+                          <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3 min-h-[3rem] flex items-start">
+                            {benefit.title}
+                          </h3>
+                          <div className="w-12 h-0.5 bg-[#DD0000] mb-4 flex-shrink-0"></div>
+                          <div className="flex-grow flex flex-col">
+                            <p className="text-sm lg:text-base text-gray-700 mb-3 leading-relaxed min-h-[3rem]">
+                              {isLongText ? shortDescription : benefit.description}
+                            </p>
+                            <div className="mt-auto pt-2">
+                              {isLongText && (
+                                <button
+                                  onClick={() => setSelectedBenefit(benefit)}
+                                  className="text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
+                                >
+                                  {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
+                                  <span>→</span>
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               </div>
@@ -125,27 +170,35 @@ const ForUniversities = () => {
               {/* Cards - только на мобильных ниже изображения */}
               <div className="lg:hidden mt-4 sm:mt-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {(pageContent.benefits || []).map((benefit, index) => (
-                    <div key={index} className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                      <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3">
-                        {benefit.title}
-                      </h3>
-                      <div className="w-10 sm:w-12 h-0.5 bg-[#DD0000] mb-2 sm:mb-3"></div>
-                      <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 leading-relaxed">
-                        {benefit.description}
-                      </p>
-                      {benefit.list && benefit.list.length > 0 && (
-                        <ul className="space-y-1 text-xs sm:text-sm text-gray-700">
-                          {benefit.list.map((item, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <span className="text-gray-700 mr-2 flex-shrink-0">—</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  ))}
+                  {(pageContent.benefits || []).map((benefit, index) => {
+                    const isLongText = benefit.description.length > 80 || (benefit.list && benefit.list.length > 0)
+                    const shortDescription = getShortDescription(benefit.description)
+                    
+                    return (
+                      <div key={index} className="bg-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col h-full">
+                        <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 min-h-[2.5rem] flex items-start">
+                          {benefit.title}
+                        </h3>
+                        <div className="w-10 sm:w-12 h-0.5 bg-[#DD0000] mb-2 sm:mb-3 flex-shrink-0"></div>
+                        <div className="flex-grow flex flex-col">
+                          <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 leading-relaxed min-h-[2.5rem]">
+                            {isLongText ? shortDescription : benefit.description}
+                          </p>
+                          <div className="mt-auto pt-2">
+                            {isLongText && (
+                              <button
+                                onClick={() => setSelectedBenefit(benefit)}
+                                className="text-xs sm:text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
+                              >
+                                {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
+                                <span>→</span>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -341,6 +394,79 @@ const ForUniversities = () => {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 sm:mb-12 relative inline-block">
+              <span className="absolute -top-6 sm:-top-8 left-0 w-full h-0.5 bg-[#DD0000]"></span>
+              {pageContent.faqTitle}
+            </h2>
+            
+            <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+              {pageContent.faq.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index + 1}`} className="border-b border-gray-200 pb-4">
+                  <AccordionTrigger className="text-left text-lg sm:text-xl font-semibold py-4 hover:no-underline text-gray-900 data-[state=open]:text-[#DD0000] group">
+                    <span className="mr-4 font-bold text-gray-400 group-data-[state=open]:text-[#DD0000]">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base sm:text-lg text-gray-700 pt-4">
+                    <div className="bg-white border-2 border-[#DD0000] rounded-lg p-4 sm:p-6">
+                      {item.answer}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Modal for Benefit Details */}
+      {selectedBenefit && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4 animate-fadeIn"
+          onClick={() => setSelectedBenefit(null)}
+        >
+          <div 
+            className="bg-gray-50 rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 sm:p-6 lg:p-8 xl:p-12">
+              <button
+                onClick={() => setSelectedBenefit(null)}
+                className="mb-4 text-gray-600 hover:text-gray-900 transition flex items-center gap-2 text-sm font-semibold"
+              >
+                <span>←</span>
+                {language === 'ru' ? 'Назад' : language === 'kz' ? 'Артқа' : 'Back'}
+              </button>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                {selectedBenefit.title}
+              </h2>
+              <div className="w-12 h-0.5 bg-[#DD0000] mb-6"></div>
+              
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
+                {selectedBenefit.description}
+              </p>
+
+              {selectedBenefit.list && selectedBenefit.list.length > 0 && (
+                <ul className="space-y-2 text-base sm:text-lg text-gray-700">
+                  {selectedBenefit.list.map((item, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-gray-700 mr-2 flex-shrink-0">—</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
