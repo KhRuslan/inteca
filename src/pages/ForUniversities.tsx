@@ -206,6 +206,35 @@ const ForUniversities = () => {
         </div>
       </section>
 
+      {/* Additional Benefits Section */}
+      {pageContent.additionalBenefitsTitle && pageContent.additionalBenefits && pageContent.additionalBenefits.length > 0 && (
+        <section className="py-8 sm:py-12 lg:py-16 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 lg:mb-12">
+                {pageContent.additionalBenefitsTitle}
+              </h2>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                {pageContent.additionalBenefits.map((benefit, index) => (
+                  <div key={index} className="bg-white p-6 lg:p-8 rounded-lg shadow-lg flex flex-col h-full border-2 border-gray-100 hover:border-[#DD0000] transition-all">
+                    <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3 min-h-[3rem] flex items-start">
+                      {benefit.title}
+                    </h3>
+                    <div className="w-12 h-0.5 bg-[#DD0000] mb-4 flex-shrink-0"></div>
+                    <div className="flex-grow flex flex-col">
+                      <p className="text-sm lg:text-base text-gray-700 leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Integration Formats Section */}
       <section className="py-8 sm:py-12 lg:py-16 xl:py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6">

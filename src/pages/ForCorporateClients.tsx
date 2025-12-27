@@ -317,28 +317,67 @@ const ForCorporateClients = () => {
 
             {/* Unified black block with content and image */}
             <div className="bg-black rounded-lg overflow-hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-0">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-0 items-stretch">
                 {/* Left: Content block */}
-                <div className="text-white p-6 sm:p-8 lg:p-10">
-                  <div className="space-y-6 sm:space-y-8">
-                    {pageContent.sampleCases.map((example, index) => (
-                      <div key={index} className="group">
-                        <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0 w-12 h-12 bg-[#DD0000] rounded-lg flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform">
-                            {index + 1}
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-[#DD0000] transition-colors">
-                              {example.title}
-                            </h3>
-                            <div className="w-12 h-0.5 bg-[#DD0000] mb-3"></div>
-                            <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                              {example.description}
+                <div className="text-white p-8 sm:p-10 lg:p-12 xl:p-16 flex flex-col h-full">
+                  <div className="flex flex-col h-full justify-center">
+                    {pageContent.sampleCases.map((example, index) => {
+                      // Разбиваем описание на части для красивого оформления
+                      const description = example.description
+                      const parts = description.split('—')
+                      const beforeDash = parts[0] || ''
+                      const afterDash = parts.slice(1).join('—') || ''
+                      
+                      // Извлекаем список направлений
+                      const directionsMatch = beforeDash.match(/Изучая кейсы по ключевым направлениям:\s*([\s\S]*?)(?:\n—|$)/)
+                      const directionsText = directionsMatch ? directionsMatch[1] : ''
+                      const directions = directionsText
+                        .split('\n')
+                        .map(d => d.trim())
+                        .filter(d => d && !d.startsWith('—'))
+                      
+                      const introText = beforeDash.split('Изучая кейсы по ключевым направлениям:')[0] || 'Изучая кейсы по ключевым направлениям:'
+                      
+                      return (
+                        <div key={index} className="group">
+                          {example.title && (
+                            <>
+                              <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-white">
+                                {example.title}
+                              </h3>
+                              <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-4 sm:mb-6"></div>
+                            </>
+                          )}
+                          <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white leading-relaxed">
+                            <p className="mb-6 sm:mb-8 font-semibold">
+                              {introText}
                             </p>
+                            {directions.length > 0 && (
+                              <ul className="list-none space-y-3 sm:space-y-4 mb-6 sm:mb-8 pl-0">
+                                {directions.map((direction, dirIndex) => (
+                                  <li key={dirIndex} className="flex items-start">
+                                    <span className="text-[#DD0000] mr-4 sm:mr-5 font-bold text-2xl sm:text-3xl flex-shrink-0 mt-1">•</span>
+                                    <span className="text-white text-lg sm:text-xl lg:text-2xl">{direction.replace(/,$/, '')}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                            {afterDash && (
+                              <>
+                                <p className="mb-4 sm:mb-6 text-white text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                                  — {afterDash.split('\n')[0]?.trim()}
+                                </p>
+                                {afterDash.split('\n').slice(1).filter(p => p.trim()).map((paragraph, pIndex) => (
+                                  <p key={pIndex} className="mb-4 sm:mb-6 text-white text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                                    {paragraph.trim()}
+                                  </p>
+                                ))}
+                              </>
+                            )}
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
 

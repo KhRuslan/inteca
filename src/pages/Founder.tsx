@@ -112,7 +112,7 @@ const Founder = () => {
           <div className="max-w-6xl mx-auto">
             {/* Title */}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
-              {founderPage.practitionerTitle}. {founderPage.practitionerSubtitle}
+              {founderPage.practitionerTitle ? `${founderPage.practitionerTitle}. ` : ''}{founderPage.practitionerSubtitle}
             </h2>
             <div className="border-t-4 border-[#DD0000] w-32 sm:w-48 mb-8 sm:mb-12"></div>
 
@@ -131,14 +131,7 @@ const Founder = () => {
                   <p className="text-xs sm:text-sm lg:text-base mb-4 sm:mb-6 leading-relaxed flex-grow">
                     {card.description}
                   </p>
-                  <div className="border-t border-gray-700 w-full mb-3 sm:mb-4"></div>
-                  <Link 
-                    to="/methodology#hero"
-                    className="text-xs sm:text-sm lg:text-base font-semibold hover:underline flex items-center gap-2"
-                  >
-                    {card.linkText}
-                    <span>→</span>
-                  </Link>
+                  {/* Убрана ссылка, так как информация уже полная в карточке */}
                 </div>
               ))}
             </div>
@@ -146,46 +139,125 @@ const Founder = () => {
         </div>
       </section>
 
+      {/* International Certificates Section */}
+      {founderPage.internationalCertificates && (
+        <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              {/* Title */}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
+                {founderPage.internationalCertificates.title}
+              </h2>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 sm:mb-6">
+                {founderPage.internationalCertificates.subtitle}
+              </h3>
+              <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-6 sm:mb-8"></div>
+
+              {/* Description */}
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
+                {founderPage.internationalCertificates.description}
+              </p>
+
+              {/* Certificate Text Box */}
+              <div className="bg-white border-2 border-[#DD0000] rounded-lg p-6 sm:p-8 mb-6 sm:mb-8 shadow-lg">
+                <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed italic font-medium">
+                  "{founderPage.internationalCertificates.certificateText}"
+                </p>
+              </div>
+
+              {/* Conclusion */}
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                {founderPage.internationalCertificates.conclusion}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Teacher Role in Case Learning Section */}
+      {founderPage.teacherRoleInCaseLearning && (
+        <section className="py-12 sm:py-16 lg:py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              {/* Title */}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+                {founderPage.teacherRoleInCaseLearning.title}
+              </h2>
+              <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-6 sm:mb-8"></div>
+
+              {/* Introduction */}
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-8 sm:mb-10">
+                {founderPage.teacherRoleInCaseLearning.introduction}
+              </p>
+
+              {/* Steps */}
+              <div className="space-y-6 sm:space-y-8">
+                {founderPage.teacherRoleInCaseLearning.steps.map((step, index) => {
+                  const descriptionParts = step.description.split('\n')
+                  const mainDescription = descriptionParts[0]
+                  const bulletPoints = descriptionParts.slice(1).filter(p => p.trim())
+
+                  return (
+                    <div key={index} className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                        {step.title}
+                      </h3>
+                      {mainDescription && (
+                        <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-2">
+                          {mainDescription}
+                        </p>
+                      )}
+                      {bulletPoints.length > 0 && (
+                        <ul className="list-none space-y-2 sm:space-y-3 mt-3 sm:mt-4 pl-0">
+                          {bulletPoints.map((point, pIndex) => (
+                            <li key={pIndex} className="flex items-start">
+                              <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                              <span className="text-base sm:text-lg text-gray-700">{point.trim()}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Certificates Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {/* Certificate 1 */}
-              <div className="aspect-[3/4] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition">
-                <img
-                  src="/cerf1.jpg"
-                  alt="Certificate 1"
-                  className="w-full h-full object-contain bg-white"
-                />
-              </div>
+              <img
+                src="/cerf1.jpg"
+                alt="Certificate 1"
+                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+              />
 
               {/* Certificate 2 */}
-              <div className="aspect-[3/4] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition">
-                <img
-                  src="/cerf2.PNG"
-                  alt="Certificate 2"
-                  className="w-full h-full object-contain bg-white"
-                />
-              </div>
+              <img
+                src="/cerf.png"
+                alt="Certificate 2"
+                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+              />
 
               {/* Certificate 3 */}
-              <div className="aspect-[3/4] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition">
-                <img
-                  src="/cerf3.jpg"
-                  alt="Certificate 3"
-                  className="w-full h-full object-contain bg-white"
-                />
-              </div>
+              <img
+                src="/cerf3.jpg"
+                alt="Certificate 3"
+                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+              />
 
               {/* Certificate 4 */}
-              <div className="aspect-[3/4] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition">
-                <img
-                  src="/cerft4.jpg"
-                  alt="Certificate 4"
-                  className="w-full h-full object-contain bg-white"
-                />
-              </div>
+              <img
+                src="/cerft4.jpg"
+                alt="Certificate 4"
+                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+              />
             </div>
           </div>
         </div>
@@ -254,7 +326,7 @@ const Founder = () => {
               </div>
 
               {/* Why Experience Important for Case Learning */}
-              <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg">
+              <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg mb-6 sm:mb-8">
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 pb-2 relative">
                   {founderPage.biography.whyExperienceImportant.title}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
@@ -271,6 +343,58 @@ const Founder = () => {
                   {founderPage.biography.whyExperienceImportant.conclusion}
                 </p>
               </div>
+
+              {/* PreMBA Program Section */}
+              {founderPage.preMBAProgram && (
+                <div className="bg-black text-white rounded-lg overflow-hidden shadow-xl">
+                  <div className="p-6 sm:p-8 lg:p-10 xl:p-12">
+                    {/* Program Title */}
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 pb-2 relative text-white">
+                      {founderPage.preMBAProgram.title}
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed mb-6 sm:mb-8">
+                      {founderPage.preMBAProgram.description}
+                    </p>
+
+                    {/* Participants */}
+                    <div className="bg-gray-900 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+                      <p className="text-base sm:text-lg lg:text-xl font-semibold text-white">
+                        {founderPage.preMBAProgram.participants}
+                      </p>
+                    </div>
+
+                    {/* Role */}
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed mb-6 sm:mb-8">
+                      {founderPage.preMBAProgram.role}
+                    </p>
+
+                    {/* Disciplines */}
+                    <div className="mb-6 sm:mb-8">
+                      <p className="text-sm sm:text-base lg:text-lg font-semibold text-white mb-4 sm:mb-6">
+                        Он лично ведёт три ключевые дисциплины:
+                      </p>
+                      <ul className="space-y-3 sm:space-y-4">
+                        {founderPage.preMBAProgram.disciplines.map((discipline, index) => (
+                          <li key={index} className="flex items-start">
+                            <span className="text-[#DD0000] mr-4 sm:mr-5 font-bold text-lg sm:text-xl flex-shrink-0 mt-1">•</span>
+                            <span className="text-white text-base sm:text-lg lg:text-xl">{discipline}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Conclusion */}
+                    <div className="border-t border-gray-700 pt-6 sm:pt-8">
+                      <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed italic">
+                        {founderPage.preMBAProgram.conclusion}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

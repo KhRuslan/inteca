@@ -59,3 +59,7 @@ location.reload()
 
 Теперь приложение автоматически удаляет кэш localStorage, если данных нет в Supabase (код обновлён в `contentService.ts`).
 
+
+
+
+

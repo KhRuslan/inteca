@@ -49,3 +49,7 @@ location.reload()
 1. Данные из Supabase (если они есть)
 2. Или defaultContent из кода (если данных в Supabase нет)
 
+
+
+
+

@@ -274,7 +274,7 @@ const ForStudents = () => {
               {/* Left: Text */}
               <div className="space-y-4 sm:space-y-6 flex flex-col h-full">
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-8">
-                  {forStudentsPage.certificates.title}
+                  {language === 'ru' ? 'Сертификаты' : language === 'kz' ? 'Сертификаттар' : forStudentsPage.certificates.title}
                 </h2>
                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed">
                   {forStudentsPage.certificates.description1}

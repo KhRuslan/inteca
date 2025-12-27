@@ -83,7 +83,7 @@ const MethodologyCases = () => {
       <Header />
 
       {/* Hero Section */}
-      <section id="hero" className="pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12 min-h-screen flex items-start bg-white">
+      <section id="hero" className="pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-10 lg:pb-12 min-h-screen flex items-start bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-start">
@@ -148,7 +148,7 @@ const MethodologyCases = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-8 sm:py-10 lg:py-12 bg-white">
+      <section className="pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto space-y-10">
             {methodologyPage.benefits.map((benefit, index) => {
@@ -235,8 +235,8 @@ const MethodologyCases = () => {
       {/* Methodology & Cases Section */}
       <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-12 text-center">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-12">
               {methodologyPage.casesTitle}
             </h2>
 
@@ -244,28 +244,71 @@ const MethodologyCases = () => {
               // Показываем только Case-Based English Development
               const englishCase = cases.find((c) => c.title === 'Case-Based English Development')
 
-              if (!englishCase) return null
+              if (!englishCase || !englishCase.fullContent) return null
+
+              const content = englishCase.fullContent
 
               return (
-                <div className="max-w-2xl mx-auto">
-                  <div 
-                    className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer h-full flex flex-col"
-                  >
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 border-b-2 border-[#DD0000] pb-2 inline-block">
-                      {englishCase.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 mt-4 leading-relaxed">
-                      {englishCase.description}
-                    </p>
-                    <div className="mt-auto pt-4">
-                      <button 
-                        onClick={() => setSelectedCase(englishCase)}
-                        className="text-sm font-semibold text-gray-900 hover:text-[#DD0000] transition flex items-center gap-2"
-                      >
-                        {englishCase.linkText}
-                        <span>→</span>
-                      </button>
+                <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-lg shadow-lg">
+                  {/* Title */}
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+                    {content.title}
+                  </h3>
+                  <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-6 sm:mb-8"></div>
+
+                  {/* Introduction */}
+                  <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-8 sm:mb-10">
+                    {content.introduction}
+                  </p>
+
+                  {/* How It Works Section */}
+                  <div className="mb-8 sm:mb-10">
+                    <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
+                      {content.howItWorksTitle}
+                    </h4>
+                    <div className="space-y-6 sm:space-y-8">
+                      {content.howItWorks.map((item, index) => {
+                        const descriptionParts = item.description.split('\n')
+                        const mainDescription = descriptionParts[0]
+                        const bulletPoints = descriptionParts.slice(1).filter(p => p.trim())
+
+                        return (
+                          <div key={index} className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
+                            <h5 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                              {item.title}
+                            </h5>
+                            <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-2">
+                              {mainDescription}
+                            </p>
+                            {bulletPoints.length > 0 && (
+                              <ul className="list-none space-y-2 sm:space-y-3 mt-3 sm:mt-4 pl-0">
+                                {bulletPoints.map((point, pIndex) => (
+                                  <li key={pIndex} className="flex items-start">
+                                    <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                                    <span className="text-base sm:text-lg text-gray-700">{point.trim()}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        )
+                      })}
                     </div>
+                  </div>
+
+                  {/* Why Effective Section */}
+                  <div className="border-t-2 border-gray-200 pt-6 sm:pt-8">
+                    <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
+                      {content.whyEffectiveTitle}
+                    </h4>
+                    <ul className="space-y-4 sm:space-y-5">
+                      {content.whyEffective.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                          <span className="text-base sm:text-lg text-gray-700 leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               )

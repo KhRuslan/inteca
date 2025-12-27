@@ -130,3 +130,7 @@ const ImageUpload = ({ currentImage, onImageChange, label = "Изображен�
 
 export default ImageUpload
 
+
+
+
+

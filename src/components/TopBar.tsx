@@ -39,16 +39,16 @@ const TopBar = () => {
   const links = navLinks[language]
 
   return (
-    <div className="bg-black text-white py-2">
+    <div className="bg-black text-white py-3 sm:py-4">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center gap-2">
           {/* Left side - Navigation links */}
           {/* Mobile: centered, no scroll */}
           {/* Desktop: left aligned */}
-          <div className="flex-1 lg:flex-initial flex items-center justify-center lg:justify-start gap-1.5 sm:gap-2 lg:gap-6 text-[10px] sm:text-xs lg:text-sm whitespace-nowrap">
-            <Link to="/for-universities" className="hover:text-gray-300 transition">{links.universities}</Link>
-            <Link to="/for-corporate-clients" className="hover:text-gray-300 transition">{links.corporate}</Link>
-            <Link to="/for-students" className="hover:text-gray-300 transition">{links.students}</Link>
+          <div className="flex-1 lg:flex-initial flex items-center justify-center lg:justify-start gap-3 sm:gap-4 lg:gap-8 text-sm sm:text-base lg:text-lg font-semibold whitespace-nowrap">
+            <Link to="/for-universities" className="hover:text-gray-300 transition text-white px-2 py-1 rounded hover:bg-gray-900">{links.universities}</Link>
+            <Link to="/for-corporate-clients" className="hover:text-gray-300 transition text-white px-2 py-1 rounded hover:bg-gray-900">{links.corporate}</Link>
+            <Link to="/for-students" className="hover:text-gray-300 transition text-white px-2 py-1 rounded hover:bg-gray-900">{links.students}</Link>
           </div>
 
           {/* Right side - Language selector (Desktop only) */}

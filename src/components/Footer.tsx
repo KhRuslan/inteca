@@ -16,7 +16,7 @@ const Footer = () => {
           founder: 'Основатель',
           cases: 'Кейсы',
           contactsLink: 'Контакты',
-          rights: '© 2025 iNTECA Все права защищены.'
+          rights: '© 2026 iNTECA Все права защищены.'
         }
       case 'kz':
         return {
@@ -28,7 +28,7 @@ const Footer = () => {
           founder: 'Негізін қалаушы',
           cases: 'Кейстер',
           contactsLink: 'Байланыс',
-          rights: '© 2025 iNTECA Барлық құқықтар қорғалған.'
+          rights: '© 2026 iNTECA Барлық құқықтар қорғалған.'
         }
       case 'en':
       default:
@@ -41,7 +41,7 @@ const Footer = () => {
           founder: 'Founder',
           cases: 'Cases',
           contactsLink: 'Contacts',
-          rights: '© 2025 iNTECA All rights reserved.'
+          rights: '© 2026 iNTECA All rights reserved.'
         }
     }
   }
@@ -74,7 +74,7 @@ const Footer = () => {
           {/* Contacts */}
           <div>
             <h3 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">{texts.contacts}</h3>
-            <p className="text-gray-300 mb-1 text-sm sm:text-base">info@inteca.org</p>
+            <p className="text-gray-300 mb-1 text-sm sm:text-base">Inteca.kz@gmail.com </p>
             <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">+7 (000) 000-00-00</p>
             <p className="text-gray-300 text-sm sm:text-base">LinkedIn · Instagram · YouTube</p>
           </div>
@@ -87,11 +87,14 @@ const Footer = () => {
                 <a href="/" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.home}</a>
                 <a href="/about" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.program}</a>
                 <a href="/blog" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.blog}</a>
+                <a href="/contacts" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.contactsLink}</a>
               </div>
               <div className="space-y-1.5 sm:space-y-2">
                 <a href="/founder" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.founder}</a>
                 <a href="/methodology" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.cases}</a>
-                <a href="/contacts" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{texts.contactsLink}</a>
+                <a href="/for-corporate-clients" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{language === 'ru' ? 'Для корпоративных клиентов' : language === 'kz' ? 'Корпоративтік клиенттер үшін' : 'For Corporate Clients'}</a>
+                <a href="/for-students" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{language === 'ru' ? 'Для студентов' : language === 'kz' ? 'Студенттер үшін' : 'For Students'}</a>
+                <a href="/for-universities" className="block text-sm sm:text-base text-gray-300 hover:text-white transition">{language === 'ru' ? 'Для университетов' : language === 'kz' ? 'Университеттер үшін' : 'For Universities'}</a>
               </div>
             </div>
           </div>

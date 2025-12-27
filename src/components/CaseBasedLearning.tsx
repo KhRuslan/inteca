@@ -27,7 +27,41 @@ const CaseBasedLearning = () => {
               {caseContent.title}
             </h2>
             <p className="text-sm sm:text-base lg:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-              {caseContent.description}
+              {(() => {
+                const shortPhrase = 'Если лекция показывает о чём думать, то кейс-метод учит как думать'
+                const fullPhrase = 'Если лекция показывает о чём думать, то кейс-метод учит как думать: как анализировать ситуацию, находить причинно-следственные связи, принимать управленческие решения и видеть несколько вариантов развития событий.'
+                
+                // Проверяем, есть ли полная фраза в тексте
+                if (caseContent.description.includes(fullPhrase)) {
+                  const parts = caseContent.description.split(fullPhrase)
+                  const continuation = ': как анализировать ситуацию, находить причинно-следственные связи, принимать управленческие решения и видеть несколько вариантов развития событий.'
+                  
+                  return (
+                    <>
+                      {parts[0]}
+                      <span className="underline decoration-[#DD0000] decoration-2 underline-offset-4 font-bold">
+                        {shortPhrase}
+                      </span>
+                      {continuation}
+                      {parts[1]}
+                    </>
+                  )
+                }
+                // Если полной фразы нет, проверяем короткую
+                if (caseContent.description.includes(shortPhrase)) {
+                  const parts = caseContent.description.split(shortPhrase)
+                  return (
+                    <>
+                      {parts[0]}
+                      <span className="underline decoration-[#DD0000] decoration-2 underline-offset-4 font-bold">
+                        {shortPhrase}
+                      </span>
+                      {parts[1]}
+                    </>
+                  )
+                }
+                return caseContent.description
+              })()}
             </p>
             
             {/* Красная линия после основного текста */}

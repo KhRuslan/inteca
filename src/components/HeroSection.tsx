@@ -41,11 +41,6 @@ const HeroSection = () => {
               {hero.title}
             </h1>
             
-            {/* Подзаголовок - по центру */}
-            <p className="text-xs sm:text-sm lg:text-base text-white mb-4 sm:mb-6 text-center leading-relaxed max-w-4xl mx-auto px-2">
-              {hero.description}
-            </p>
-            
             {/* Кнопка - белая с красным текстом, отцентрирована */}
             <div className="flex justify-center">
               <Link 
