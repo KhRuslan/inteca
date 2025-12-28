@@ -70,6 +70,7 @@ const Founder = () => {
                   src={founderPage.hero.image}
                   alt="Oleg Tsoy"
                   className="w-full h-auto rounded-lg"
+                  loading="lazy"
                 />
               </div>
 
@@ -236,6 +237,7 @@ const Founder = () => {
                 src="/cerf1.jpg"
                 alt="Certificate 1"
                 className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+                loading="lazy"
               />
 
               {/* Certificate 2 */}
@@ -243,6 +245,7 @@ const Founder = () => {
                 src="/cerf.png"
                 alt="Certificate 2"
                 className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+                loading="lazy"
               />
 
               {/* Certificate 3 */}
@@ -250,6 +253,7 @@ const Founder = () => {
                 src="/cerf3.jpg"
                 alt="Certificate 3"
                 className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+                loading="lazy"
               />
 
               {/* Certificate 4 */}
@@ -257,6 +261,7 @@ const Founder = () => {
                 src="/cerft4.jpg"
                 alt="Certificate 4"
                 className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
+                loading="lazy"
               />
             </div>
           </div>
@@ -294,6 +299,7 @@ const Founder = () => {
                   src={founderPage.biography.image}
                   alt="Oleg Tsoy Biography"
                   className="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
                 />
               </div>
             </div>

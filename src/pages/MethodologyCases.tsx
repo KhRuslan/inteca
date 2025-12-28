@@ -215,7 +215,8 @@ const MethodologyCases = () => {
                       // Первая иконка - graduation cap (PNG)
                       <img 
                         src="/fi-rr-graduation-cap.png" 
-                        alt="" 
+                        alt=""
+                        loading="lazy" 
                         className="w-10 h-10 object-contain"
                       />
                     ) : (

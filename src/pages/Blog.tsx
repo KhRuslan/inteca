@@ -184,6 +184,7 @@ const Blog = () => {
                         <img
                           src={post.image}
                           alt={post.title}
+                          loading="lazy"
                           className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                         />
                         <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-[#DD0000] text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-semibold">
@@ -248,6 +249,7 @@ const Blog = () => {
                                 src={post.image}
                                 alt={post.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                                loading="lazy"
                               />
                             </div>
                             <div className="p-4 sm:p-6">

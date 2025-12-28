@@ -91,7 +91,8 @@ const ForCorporateClients = () => {
               <div className="order-2 lg:order-1">
                 <img 
                   src="/for corp.png" 
-                  alt="Corporate training" 
+                  alt="Corporate training"
+                  loading="lazy" 
                   className="w-full h-auto rounded-lg object-cover"
                 />
               </div>
@@ -385,7 +386,8 @@ const ForCorporateClients = () => {
                 <div className="flex items-center justify-center bg-black p-4 sm:p-6 lg:p-8">
                   <img 
                     src="/for corp2.png" 
-                    alt="Case examples" 
+                    alt="Case examples"
+                    loading="lazy" 
                     className="w-full h-full max-h-[700px] lg:max-h-[800px] object-cover rounded-lg"
                   />
                 </div>

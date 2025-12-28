@@ -62,6 +62,7 @@ const BlogPost = () => {
         <img
           src={post.image}
           alt={post.title}
+          loading="lazy"
           className="w-full h-full object-cover opacity-60"
         />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -140,6 +141,7 @@ const BlogPost = () => {
                         <img
                           src={relatedPost.image}
                           alt={relatedPost.title}
+                          loading="lazy"
                           className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                         />
                       </div>

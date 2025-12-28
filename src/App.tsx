@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useContent } from './hooks/useContentQuery'
 import { useLanguage } from './contexts/LanguageContext'
-import { useImagePreloader } from './hooks/useImagePreloader'
-import { collectAllImages } from './utils/imageCollector'
 import GlobalLoader from './components/GlobalLoader'
 import Home from './pages/Home'
 import Blog from './pages/Blog'
@@ -28,12 +26,28 @@ function App() {
     return !hasLoadedBefore
   })
   
-  // Собираем все изображения для предзагрузки (только при первой загрузке)
-  const allImages = isInitialLoad ? collectAllImages(content) : []
-  const { imagesLoaded, progress } = useImagePreloader(allImages)
+  // Прогресс загрузки контента (0-100)
+  const [progress, setProgress] = useState(0)
 
-  // Проверяем, завершена ли полная загрузка (только при первой загрузке)
-  const isFullyLoaded = !isInitialLoad || (!contentLoading && imagesLoaded && progress >= 100)
+  // Симулируем прогресс загрузки контента
+  useEffect(() => {
+    if (contentLoading) {
+      // Показываем прогресс от 0 до 90% во время загрузки контента
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 90) return 90
+          return prev + 10
+        })
+      }, 100)
+      return () => clearInterval(interval)
+    } else if (content) {
+      // Когда контент загружен, сразу показываем 100%
+      setProgress(100)
+    }
+  }, [contentLoading, content])
+
+  // Проверяем, завершена ли загрузка контента
+  const isFullyLoaded = !isInitialLoad || (!contentLoading && progress >= 100)
 
   useEffect(() => {
     if (isFullyLoaded && isInitialLoad) {

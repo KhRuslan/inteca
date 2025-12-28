@@ -18,6 +18,7 @@ const CaseBasedLearning = () => {
               src={caseContent.image}
               alt="Case-based learning"
               className="w-full h-full object-cover rounded-lg shadow-lg"
+              loading="lazy"
             />
           </div>
 

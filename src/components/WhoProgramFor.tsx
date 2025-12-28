@@ -45,6 +45,7 @@ const WhoProgramFor = () => {
                     src="/fi-rr-graduation-cap.png" 
                     alt="" 
                     className="w-10 h-10 object-contain"
+                    loading="lazy"
                   />
                 )
               } else {

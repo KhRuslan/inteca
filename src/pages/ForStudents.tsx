@@ -38,7 +38,8 @@ const ForStudents = () => {
             <div className="relative w-full mb-6 sm:mb-8 rounded-lg overflow-hidden">
               <img 
                 src={forStudentsPage.hero.image}
-                alt="Students group" 
+                alt="Students group"
+                loading="lazy" 
                 className="w-full h-auto object-cover min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]"
               />
             </div>
@@ -306,7 +307,8 @@ const ForStudents = () => {
               <div className="w-full">
                 <img 
                   src={forStudentsPage.certificates.image}
-                  alt="Students with certificates" 
+                  alt="Students with certificates"
+                  loading="lazy" 
                   className="w-full h-auto rounded-lg object-cover"
                 />
               </div>

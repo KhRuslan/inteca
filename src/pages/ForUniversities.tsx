@@ -112,7 +112,8 @@ const ForUniversities = () => {
                 {/* Background Image */}
                 <img 
                   src="/for uni.JPG" 
-                  alt="University students" 
+                  alt="University students"
+                  loading="lazy" 
                   className="w-full h-full object-cover absolute inset-0"
                 />
                 

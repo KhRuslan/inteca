@@ -89,6 +89,7 @@ const About = () => {
                 <img
                   src={about.hero.image}
                   alt="Program instructor"
+                  loading="lazy"
                   className="w-full h-auto rounded-lg shadow-xl"
                 />
               </div>
@@ -220,6 +221,7 @@ const About = () => {
                 <img
                   src={about.afterCompleting.image}
                   alt="Program participants"
+                  loading="lazy"
                   className="w-full h-auto rounded-lg shadow-xl"
                 />
               </div>

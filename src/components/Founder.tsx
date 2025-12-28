@@ -43,6 +43,7 @@ const Founder = () => {
             <img 
               src={founder.image}
               alt="Oleg Tsoy"
+              loading="lazy"
               className="w-full lg:w-80 xl:w-96 h-auto rounded-lg"
             />
             <div className="absolute bottom-4 sm:bottom-6 right-0 bg-white py-2 sm:py-3 px-3 sm:px-4 flex items-center gap-2">
