@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useContent } from '../hooks/useContentQuery'
 import { useLanguage } from '../contexts/LanguageContext'
 import { defaultContent } from '../types/content'
@@ -12,13 +11,13 @@ const HeroSection = () => {
   const getTitleClasses = () => {
     switch(language) {
       case 'ru':
-        return 'text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-5 leading-tight text-center px-2'
+        return 'text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight text-center px-2'
       case 'kz':
-        return 'text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-5 leading-tight text-center px-2'
+        return 'text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight text-center px-2'
       case 'en':
       default:
         // На мобильных убираем whitespace-nowrap, на десктопе (lg+) оставляем
-        return 'text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-5 leading-tight text-center px-2 lg:whitespace-nowrap'
+        return 'text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight text-center px-2 lg:whitespace-nowrap'
     }
   }
 
@@ -35,21 +34,11 @@ const HeroSection = () => {
           ></div>
 
           {/* Черная плашка внизу - адаптивная */}
-          <div className="absolute bottom-[-100px] sm:bottom-[-120px] lg:bottom-[-160px] left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] lg:w-[85%] bg-black px-4 sm:px-8 lg:px-12 py-4 sm:py-6 lg:py-8 z-10">
+          <div className="absolute bottom-[-60px] sm:bottom-[-75px] lg:bottom-[-100px] left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] lg:w-[85%] bg-black px-4 sm:px-8 lg:px-12 py-4 sm:py-6 lg:py-8 z-10 flex items-center justify-center min-h-[80px] sm:min-h-[100px] lg:min-h-[120px]">
             {/* Заголовок - адаптивный размер в зависимости от языка */}
             <h1 className={getTitleClasses()}>
               {hero.title}
             </h1>
-            
-            {/* Кнопка - белая с красным текстом, отцентрирована */}
-            <div className="flex justify-center">
-              <Link 
-                to="/contacts#hero"
-                className="bg-white text-[#DD0000] px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-md text-sm sm:text-base font-semibold hover:bg-gray-100 transition inline-block"
-              >
-                {hero.buttonText}
-              </Link>
-            </div>
           </div>
         </div>
       </div>

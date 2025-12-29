@@ -169,20 +169,6 @@ const About = () => {
                 )
               })}
             </div>
-
-            {/* Button */}
-            <div className="mt-10 sm:mt-12 text-center">
-              <Link 
-                to="/for-universities#hero"
-                className="inline-block bg-black text-white px-8 py-3 rounded-md font-semibold hover:bg-gray-800 transition"
-              >
-                {about.formatButtonText}
-              </Link>
-            </div>
-
-            <p className="text-center text-sm text-gray-500 mt-6">
-              {about.formatFooterText}
-            </p>
           </div>
         </div>
       </section>
@@ -203,17 +189,6 @@ const About = () => {
                 <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-8">
                   {about.afterCompleting.description}
                 </p>
-                
-                {/* Нижняя линия - красная */}
-                <hr className="border-t-2 border-[#DD0000] mb-6 w-[300px]" />
-                
-                <Link 
-                  to="/contacts#hero"
-                  className="inline-flex items-center gap-2 text-gray-900 font-semibold hover:underline"
-                >
-                  {about.afterCompleting.buttonText}
-                  <span>→</span>
-                </Link>
               </div>
 
               {/* Right side - Image */}

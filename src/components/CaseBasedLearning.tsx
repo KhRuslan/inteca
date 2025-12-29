@@ -80,17 +80,6 @@ const CaseBasedLearning = () => {
                 </Link>
                 <hr className="mt-3 sm:mt-4 border-t border-gray-300" />
               </div>
-              
-              <div>
-                <Link 
-                  to="/methodology"
-                  className="inline-flex items-center gap-2 text-sm sm:text-base text-gray-900 font-semibold hover:text-inteca-red transition"
-                >
-                  <span className="break-words">{caseContent.link2Text}</span>
-                  <span className="text-[#DD0000] flex-shrink-0">→</span>
-                </Link>
-                <hr className="mt-3 sm:mt-4 border-t border-gray-300" />
-              </div>
             </div>
           </div>
         </div>

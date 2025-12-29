@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import TopBar from '../components/TopBar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import PDFViewer from '../components/PDFViewer'
 import { useContent } from '../hooks/useContentQuery'
 import { useLanguage } from '../contexts/LanguageContext'
 import { defaultContent } from '../types/content'
@@ -111,17 +112,33 @@ const Founder = () => {
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            {/* Title */}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
-              {founderPage.practitionerTitle ? `${founderPage.practitionerTitle}. ` : ''}{founderPage.practitionerSubtitle}
-            </h2>
-            <div className="border-t-4 border-[#DD0000] w-32 sm:w-48 mb-8 sm:mb-12"></div>
+            {/* Grid Layout - Certificate + Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 lg:gap-12 mb-8 sm:mb-12 lg:items-stretch">
+              {/* Harvard Certificate - Full Height */}
+              <div className="order-2 lg:order-1 flex">
+                <img
+                  src="/cerft4.jpg"
+                  alt="Harvard Leadership Development Certificate"
+                  className="w-full h-full object-cover rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
 
-            {/* Black Box with Description */}
-            <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg mb-6 sm:mb-8">
-              <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
-                {founderPage.practitionerDescription}
-              </p>
+              {/* Content */}
+              <div className="order-1 lg:order-2 flex flex-col">
+                {/* Title */}
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
+                  {founderPage.practitionerTitle ? `${founderPage.practitionerTitle}. ` : ''}{founderPage.practitionerSubtitle}
+                </h2>
+                <div className="border-t-4 border-[#DD0000] w-32 sm:w-48 mb-8 sm:mb-12"></div>
+
+                {/* Black Box with Description */}
+                <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg flex-grow">
+                  <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
+                    {founderPage.practitionerDescription}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Three Black Cards */}
@@ -132,7 +149,6 @@ const Founder = () => {
                   <p className="text-xs sm:text-sm lg:text-base mb-4 sm:mb-6 leading-relaxed flex-grow">
                     {card.description}
                   </p>
-                  {/* Убрана ссылка, так как информация уже полная в карточке */}
                 </div>
               ))}
             </div>
@@ -154,22 +170,38 @@ const Founder = () => {
               </h3>
               <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-6 sm:mb-8"></div>
 
-              {/* Description */}
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                {founderPage.internationalCertificates.description}
-              </p>
+              {/* Grid Layout - Content + Certificates */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-6 sm:mb-8">
+                {/* Text Content */}
+                <div>
+                  {/* Description */}
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
+                    {founderPage.internationalCertificates.description}
+                  </p>
 
-              {/* Certificate Text Box */}
-              <div className="bg-white border-2 border-[#DD0000] rounded-lg p-6 sm:p-8 mb-6 sm:mb-8 shadow-lg">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed italic font-medium">
-                  "{founderPage.internationalCertificates.certificateText}"
-                </p>
+                  {/* Certificate Text Box */}
+                  <div className="bg-white border-2 border-[#DD0000] rounded-lg p-6 sm:p-8 shadow-lg mb-4 sm:mb-6">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed italic font-medium">
+                      "{founderPage.internationalCertificates.certificateText}"
+                    </p>
+                  </div>
+
+                  {/* Additional Text */}
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    {founderPage.internationalCertificates.certificationNote}
+                  </p>
+                </div>
+
+                {/* Certificates Grid */}
+                <div className="grid grid-cols-1 gap-6">
+                  <img
+                    src="/cerf1.jpg"
+                    alt="International Certificate 1"
+                    className="w-full max-w-md h-auto object-contain rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 mx-auto"
+                    loading="lazy"
+                  />
+                </div>
               </div>
-
-              {/* Conclusion */}
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                {founderPage.internationalCertificates.conclusion}
-              </p>
             </div>
           </div>
         </section>
@@ -227,46 +259,6 @@ const Founder = () => {
         </section>
       )}
 
-      {/* Certificates Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-              {/* Certificate 1 */}
-              <img
-                src="/cerf1.jpg"
-                alt="Certificate 1"
-                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
-                loading="lazy"
-              />
-
-              {/* Certificate 2 */}
-              <img
-                src="/cerf.png"
-                alt="Certificate 2"
-                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
-                loading="lazy"
-              />
-
-              {/* Certificate 3 */}
-              <img
-                src="/cerf3.jpg"
-                alt="Certificate 3"
-                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
-                loading="lazy"
-              />
-
-              {/* Certificate 4 */}
-              <img
-                src="/cerft4.jpg"
-                alt="Certificate 4"
-                className="w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:z-10 cursor-pointer"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Biography Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
@@ -280,8 +272,62 @@ const Founder = () => {
                 </h2>
                 <div className="border-t border-[#DD0000] w-24 sm:w-32 mb-6 sm:mb-8"></div>
 
-                <div className="space-y-4 sm:space-y-6 text-gray-700 text-base sm:text-lg lg:text-xl leading-relaxed mb-4">
+                <div className="space-y-4 sm:space-y-6 text-gray-700 text-base sm:text-lg lg:text-xl leading-relaxed mb-6">
                   <p>{getShortBiography()}</p>
+                </div>
+
+                {/* Media Publications */}
+                <div className="mb-6">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
+                    {language === 'ru' ? 'Публикации в СМИ' : language === 'kz' ? 'БАҚ жариялымдары' : 'Media Publications'}
+                  </h3>
+                  <div className="space-y-3">
+                    <a 
+                      href="https://www.koreilbo.com/news/razvitie_chelovecheskogo_kapitala_kak_investitsionnyy_proekt_intervyu_s_generalnym_direktorom_agents79/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-2 text-sm sm:text-base lg:text-lg text-[#DD0000] hover:underline transition"
+                    >
+                      <span className="flex-shrink-0 mt-1">→</span>
+                      <span>
+                        {language === 'ru' 
+                          ? 'Развитие человеческого капитала – как инвестиционный проект (Korё ilbo)' 
+                          : language === 'kz'
+                          ? 'Адами капиталды дамыту – инвестициялық жоба ретінде (Korё ilbo)'
+                          : 'Human capital development as an investment project (Korё ilbo)'}
+                      </span>
+                    </a>
+                    <a 
+                      href="https://almaty.atameken.kz/ru/projects/19830-luchshij-tovar-kazahstana-oleg-coj-nashi-avtomobili-vojdut-v-istoriyu" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-2 text-sm sm:text-base lg:text-lg text-[#DD0000] hover:underline transition"
+                    >
+                      <span className="flex-shrink-0 mt-1">→</span>
+                      <span>
+                        {language === 'ru' 
+                          ? 'Лучший товар Казахстана: наши автомобили войдут в историю (Atameken)' 
+                          : language === 'kz'
+                          ? 'Қазақстанның үздік тауары: біздің автомобильдер тарихқа енеді (Atameken)'
+                          : 'Best Product of Kazakhstan: our cars will go down in history (Atameken)'}
+                      </span>
+                    </a>
+                    <a 
+                      href="https://atameken.kz/ru/articles/23211-oleg-coj-glavnyj-orientir-vostrebovannost-avtomobilej" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-2 text-sm sm:text-base lg:text-lg text-[#DD0000] hover:underline transition"
+                    >
+                      <span className="flex-shrink-0 mt-1">→</span>
+                      <span>
+                        {language === 'ru' 
+                          ? 'Главный ориентир – востребованность автомобилей (Atameken)' 
+                          : language === 'kz'
+                          ? 'Басты бағдар – автомобильдердің сұранысы (Atameken)'
+                          : 'Main focus – demand for cars (Atameken)'}
+                      </span>
+                    </a>
+                  </div>
                 </div>
 
                 <button
@@ -337,17 +383,55 @@ const Founder = () => {
                   {founderPage.biography.whyExperienceImportant.title}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
                 </h3>
-                <p className="text-base sm:text-lg text-gray-300 mb-4">
-                  {founderPage.biography.whyExperienceImportant.description}
-                </p>
-                <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 mb-4 space-y-2">
-                  {founderPage.biography.whyExperienceImportant.points.map((point, index) => (
-                    <li key={index}>{point}</li>
-                  ))}
-                </ul>
-                <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                  {founderPage.biography.whyExperienceImportant.conclusion}
-                </p>
+
+                {/* Grid Layout - Certificate + Content */}
+                <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 sm:gap-8">
+                  {/* Certificate Image - LEFT */}
+                  <div className="flex items-start justify-center order-2 lg:order-1">
+                    <img
+                      src="/cerf.png"
+                      alt="Harvard Case Teaching Certificate"
+                      className="w-full max-w-[400px] h-auto object-contain rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="order-1 lg:order-2">
+                    <p className="text-base sm:text-lg text-gray-300 mb-4">
+                      {founderPage.biography.whyExperienceImportant.description}
+                    </p>
+                    <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 mb-4 space-y-2">
+                      {founderPage.biography.whyExperienceImportant.points.map((point, index) => (
+                        <li key={index}>{point}</li>
+                      ))}
+                    </ul>
+                    <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                      {founderPage.biography.whyExperienceImportant.conclusion}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommendation Letters */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 sm:mb-8">
+                {/* Academic Profile English */}
+                <PDFViewer
+                  src="/cerf5.pdf"
+                  title="Academic Profile (English)"
+                />
+
+                {/* Letter from Caspian University */}
+                <PDFViewer
+                  src="/cerf6.pdf"
+                  title="Recommendation - Caspian University"
+                />
+
+                {/* Letter from Kaspi Bank */}
+                <PDFViewer
+                  src="/cerf7.pdf"
+                  title="Recommendation - Kaspi Bank"
+                />
               </div>
 
               {/* PreMBA Program Section */}
@@ -360,27 +444,43 @@ const Founder = () => {
                       <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
                     </h3>
 
-                    {/* Description */}
-                    <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed mb-6 sm:mb-8">
-                      {founderPage.preMBAProgram.description}
-                    </p>
+                    {/* Grid Layout with Certificate */}
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 lg:gap-8 mb-6 sm:mb-8">
+                      {/* Left Column - Text Content */}
+                      <div>
+                        {/* Description */}
+                        <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed mb-6 sm:mb-8">
+                          {founderPage.preMBAProgram.description}
+                        </p>
 
-                    {/* Participants */}
-                    <div className="bg-gray-900 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
-                      <p className="text-base sm:text-lg lg:text-xl font-semibold text-white">
-                        {founderPage.preMBAProgram.participants}
-                      </p>
+                        {/* Participants */}
+                        <div className="bg-gray-900 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+                          <p className="text-base sm:text-lg lg:text-xl font-semibold text-white">
+                            {founderPage.preMBAProgram.participants}
+                          </p>
+                        </div>
+
+                        {/* Role */}
+                        <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed">
+                          {founderPage.preMBAProgram.role}
+                        </p>
+                      </div>
+
+                      {/* Right Column - Certificate */}
+                      <div className="flex items-start justify-center lg:justify-end order-first lg:order-last">
+                        <img
+                          src="/cerf3.jpg"
+                          alt="London Business School Certificate"
+                          className="w-full max-w-[400px] h-auto object-contain rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
+                          loading="lazy"
+                        />
+                      </div>
                     </div>
-
-                    {/* Role */}
-                    <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed mb-6 sm:mb-8">
-                      {founderPage.preMBAProgram.role}
-                    </p>
 
                     {/* Disciplines */}
                     <div className="mb-6 sm:mb-8">
                       <p className="text-sm sm:text-base lg:text-lg font-semibold text-white mb-4 sm:mb-6">
-                        Он лично ведёт три ключевые дисциплины:
+                        {founderPage.preMBAProgram.disciplinesTitle}
                       </p>
                       <ul className="space-y-3 sm:space-y-4">
                         {founderPage.preMBAProgram.disciplines.map((discipline, index) => (

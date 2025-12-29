@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import TopBar from '../components/TopBar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -114,7 +113,7 @@ const ForStudents = () => {
                 ))}
               </ul>
               <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                Человек, идущий по Case Learning Path, становится всё более востребованным на рынке. Его воспринимают как профессионала, который инвестирует в себя и непрерывно расширяет свои компетенции.
+                {forStudentsPage.caseLearningPath.marketValueDescription}
               </p>
             </div>
 
@@ -167,7 +166,7 @@ const ForStudents = () => {
             <div className="mt-12 sm:mt-16 lg:mt-20 mb-6 sm:mb-8">
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block">
                 <span className="absolute -top-6 sm:-top-8 left-0 w-full h-0.5 bg-[#DD0000]"></span>
-                Дополнительные преимущества Case Learning Path
+                {forStudentsPage.caseLearningPath.additionalBenefitsTitle}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {forStudentsPage.caseLearningPath.benefits.map((benefit, index) => (
@@ -343,21 +342,6 @@ const ForStudents = () => {
                 </AccordionItem>
               ))}
             </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto flex justify-center">
-            <Link
-              to="/contacts#hero"
-              className="bg-black text-white px-8 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-lg text-base sm:text-lg lg:text-xl font-semibold hover:bg-gray-800 transition inline-flex items-center gap-2"
-            >
-              {forStudentsPage.cta.buttonText}
-              <span className="text-[#DD0000]">→</span>
-            </Link>
           </div>
         </div>
       </section>

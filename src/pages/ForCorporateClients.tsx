@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import TopBar from '../components/TopBar'
 import Header from '../components/Header'
@@ -333,21 +332,6 @@ const ForCorporateClients = () => {
                 </AccordionItem>
               ))}
             </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto flex justify-center">
-            <Link
-              to="/contacts#hero"
-              className="bg-black text-white px-8 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-lg text-base sm:text-lg lg:text-xl font-semibold hover:bg-gray-800 transition inline-flex items-center gap-2"
-            >
-              {pageContent.cta.buttonText}
-              <span className="text-[#DD0000]">→</span>
-            </Link>
           </div>
         </div>
       </section>

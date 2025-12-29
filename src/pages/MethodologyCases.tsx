@@ -17,7 +17,7 @@ const MethodologyCases = () => {
   // Гарантируем, что новый кейс виден даже если в Supabase пока нет данных
   const englishDevCase =
     defaultContent.methodologyPage?.cases.find(
-      (c) => c.title === 'Case-Based English Development'
+      (c) => c.title.includes('English') || c.title.includes('английского')
     ) || null
 
   const cases = (() => {
@@ -83,7 +83,7 @@ const MethodologyCases = () => {
       <Header />
 
       {/* Hero Section */}
-      <section id="hero" className="pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-10 lg:pb-12 min-h-screen flex items-start bg-white">
+      <section id="hero" className="pt-16 sm:pt-20 lg:pt-24 pb-4 sm:pb-6 lg:pb-8 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-start">
@@ -107,11 +107,6 @@ const MethodologyCases = () => {
                     )
                   })}
                 </div>
-
-                <Link to="/contacts#hero" className="text-2xl sm:text-3xl font-bold text-gray-900 hover:text-[#DD0000] transition inline-flex items-center gap-3 border-b-2 border-[#DD0000] pb-1">
-                  {methodologyPage.hero.buttonText}
-                  <span>→</span>
-                </Link>
               </div>
 
               {/* Donut Chart */}
@@ -148,7 +143,7 @@ const MethodologyCases = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12 bg-white">
+      <section className="pt-0 pb-8 sm:pb-10 lg:pb-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto space-y-10">
             {methodologyPage.benefits.map((benefit, index) => {
@@ -177,10 +172,8 @@ const MethodologyCases = () => {
                 return title
               }
 
-              const isLongText = benefit.description.length > 200
-              const shortDescription = isLongText 
-                ? benefit.description.substring(0, 200) + '...' 
-                : benefit.description
+              // Проверяем, есть ли structuredContent (для "Глобальное → Локальное")
+              const hasStructuredContent = benefit.structuredContent !== undefined
 
               return (
                 <div key={index} className="flex items-start gap-3 sm:gap-4 lg:gap-6">
@@ -189,15 +182,15 @@ const MethodologyCases = () => {
                       {renderTitle(benefit.title)}
                     </h2>
                     <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-3">
-                      {shortDescription}
+                      {benefit.description}
                     </p>
-                    {isLongText && (
+                    {hasStructuredContent && (
                       <button
                         onClick={() => {
                           const modalCase = {
                             title: benefit.title,
                             description: benefit.description,
-                            detailedDescription: benefit.description,
+                            detailedDescription: '',
                             linkText: language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'
                           } as MethodologyCase
                           setSelectedCase(modalCase)
@@ -242,8 +235,8 @@ const MethodologyCases = () => {
             </h2>
 
             {(() => {
-              // Показываем только Case-Based English Development
-              const englishCase = cases.find((c) => c.title === 'Case-Based English Development')
+              // Показываем только Case-Based English Development / Развитие английского через кейсы
+              const englishCase = cases.find((c) => c.title.includes('English') || c.title.includes('английского'))
 
               if (!englishCase || !englishCase.fullContent) return null
 
@@ -346,25 +339,109 @@ const MethodologyCases = () => {
 
               {/* Detailed Description */}
               <div className="mb-4 sm:mb-6 lg:mb-8">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-3 sm:mb-4 lg:mb-6">
-                  {selectedCase.detailedDescription || selectedCase.description}
-                </p>
+                {(() => {
+                  // Try to find the benefit with structured content
+                  const benefit = methodologyPage.benefits.find(b => b.title === selectedCase.title)
+                  
+                  if (benefit?.structuredContent) {
+                    // Render structured content
+                    return (
+                      <div className="space-y-6 sm:space-y-8 lg:space-y-10">
+                        {benefit.structuredContent.sections.map((section, sIndex) => (
+                          <div key={sIndex} className={sIndex > 0 ? 'border-t-2 border-gray-200 pt-6 sm:pt-8' : ''}>
+                            {/* Section Title */}
+                            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-5">
+                              {section.title}
+                            </h3>
+                            
+                            {/* Section Content */}
+                            {section.content && (
+                              <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                                {section.content}
+                              </p>
+                            )}
+                            
+                            {/* Section Items */}
+                            {section.items && section.items.length > 0 && (
+                              <ul className="space-y-3 mb-6">
+                                {section.items.map((item, iIndex) => (
+                                  <li key={iIndex} className="flex items-start">
+                                    <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                                    <span className="text-base sm:text-lg text-gray-700">{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                            
+                            {/* Subsections */}
+                            {section.subsections && section.subsections.length > 0 && (
+                              <div className="space-y-5">
+                                {section.subsections.map((subsection, subIndex) => (
+                                  <div key={subIndex}>
+                                    {/* Subsection Title */}
+                                    {subsection.title && (
+                                      <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-3">
+                                        {subsection.title}
+                                      </h4>
+                                    )}
+                                    
+                                    {/* Subsection Content */}
+                                    {subsection.content && (
+                                      <p className={`text-base sm:text-lg leading-relaxed ${
+                                        subsection.emphasis 
+                                          ? 'italic text-gray-800 bg-gray-100 p-4 rounded-lg border-l-4 border-[#DD0000]' 
+                                          : 'text-gray-700'
+                                      } ${subsection.items ? 'mb-3' : ''}`}>
+                                        {subsection.content}
+                                      </p>
+                                    )}
+                                    
+                                    {/* Subsection Items */}
+                                    {subsection.items && subsection.items.length > 0 && (
+                                      <ul className="space-y-3">
+                                        {subsection.items.map((item, itemIndex) => (
+                                          <li key={itemIndex} className="flex items-start">
+                                            <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                                            <span className="text-base sm:text-lg text-gray-700">{item}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )
+                  }
+                  
+                  // Default rendering for regular cases
+                  return (
+                    <>
+                      <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-3 sm:mb-4 lg:mb-6">
+                        {selectedCase.detailedDescription || selectedCase.description}
+                      </p>
 
-                {selectedCase.keyFacts && selectedCase.keyFacts.length > 0 && (
-                  <>
-                    <p className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 lg:mb-4">
-                      {language === 'ru' ? 'Ключевые факты' : language === 'kz' ? 'Негізгі фактілер' : 'Key Facts'}
-                    </p>
-                    <ul className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 lg:mb-6">
-                      {selectedCase.keyFacts.map((fact, index) => (
-                        <li key={index} className="flex items-start text-sm sm:text-base text-gray-700">
-                          <span className="mr-2 sm:mr-3 text-[#DD0000] font-bold flex-shrink-0">—</span>
-                          <span>{fact}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
+                      {selectedCase.keyFacts && selectedCase.keyFacts.length > 0 && (
+                        <>
+                          <p className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 lg:mb-4">
+                            {language === 'ru' ? 'Ключевые факты' : language === 'kz' ? 'Негізгі фактілер' : 'Key Facts'}
+                          </p>
+                          <ul className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 lg:mb-6">
+                            {selectedCase.keyFacts.map((fact, index) => (
+                              <li key={index} className="flex items-start text-sm sm:text-base text-gray-700">
+                                <span className="mr-2 sm:mr-3 text-[#DD0000] font-bold flex-shrink-0">—</span>
+                                <span>{fact}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </>
+                  )
+                })()}
               </div>
 
               {/* Call to Action */}

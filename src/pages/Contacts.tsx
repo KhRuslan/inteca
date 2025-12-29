@@ -45,10 +45,9 @@ const Contacts = () => {
           contactInfo: 'Контактная информация',
           happyToAssist: 'Мы всегда рады помочь вам.',
           emailLabel: 'Адрес электронной почты',
-          email: 'help@info.com',
+          email: 'Inteca.kz@gmail.com',
           numberLabel: 'Номер',
-          number: '(808) 998-34256',
-          assistanceHours: 'Часы работы: Понедельник - Пятница с 6:00 до 20:00 EST',
+          number: '+7 (708) 647 5295',
           successMessage: 'Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.',
           errorMessage: 'Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте еще раз.'
         }
@@ -64,10 +63,9 @@ const Contacts = () => {
           contactInfo: 'Байланыс ақпараты',
           happyToAssist: 'Біз әрдайым сізге көмектесуге қуаныштымыз.',
           emailLabel: 'Электрондық пошта мекенжайы',
-          email: 'help@info.com',
+          email: 'Inteca.kz@gmail.com',
           numberLabel: 'Нөмір',
-          number: '(808) 998-34256',
-          assistanceHours: 'Жұмыс уақыты: Дүйсенбі - Жұма 06:00-ден 20:00-ге дейін EST',
+          number: '+7 (708) 647 5295',
           successMessage: 'Рахмет! Сіздің хабарламаңыз жіберілді. Біз сізбен жақын арада байланысамыз.',
           errorMessage: 'Хабарламаны жіберу кезінде қате орын алды. Қайталап көріңіз.'
         }
@@ -84,10 +82,9 @@ const Contacts = () => {
           contactInfo: 'Contact Info',
           happyToAssist: 'We are always happy to assist you.',
           emailLabel: 'Email Address',
-          email: 'help@info.com',
+          email: 'Inteca.kz@gmail.com',
           numberLabel: 'Number',
-          number: '(808) 998-34256',
-          assistanceHours: 'Assistance hours: Monday - Friday 6 am to 8 pm EST',
+          number: '+7 (708) 647 5295',
           successMessage: 'Thank you! Your message has been sent. We will contact you soon.',
           errorMessage: 'An error occurred while sending the message. Please try again.'
         }
@@ -307,15 +304,13 @@ const Contacts = () => {
                 {/* Email */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">{content.emailLabel}</h3>
-                  <p className="text-base text-gray-700 mb-2">{content.email}</p>
-                  <p className="text-sm text-gray-600">{content.assistanceHours}</p>
+                  <p className="text-base text-gray-700">{content.email}</p>
                 </div>
 
                 {/* Phone */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">{content.numberLabel}</h3>
-                  <p className="text-base text-gray-700 mb-2">{content.number}</p>
-                  <p className="text-sm text-gray-600">{content.assistanceHours}</p>
+                  <p className="text-base text-gray-700">{content.number}</p>
                 </div>
               </div>
             </div>

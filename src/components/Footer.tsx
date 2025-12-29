@@ -75,7 +75,7 @@ const Footer = () => {
           <div>
             <h3 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">{texts.contacts}</h3>
             <p className="text-gray-300 mb-1 text-sm sm:text-base">Inteca.kz@gmail.com </p>
-            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">+7 (000) 000-00-00</p>
+            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">+7 (708) 647 5295</p>
             <p className="text-gray-300 text-sm sm:text-base">LinkedIn · Instagram · YouTube</p>
           </div>
 

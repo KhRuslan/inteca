@@ -8,7 +8,6 @@ import CaseBasedLearning from '../components/CaseBasedLearning'
 import WhyLecturesDontWork from '../components/WhyLecturesDontWork'
 import KeyBenefits from '../components/KeyBenefits'
 import Founder from '../components/Founder'
-import CTABanner from '../components/CTABanner'
 import Footer from '../components/Footer'
 import { useLanguage } from '../contexts/LanguageContext'
 import { ProgramBenefit } from '../types/content'
@@ -40,7 +39,6 @@ const Home = () => {
       <WhyLecturesDontWork />
       <KeyBenefits />
       <Founder />
-      <CTABanner />
       <Footer />
 
       {/* Modal for Program Benefit Details */}
