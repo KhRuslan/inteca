@@ -87,30 +87,47 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
-            <a href="/" className="text-sm xl:text-base text-gray-900 font-medium hover:text-inteca-red transition whitespace-nowrap">
+            <a href="/" className="text-sm xl:text-base text-gray-900 font-medium hover:text-[#DD0000] transition whitespace-nowrap">
               {nav.home}
             </a>
-            <a href="/blog" className="text-sm xl:text-base text-gray-900 font-medium hover:text-inteca-red transition whitespace-nowrap">
+            <a href="/blog" className="text-sm xl:text-base text-gray-900 font-medium hover:text-[#DD0000] transition whitespace-nowrap">
               {nav.blog}
             </a>
-            <a href="/about" className="text-sm xl:text-base text-gray-900 font-medium hover:text-inteca-red transition whitespace-nowrap">
+            <a href="/about" className="text-sm xl:text-base text-gray-900 font-medium hover:text-[#DD0000] transition whitespace-nowrap">
               {nav.about}
             </a>
-            <a href="/founder" className="text-sm xl:text-base text-gray-900 font-medium hover:text-inteca-red transition whitespace-nowrap">
+            <a href="/founder" className="text-sm xl:text-base text-gray-900 font-medium hover:text-[#DD0000] transition whitespace-nowrap">
               {nav.founder}
             </a>
-            <a href="/methodology" className="text-sm xl:text-base text-gray-900 font-medium hover:text-inteca-red transition whitespace-nowrap">
+            <a href="/methodology" className="text-sm xl:text-base text-gray-900 font-medium hover:text-[#DD0000] transition whitespace-nowrap">
               {nav.methodology}
             </a>
-            <a href="/contacts" className="text-sm xl:text-base text-gray-900 font-medium hover:text-inteca-red transition whitespace-nowrap">
+            <a href="/contacts" className="text-sm xl:text-base text-gray-900 font-medium hover:text-[#DD0000] transition whitespace-nowrap">
               {nav.contacts}
             </a>
+            
+            {/* Language Selector - Desktop */}
+            <div className="flex items-center gap-1.5 ml-2 pl-4 border-l border-gray-300">
+              {(['ru', 'kz', 'en'] as Language[]).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`px-2 py-1 text-xs font-medium rounded transition whitespace-nowrap ${
+                    language === lang
+                      ? 'bg-[#DD0000] text-white'
+                      : 'text-gray-700 hover:text-[#DD0000] hover:bg-gray-100'
+                  }`}
+                >
+                  {languageLabels[lang].short}
+                </button>
+              ))}
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-900 hover:text-inteca-red transition"
+            className="lg:hidden p-2 text-gray-900 hover:text-[#DD0000] transition"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +148,7 @@ const Header = () => {
               <div className="relative mb-2" ref={languageMenuRef}>
                 <button
                   onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
-                  className="w-full flex items-center justify-between text-gray-900 font-medium hover:text-inteca-red transition py-2 px-2 border border-gray-300 rounded-md"
+                  className="w-full flex items-center justify-between text-gray-900 font-medium hover:text-[#DD0000] transition py-2 px-2 border border-gray-300 rounded-md"
                 >
                   <span>{languageLabels[language].full}</span>
                   <svg
@@ -155,7 +172,7 @@ const Header = () => {
                           setLanguageMenuOpen(false)
                         }}
                         className={`w-full text-left px-4 py-2 hover:bg-gray-100 transition ${
-                          language === lang ? 'bg-inteca-red text-white hover:bg-inteca-red' : 'text-gray-900'
+                          language === lang ? 'bg-[#DD0000] text-white hover:bg-[#DD0000]' : 'text-gray-900'
                         } ${lang === 'ru' ? 'rounded-t-md' : ''} ${lang === 'en' ? 'rounded-b-md' : ''}`}
                       >
                         {languageLabels[lang].full}
@@ -165,22 +182,22 @@ const Header = () => {
                 )}
               </div>
 
-              <a href="/" className="text-gray-900 font-medium hover:text-inteca-red transition py-2" onClick={() => setMobileMenuOpen(false)}>
+              <a href="/" className="text-gray-900 font-medium hover:text-[#DD0000] transition py-2" onClick={() => setMobileMenuOpen(false)}>
                 {nav.home}
               </a>
-              <a href="/blog" className="text-gray-900 font-medium hover:text-inteca-red transition py-2" onClick={() => setMobileMenuOpen(false)}>
+              <a href="/blog" className="text-gray-900 font-medium hover:text-[#DD0000] transition py-2" onClick={() => setMobileMenuOpen(false)}>
                 {nav.blog}
               </a>
-              <a href="/about" className="text-gray-900 font-medium hover:text-inteca-red transition py-2" onClick={() => setMobileMenuOpen(false)}>
+              <a href="/about" className="text-gray-900 font-medium hover:text-[#DD0000] transition py-2" onClick={() => setMobileMenuOpen(false)}>
                 {nav.about}
               </a>
-              <a href="/founder" className="text-gray-900 font-medium hover:text-inteca-red transition py-2" onClick={() => setMobileMenuOpen(false)}>
+              <a href="/founder" className="text-gray-900 font-medium hover:text-[#DD0000] transition py-2" onClick={() => setMobileMenuOpen(false)}>
                 {nav.founder}
               </a>
-              <a href="/methodology" className="text-gray-900 font-medium hover:text-inteca-red transition py-2" onClick={() => setMobileMenuOpen(false)}>
+              <a href="/methodology" className="text-gray-900 font-medium hover:text-[#DD0000] transition py-2" onClick={() => setMobileMenuOpen(false)}>
                 {nav.methodology}
               </a>
-              <a href="/contacts" className="text-gray-900 font-medium hover:text-inteca-red transition py-2" onClick={() => setMobileMenuOpen(false)}>
+              <a href="/contacts" className="text-gray-900 font-medium hover:text-[#DD0000] transition py-2" onClick={() => setMobileMenuOpen(false)}>
                 {nav.contacts}
               </a>
             </div>
