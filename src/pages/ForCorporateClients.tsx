@@ -76,6 +76,17 @@ const ForCorporateClients = () => {
                 <span className="absolute -top-6 sm:-top-8 left-0 w-full h-0.5 bg-[#DD0000]"></span>
                 {pageContent.hero.title}
               </h1>
+              
+              {/* Hero Image - Mobile: immediately after title */}
+              <div className="lg:hidden mt-4 sm:mt-6 mb-6 sm:mb-8">
+                <img 
+                  src="/for corp.png" 
+                  alt="Corporate training"
+                  loading="lazy" 
+                  className="w-full h-auto rounded-lg object-cover"
+                />
+              </div>
+
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">
                 {pageContent.hero.subtitle}
               </h2>
@@ -86,8 +97,8 @@ const ForCorporateClients = () => {
 
             {/* Hero Image and Why Section - Two Column Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8 sm:mt-12 items-start">
-              {/* Left: Hero Image */}
-              <div className="order-2 lg:order-1">
+              {/* Left: Hero Image - Desktop only */}
+              <div className="hidden lg:block">
                 <img 
                   src="/for corp.png" 
                   alt="Corporate training"
@@ -97,7 +108,7 @@ const ForCorporateClients = () => {
               </div>
 
               {/* Right: Why the Case Method Works */}
-              <div className="order-1 lg:order-2 flex flex-col">
+              <div className="flex flex-col">
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 relative inline-block pb-2">
                   {pageContent.whyCaseMethodWorks.title}
                   <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#DD0000]"></span>

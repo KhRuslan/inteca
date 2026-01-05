@@ -117,14 +117,16 @@ const ForUniversities = () => {
                   className="w-full h-full object-cover absolute inset-0"
                 />
                 
-                {/* Dark Overlay for entire image - отдельный элемент */}
-                <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+                {/* Dark Overlay for entire image - только на десктопе */}
+                <div className="hidden lg:block absolute inset-0 bg-black bg-opacity-50 z-0"></div>
                 
                 {/* Title - всегда на изображении (только на мобильных) */}
                 <div className="lg:hidden absolute bottom-0 left-0 right-0 z-10 px-4 sm:px-6 pb-4 sm:pb-6">
-                  <h2 className="text-lg sm:text-xl font-bold text-white">
-                    {pageContent.benefitsTitle}
-                  </h2>
+                  <div className="bg-black bg-opacity-70 rounded-lg px-4 sm:px-6 py-3 sm:py-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white drop-shadow-2xl">
+                      {pageContent.benefitsTitle}
+                    </h2>
+                  </div>
                 </div>
 
                 {/* Cards - только на десктопе внутри изображения */}
