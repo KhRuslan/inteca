@@ -53,15 +53,12 @@ const ProgramBenefits = () => {
                 key={index}
                 className="bg-gray-50 border border-gray-200 p-4 sm:p-6 rounded-lg hover:shadow-lg transition flex flex-col h-full"
               >
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 min-h-[3.5rem] sm:min-h-[4rem] flex items-start">
-                  {benefit.title}
-                </h3>
                 <div className="flex-grow">
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                  <p className="text-base sm:text-lg text-gray-900 leading-relaxed font-medium">
                     {shortDescription}
                   </p>
                 </div>
-                <div className="mt-auto pt-2">
+                <div className="mt-auto pt-3 sm:pt-4">
                   {hasFullContent ? (
                     <button
                       onClick={() => setSelectedBenefit(benefit)}
