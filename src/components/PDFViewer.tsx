@@ -54,15 +54,15 @@ const PDFViewer = ({ src, title, className = '' }: PDFViewerProps) => {
     <>
       {/* Preview Card */}
       <div 
-        className={`bg-white border-2 border-gray-200 rounded-lg p-3 shadow-lg hover:shadow-2xl transition-all cursor-pointer group ${className}`}
+        className={`bg-white border-2 border-gray-200 rounded-lg p-3 shadow-lg hover:shadow-2xl transition-all cursor-pointer group flex flex-col ${className}`}
         onClick={handleOpenFullscreen}
       >
         {/* PDF Preview */}
-        <div className="relative">
-          <embed
-            src={`${src}#toolbar=0&navpanes=0&scrollbar=0`}
-            type="application/pdf"
-            className="w-full h-[450px] rounded pointer-events-none"
+        <div className="relative flex-1 min-h-[450px] overflow-hidden rounded">
+          <iframe
+            src={`${src}#toolbar=0&navpanes=0&scrollbar=0&zoom=page-fit`}
+            className="w-full h-full border-0 rounded"
+            style={{ pointerEvents: 'none' }}
           />
           {/* Overlay with buttons */}
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded flex items-center justify-center opacity-0 group-hover:opacity-100">

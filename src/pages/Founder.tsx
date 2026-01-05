@@ -171,9 +171,9 @@ const Founder = () => {
               <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-6 sm:mb-8"></div>
 
               {/* Grid Layout - Content + Certificates */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-6 sm:mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-6 sm:mb-8 items-stretch">
                 {/* Text Content */}
-                <div>
+                <div className="flex flex-col">
                   {/* Description */}
                   <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
                     {founderPage.internationalCertificates.description}
@@ -193,12 +193,11 @@ const Founder = () => {
                 </div>
 
                 {/* Certificates Grid */}
-                <div className="grid grid-cols-1 gap-6">
-                  <img
-                    src="/cerf1.jpg"
-                    alt="International Certificate 1"
-                    className="w-full max-w-md h-auto object-contain rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 mx-auto"
-                    loading="lazy"
+                <div className="grid grid-cols-1 gap-6 h-full">
+                  <PDFViewer
+                    src="/cerf5.pdf"
+                    title="Academic Profile (English)"
+                    className="h-full"
                   />
                 </div>
               </div>
@@ -416,10 +415,14 @@ const Founder = () => {
               {/* Recommendation Letters */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 sm:mb-8">
                 {/* Academic Profile English */}
-                <PDFViewer
-                  src="/cerf5.pdf"
-                  title="Academic Profile (English)"
-                />
+                <div className="bg-white border-2 border-gray-200 rounded-lg p-3 shadow-lg hover:shadow-2xl transition-all">
+                  <img
+                    src="/cerf1.jpg"
+                    alt="Academic Profile (English)"
+                    className="w-full h-[450px] object-contain rounded"
+                    loading="lazy"
+                  />
+                </div>
 
                 {/* Letter from Caspian University */}
                 <PDFViewer
