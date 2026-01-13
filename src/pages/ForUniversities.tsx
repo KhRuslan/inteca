@@ -105,110 +105,70 @@ const ForUniversities = () => {
               {pageContent.hero.description}
             </p>
 
-            {/* Image Banner with Overlay and Cards */}
+            {/* Image Banner */}
             <div className="relative mb-6 sm:mb-8 lg:mb-12">
               {/* Image Container */}
-              <div className="relative w-full min-h-[400px] sm:min-h-[500px] lg:min-h-[700px] xl:min-h-[800px] rounded-lg overflow-hidden bg-gray-900">
+              <div className="relative w-full min-h-[300px] sm:min-h-[400px] lg:min-h-[450px] xl:min-h-[500px] rounded-lg overflow-hidden bg-gray-900">
                 {/* Background Image */}
                 <img 
                   src="/for-uni.JPG" 
                   alt="University students"
                   loading="lazy" 
-                  className="w-full h-full object-cover absolute inset-0"
+                  className="w-full h-full object-cover"
                 />
-                
-                {/* Dark Overlay for entire image - только на десктопе */}
-                <div className="hidden lg:block absolute inset-0 bg-black bg-opacity-50 z-0"></div>
-                
-                {/* Title - всегда на изображении (только на мобильных) */}
-                <div className="lg:hidden absolute bottom-0 left-0 right-0 z-10 px-4 sm:px-6 pb-4 sm:pb-6">
-                  <div className="bg-black bg-opacity-70 rounded-lg px-4 sm:px-6 py-3 sm:py-4">
-                    <h2 className="text-xl sm:text-2xl font-bold text-white drop-shadow-2xl">
-                      {pageContent.benefitsTitle}
-                    </h2>
-                  </div>
-                </div>
-
-                {/* Cards - только на десктопе внутри изображения */}
-                <div className="hidden lg:block absolute bottom-0 left-0 right-0 z-10 px-8 xl:px-12 pb-8 xl:pb-12">
-                  <div className="mb-4 lg:mb-6 xl:mb-8">
-                    <h2 className="text-2xl xl:text-3xl font-bold text-white">
-                      {pageContent.benefitsTitle}
-                    </h2>
-                  </div>
-                  <div className="grid grid-cols-4 gap-6">
-                    {(pageContent.benefits || []).map((benefit, index) => {
-                      const isLongText = benefit.description.length > 80 || (benefit.list && benefit.list.length > 0)
-                      const shortDescription = getShortDescription(benefit.description)
-                      
-                      return (
-                        <div key={index} className="bg-white p-6 lg:p-8 rounded-lg shadow-lg flex flex-col h-full">
-                          <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3 min-h-[3rem] flex items-start">
-                            {benefit.title}
-                          </h3>
-                          <div className="w-12 h-0.5 bg-[#DD0000] mb-4 flex-shrink-0"></div>
-                          <div className="flex-grow flex flex-col">
-                            <p className="text-sm lg:text-base text-gray-700 mb-3 leading-relaxed min-h-[3rem]">
-                              {isLongText ? shortDescription : benefit.description}
-                            </p>
-                            <div className="mt-auto pt-2">
-                              {isLongText && (
-                                <button
-                                  onClick={() => setSelectedBenefit(benefit)}
-                                  className="text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
-                                >
-                                  {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
-                                  <span>→</span>
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Cards - только на мобильных ниже изображения */}
-              <div className="lg:hidden mt-4 sm:mt-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {(pageContent.benefits || []).map((benefit, index) => {
-                    const isLongText = benefit.description.length > 80 || (benefit.list && benefit.list.length > 0)
-                    const shortDescription = getShortDescription(benefit.description)
-                    
-                    return (
-                      <div key={index} className="bg-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col h-full">
-                        <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 min-h-[2.5rem] flex items-start">
-                          {benefit.title}
-                        </h3>
-                        <div className="w-10 sm:w-12 h-0.5 bg-[#DD0000] mb-2 sm:mb-3 flex-shrink-0"></div>
-                        <div className="flex-grow flex flex-col">
-                          <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 leading-relaxed min-h-[2.5rem]">
-                            {isLongText ? shortDescription : benefit.description}
-                          </p>
-                          <div className="mt-auto pt-2">
-                            {isLongText && (
-                              <button
-                                onClick={() => setSelectedBenefit(benefit)}
-                                className="text-xs sm:text-sm font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
-                              >
-                                {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
-                                <span>→</span>
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Benefits Section */}
+      <section className="py-8 sm:py-12 lg:py-16 xl:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Title */}
+            <div className="mb-6 sm:mb-8 lg:mb-12">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4">
+                {pageContent.benefitsTitle}
+              </h2>
+              <div className="w-16 sm:w-20 lg:w-24 h-1 bg-[#DD0000]"></div>
+            </div>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {(pageContent.benefits || []).map((benefit, index) => {
+                const isLongText = benefit.description.length > 80 || (benefit.list && benefit.list.length > 0)
+                const shortDescription = getShortDescription(benefit.description)
+                
+                return (
+                  <div key={index} className="bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-lg flex flex-col h-full border border-gray-200">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-3 min-h-[3rem] flex items-start">
+                      {benefit.title}
+                    </h3>
+                    <div className="w-12 h-0.5 bg-[#DD0000] mb-4 flex-shrink-0"></div>
+                    <div className="flex-grow flex flex-col">
+                      <p className="text-sm sm:text-base lg:text-lg text-gray-700 mb-3 leading-relaxed min-h-[3rem]">
+                        {isLongText ? shortDescription : benefit.description}
+                      </p>
+                      <div className="mt-auto pt-2">
+                        {isLongText && (
+                          <button
+                            onClick={() => setSelectedBenefit(benefit)}
+                            className="text-sm sm:text-base font-semibold text-[#DD0000] hover:underline inline-flex items-center gap-1"
+                          >
+                            {language === 'ru' ? 'Подробнее' : language === 'kz' ? 'Толығырақ' : 'Learn more'}
+                            <span>→</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Integration Formats Section */}
       <section className="py-8 sm:py-12 lg:py-16 xl:py-20 bg-white">

@@ -97,22 +97,28 @@ const ProgramBenefits = () => {
                 {language === 'ru' ? 'Назад' : language === 'kz' ? 'Артқа' : 'Back'}
               </button>
 
-              {/* Title */}
-              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
-                {selectedBenefit.title}
-              </h2>
-              <div className="border-b-2 sm:border-b-4 border-[#DD0000] w-16 sm:w-20 lg:w-24 mb-4 sm:mb-6 lg:mb-8"></div>
-
               {/* Content */}
               {selectedBenefit.structuredContent ? (
                 // Structured content with sections
                 <div className="space-y-6 sm:space-y-8 lg:space-y-10">
                   {selectedBenefit.structuredContent.sections.map((section, sIndex) => (
                     <div key={sIndex} className={sIndex > 0 ? 'border-t-2 border-gray-200 pt-6 sm:pt-8' : ''}>
-                      {/* Section Title */}
-                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-5">
-                        {section.title}
-                      </h3>
+                      {/* Main Title - только для первой секции */}
+                      {sIndex === 0 && (
+                        <>
+                          <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
+                            {section.title}
+                          </h2>
+                          <div className="border-b-2 sm:border-b-4 border-[#DD0000] w-16 sm:w-20 lg:w-24 mb-4 sm:mb-6 lg:mb-8"></div>
+                        </>
+                      )}
+                      
+                      {/* Section Title - для остальных секций */}
+                      {sIndex > 0 && (
+                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-5">
+                          {section.title}
+                        </h3>
+                      )}
                       
                       {/* Section Content */}
                       {section.content && (

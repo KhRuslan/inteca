@@ -224,15 +224,17 @@ const About = () => {
                   <div key={index} className="border border-gray-200 p-8 sm:p-10 lg:p-12 rounded-lg hover:shadow-lg transition">
                     <div className="text-sm text-gray-600 mb-3">{competency.category}</div>
                     <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                      {competency.mainTitle}
+                      <span className="block">
+                        {competency.mainTitle}
+                        {!competency.subtitle && (
+                          <span className="text-[#DD0000] text-xl sm:text-2xl lg:text-3xl ml-2 sm:ml-3 inline align-baseline">↗</span>
+                        )}
+                      </span>
                       {competency.subtitle && (
-                        <span className="whitespace-nowrap">
-                          {' '}{competency.subtitle}
+                        <span className="block mt-1">
+                          {competency.subtitle}
                           <span className="text-[#DD0000] text-xl sm:text-2xl lg:text-3xl ml-2 sm:ml-3 inline align-baseline">↗</span>
                         </span>
-                      )}
-                      {!competency.subtitle && (
-                        <span className="text-[#DD0000] text-xl sm:text-2xl lg:text-3xl ml-2 sm:ml-3 inline align-baseline">↗</span>
                       )}
                     </h3>
                     <div className="mb-4">
@@ -286,12 +288,22 @@ const About = () => {
               </button>
 
               <div className="text-sm text-gray-600 mb-3">{selectedCompetency.category}</div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                {selectedCompetency.mainTitle} <span className="text-[#DD0000]">↗</span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                <span className="block">
+                  {selectedCompetency.mainTitle}
+                </span>
+                {selectedCompetency.subtitle && (
+                  <span className="block mt-1">
+                    {selectedCompetency.subtitle}
+                    <span className="text-[#DD0000] text-xl sm:text-2xl lg:text-3xl ml-2 inline align-baseline">↗</span>
+                  </span>
+                )}
+                {!selectedCompetency.subtitle && (
+                  <span className="text-[#DD0000] text-xl sm:text-2xl lg:text-3xl ml-2 inline align-baseline">↗</span>
+                )}
               </h2>
               <div className="border-b-2 border-[#DD0000] w-16 sm:w-20 mb-6"></div>
               
-              <div className="text-lg font-semibold text-gray-900 mb-4">{selectedCompetency.subtitle}</div>
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed whitespace-pre-line">
                 {selectedCompetency.description}
               </p>

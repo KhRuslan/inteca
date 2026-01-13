@@ -58,7 +58,7 @@ const PDFViewer = ({ src, title, className = '' }: PDFViewerProps) => {
         onClick={handleOpenFullscreen}
       >
         {/* PDF Preview */}
-        <div className="relative flex-1 min-h-[450px] overflow-hidden rounded">
+        <div className={`relative flex-1 overflow-hidden rounded ${className.includes('h-full') ? '' : 'min-h-[450px]'}`}>
           <iframe
             src={`${src}#toolbar=0&navpanes=0&scrollbar=0&zoom=page-fit`}
             className="w-full h-full border-0 rounded"

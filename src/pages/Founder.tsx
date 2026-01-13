@@ -113,19 +113,19 @@ const Founder = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Grid Layout - Certificate + Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 lg:gap-12 mb-8 sm:mb-12 lg:items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-8 lg:gap-12 mb-8 sm:mb-12 items-stretch">
               {/* Harvard Certificate - Full Height */}
-              <div className="order-2 lg:order-1 flex">
+              <div className="order-2 lg:order-1 flex min-h-[620px]">
                 <img
                   src="/cerft4.jpg"
                   alt="Harvard Leadership Development Certificate"
-                  className="w-full h-full object-cover rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
+                  className="w-full h-full object-contain rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
                   loading="lazy"
                 />
               </div>
 
               {/* Content */}
-              <div className="order-1 lg:order-2 flex flex-col">
+              <div className="order-1 lg:order-2 flex flex-col min-h-[620px]">
                 {/* Title */}
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">
                   {founderPage.practitionerTitle ? `${founderPage.practitionerTitle}. ` : ''}{founderPage.practitionerSubtitle}
@@ -133,8 +133,8 @@ const Founder = () => {
                 <div className="border-t-4 border-[#DD0000] w-32 sm:w-48 mb-8 sm:mb-12"></div>
 
                 {/* Black Box with Description */}
-                <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg flex-grow">
-                  <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
+                <div className="bg-black text-white p-8 sm:p-10 lg:p-12 rounded-lg flex-grow flex items-center">
+                  <p className="text-base sm:text-lg lg:text-xl leading-relaxed">
                     {founderPage.practitionerDescription}
                   </p>
                 </div>
@@ -194,11 +194,14 @@ const Founder = () => {
 
                 {/* Certificates Grid */}
                 <div className="grid grid-cols-1 gap-6 h-full">
-                  <PDFViewer
-                    src="/cerf5.pdf"
-                    title="Academic Profile (English)"
-                    className="h-full"
-                  />
+                  <div className="border-2 border-gray-200 rounded-lg shadow-lg hover:shadow-2xl transition-all overflow-hidden">
+                    <img
+                      src="/cerf.png"
+                      alt="Harvard Case Teaching Certificate"
+                      className="w-full h-auto block"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -384,14 +387,13 @@ const Founder = () => {
                 </h3>
 
                 {/* Grid Layout - Certificate + Content */}
-                <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 sm:gap-8">
-                  {/* Certificate Image - LEFT */}
-                  <div className="flex items-start justify-center order-2 lg:order-1">
-                    <img
-                      src="/cerf.png"
-                      alt="Harvard Case Teaching Certificate"
-                      className="w-full max-w-[400px] h-auto object-contain rounded-lg shadow-2xl hover:shadow-3xl transition-all duration-300"
-                      loading="lazy"
+                <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 sm:gap-8 items-stretch">
+                  {/* Certificate PDF - LEFT */}
+                  <div className="flex items-stretch justify-center order-2 lg:order-1">
+                    <PDFViewer
+                      src="/cerf5.pdf"
+                      title="Academic Profile (English)"
+                      className="w-full h-full"
                     />
                   </div>
 
