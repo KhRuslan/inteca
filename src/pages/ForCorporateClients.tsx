@@ -78,13 +78,24 @@ const ForCorporateClients = () => {
               </h1>
               
               {/* Hero Image - Mobile: immediately after title */}
-              <div className="lg:hidden mt-4 sm:mt-6 mb-6 sm:mb-8">
-                <img 
-                  src="/for corp.png" 
-                  alt="Corporate training"
-                  loading="lazy" 
-                  className="w-full h-auto rounded-lg object-cover"
-                />
+              <div className="lg:hidden mt-4 sm:mt-6 mb-6 sm:mb-8 overflow-hidden rounded-lg">
+                <div className="relative w-full h-[400px]">
+                  <img 
+                    src="/for corp.png" 
+                    alt="Corporate training"
+                    loading="lazy" 
+                    className="w-full h-full object-cover"
+                    style={{ 
+                      objectPosition: 'center 60%',
+                      transform: 'scale(2.6) rotate(1deg)',
+                      position: 'absolute',
+                      left: '63px',
+                      top: '315px',
+                      width: '100%',
+                      height: '100%'
+                    }}
+                  />
+                </div>
               </div>
 
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">
@@ -98,13 +109,24 @@ const ForCorporateClients = () => {
             {/* Hero Image and Why Section - Two Column Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8 sm:mt-12 items-start">
               {/* Left: Hero Image - Desktop only */}
-              <div className="hidden lg:block">
-                <img 
-                  src="/for corp.png" 
-                  alt="Corporate training"
-                  loading="lazy" 
-                  className="w-full h-auto rounded-lg object-cover"
-                />
+              <div className="hidden lg:block overflow-hidden rounded-lg">
+                <div className="relative w-full h-[600px]">
+                  <img 
+                    src="/for corp.png" 
+                    alt="Corporate training"
+                    loading="lazy" 
+                    className="w-full h-full object-cover"
+                    style={{ 
+                      objectPosition: 'center 60%',
+                      transform: 'scale(2.2) rotate(1deg)',
+                      position: 'absolute',
+                      left: '50px',
+                      top: '291px',
+                      width: '100%',
+                      height: '100%'
+                    }}
+                  />
+                </div>
               </div>
 
               {/* Right: Why the Case Method Works */}
