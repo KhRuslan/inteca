@@ -209,6 +209,190 @@ const Founder = () => {
         </section>
       )}
 
+      {/* Career Path Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+              {language === 'ru' ? 'Путь от оперативной службы до управления крупными холдингами' : language === 'kz' ? 'Жедел қызметтен ірі холдингтерді басқаруға дейінгі жол' : 'From Law Enforcement to Managing Major Holdings'}
+            </h2>
+            <div className="w-16 sm:w-20 h-0.5 bg-[#DD0000] mb-8 sm:mb-10"></div>
+
+            <div className="space-y-6 sm:space-y-8">
+              {/* Step 1 */}
+              <div className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  {language === 'ru' ? '1. Начало карьеры — государственная служба и расследования' : language === 'kz' ? '1. Мансаптың басталуы — мемлекеттік қызмет және тергеу' : '1. Career Beginning — Government Service and Investigations'}
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-3">
+                  {language === 'ru' ? 'Преподаватель начал свой профессиональный путь с работы в органах уголовного преследования:' : language === 'kz' ? 'Оқытушы өзінің кәсіби жолын қылмыстық қудалау органдарында бастады:' : 'The instructor began his professional career in criminal prosecution agencies:'}
+                </p>
+                <ul className="list-none space-y-2 sm:space-y-3 pl-0 mb-4">
+                  {(language === 'ru' ? [
+                    'Оперуполномоченный уголовного розыска',
+                    'Руководитель отдела уголовного розыска',
+                    'В управлении криминальной полиции — оперуполномоченный по особо важным делам по борьбе с киберпреступлениями'
+                  ] : language === 'kz' ? [
+                    'Қылмыстық іздестіру жедел уәкілі',
+                    'Қылмыстық іздестіру бөлімінің басшысы',
+                    'Криминалдық полиция басқармасында — киберқылмыстармен күрес бойынша аса маңызды істер жедел уәкілі'
+                  ] : [
+                    'Criminal Investigation Officer',
+                    'Head of Criminal Investigation Department',
+                    'In the Criminal Police Division — Senior Officer for Cybercrime Investigation'
+                  ]).map((item, i) => (
+                    <li key={i} className="flex items-start">
+                      <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                      <span className="text-base sm:text-lg text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="bg-gray-50 rounded-lg p-4 sm:p-5">
+                  <p className="text-sm sm:text-base text-gray-600 italic">
+                    {language === 'ru' ? 'Эти годы дали уникальный практический опыт: аналитика, работа с информацией, принятие решений в условиях давления, управление рисками и людьми.' : language === 'kz' ? 'Бұл жылдар бірегей тәжірибе берді: аналитика, ақпаратпен жұмыс, қысым жағдайында шешім қабылдау, тәуекелдер мен адамдарды басқару.' : 'These years provided unique practical experience: analytics, information management, decision-making under pressure, risk and people management.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  {language === 'ru' ? '2. Безопасность и управление рисками в частном секторе' : language === 'kz' ? '2. Жеке секторда қауіпсіздік және тәуекелдерді басқару' : '2. Security and Risk Management in the Private Sector'}
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-3">
+                  {language === 'ru' ? 'После государственной службы преподаватель перешёл в корпоративный сектор и возглавил службу безопасности Каспийского банка.' : language === 'kz' ? 'Мемлекеттік қызметтен кейін оқытушы корпоративтік секторға ауысып, Каспий банкінің қауіпсіздік қызметін басқарды.' : 'After government service, the instructor transitioned to the corporate sector and headed the security division of Caspian Bank.'}
+                </p>
+                <div className="bg-gray-50 rounded-lg p-4 sm:p-5">
+                  <p className="text-sm sm:text-base text-gray-600 italic">
+                    {language === 'ru' ? 'Это дало понимание финансовых процессов, compliance, защиты данных, корпоративной культуры и работы с масштабными бизнес-процессами.' : language === 'kz' ? 'Бұл қаржылық процестерді, compliance, деректерді қорғау, корпоративтік мәдениет және ауқымды бизнес-процестермен жұмыс істеуді түсінуге мүмкіндік берді.' : 'This provided an understanding of financial processes, compliance, data protection, corporate culture, and managing large-scale business operations.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  {language === 'ru' ? '3. Управление производственными холдингами' : language === 'kz' ? '3. Өндірістік холдингтерді басқару' : '3. Managing Industrial Holdings'}
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                  {language === 'ru' ? 'Преподаватель занимал ключевые позиции в крупных отраслях национальной экономики:' : language === 'kz' ? 'Оқытушы ұлттық экономиканың ірі салаларында басты лауазымдарды атқарды:' : 'The instructor held key positions in major sectors of the national economy:'}
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                  <div className="bg-black text-white p-5 sm:p-6 rounded-lg">
+                    <h4 className="text-sm sm:text-base font-bold mb-2">
+                      {language === 'ru' ? 'Председатель Правления АО «АгромашХолдинг»' : language === 'kz' ? '«АгромашХолдинг» АҚ Басқарма Төрағасы' : 'Chairman of the Board, JSC "AgromashHolding"'}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                      {language === 'ru' ? 'Крупнейший производитель зерноуборочной техники в Казахстане. Ответственность: производство, продажи и сервисная сеть по всей стране.' : language === 'kz' ? 'Қазақстандағы ең ірі астық жинау техникасының өндірушісі. Жауапкершілік: өндіріс, сату және бүкіл ел бойынша сервистік желі.' : 'The largest grain harvesting equipment manufacturer in Kazakhstan. Responsibility: production, sales, and a nationwide service network.'}
+                    </p>
+                  </div>
+
+                  <div className="bg-black text-white p-5 sm:p-6 rounded-lg">
+                    <h4 className="text-sm sm:text-base font-bold mb-2">
+                      {language === 'ru' ? 'Президент АО «Аллюр Авто»' : language === 'kz' ? '«Аллюр Авто» АҚ Президенті' : 'President, JSC "Allur Auto"'}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                      {language === 'ru' ? 'Производство и реализация автомобилей, грузовой и специальной техники. Работа на стыке индустрии, стратегии, маркетинга и операционного управления.' : language === 'kz' ? 'Автомобильдер, жүк және арнайы техника өндірісі мен сатуы. Индустрия, стратегия, маркетинг және операциялық басқару тоғысында жұмыс.' : 'Manufacturing and sales of automobiles, trucks, and special-purpose vehicles. Operating at the intersection of industry, strategy, marketing, and operations management.'}
+                    </p>
+                  </div>
+
+                  <div className="bg-black text-white p-5 sm:p-6 rounded-lg">
+                    <h4 className="text-sm sm:text-base font-bold mb-2">
+                      {language === 'ru' ? 'Президент АО «Доступное жильё»' : language === 'kz' ? '«Қолжетімді баспана» АҚ Президенті' : 'President, JSC "Affordable Housing"'}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                      {language === 'ru' ? 'Проект строительства индивидуальных жилых домов. Опыт в девелопменте, финансировании, логистике и работе с государственными программами.' : language === 'kz' ? 'Жеке тұрғын үйлер салу жобасы. Девелопмент, қаржыландыру, логистика және мемлекеттік бағдарламалармен жұмыс тәжірибесі.' : 'Individual housing construction project. Experience in development, financing, logistics, and government program coordination.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 4 */}
+              <div className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  {language === 'ru' ? '4. Член Правления многопрофильного холдинга Caspian Group' : language === 'kz' ? '4. Көпсалалы Caspian Group холдингінің Басқарма мүшесі' : '4. Board Member of the Diversified Caspian Group Holding'}
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-3">
+                  {language === 'ru' ? 'Работа в холдинге с разными направлениями бизнеса дала:' : language === 'kz' ? 'Бизнестің әртүрлі бағыттары бар холдингтегі жұмыс мыналарды берді:' : 'Working in a holding with diverse business directions provided:'}
+                </p>
+                <ul className="list-none space-y-2 sm:space-y-3 pl-0">
+                  {(language === 'ru' ? [
+                    'стратегическое видение',
+                    'навыки управления портфелем компаний',
+                    'понимание корпоративного управления',
+                    'опыт построения бизнес-моделей в разных отраслях',
+                    'умение принимать решения на уровне совета директоров'
+                  ] : language === 'kz' ? [
+                    'стратегиялық көзқарас',
+                    'компаниялар портфелін басқару дағдылары',
+                    'корпоративтік басқаруды түсіну',
+                    'әртүрлі салаларда бизнес-модельдер құру тәжірибесі',
+                    'директорлар кеңесі деңгейінде шешім қабылдай білу'
+                  ] : [
+                    'strategic vision',
+                    'portfolio management skills',
+                    'understanding of corporate governance',
+                    'experience in building business models across industries',
+                    'ability to make decisions at the board of directors level'
+                  ]).map((item, i) => (
+                    <li key={i} className="flex items-start">
+                      <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                      <span className="text-base sm:text-lg text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Why This Experience Matters */}
+            <div className="mt-10 sm:mt-12 bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 pb-2 relative">
+                {language === 'ru' ? 'Почему такой опыт важен для кейс-обучения' : language === 'kz' ? 'Неліктен мұндай тәжірибе кейс-оқыту үшін маңызды' : 'Why This Experience Matters for Case-Based Learning'}
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
+              </h3>
+              <p className="text-base sm:text-lg text-gray-300 mb-4">
+                {language === 'ru' ? 'Преподаватель не просто модерирует обсуждение, а:' : language === 'kz' ? 'Оқытушы талқылауды жай ғана модерациялап қоймайды, ол:' : 'The instructor doesn\'t just moderate discussions — he:'}
+              </p>
+              <ul className="list-none space-y-2 sm:space-y-3 pl-0 mb-6">
+                {(language === 'ru' ? [
+                  'задаёт правильные вопросы',
+                  'направляет дискуссию',
+                  'объясняет логику решений',
+                  'делится реальными ситуациями из практики',
+                  'подсказывает, как действовать в сложных или спорных кейсах',
+                  'помогает слушателям научиться мыслить как руководители'
+                ] : language === 'kz' ? [
+                  'дұрыс сұрақтар қояды',
+                  'пікірталасты бағыттайды',
+                  'шешімдердің логикасын түсіндіреді',
+                  'тәжірибеден нақты жағдайлармен бөліседі',
+                  'күрделі немесе даулы кейстерде қалай әрекет ету керектігін айтады',
+                  'тыңдаушыларға басшы ретінде ойлауға үйренуге көмектеседі'
+                ] : [
+                  'asks the right questions',
+                  'guides the discussion',
+                  'explains the logic behind decisions',
+                  'shares real situations from practice',
+                  'advises on how to act in complex or controversial cases',
+                  'helps participants learn to think like executives'
+                ]).map((item, i) => (
+                  <li key={i} className="flex items-start">
+                    <span className="text-[#DD0000] mr-3 sm:mr-4 font-bold text-xl sm:text-2xl flex-shrink-0 mt-1">•</span>
+                    <span className="text-base sm:text-lg text-gray-200">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="border-t border-gray-700 pt-4 sm:pt-6">
+                <p className="text-base sm:text-lg text-white leading-relaxed italic">
+                  {language === 'ru' ? 'Студенты получают не теоретическую абстракцию, а доступ к настоящему управленческому опыту — накопленному в госслужбе, банковской сфере, промышленности, автомобильной индустрии, девелопменте и холдинговом управлении.' : language === 'kz' ? 'Студенттер теориялық абстракция емес, нақты басқару тәжірибесіне — мемлекеттік қызметте, банк саласында, өнеркәсіпте, автомобиль индустриясында, девелопментте және холдингтік басқаруда жинақталған тәжірибеге қол жеткізеді.' : 'Students gain access not to theoretical abstraction, but to real management experience — accumulated in government service, banking, manufacturing, the automotive industry, real estate development, and holding company management.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Teacher Role in Case Learning Section */}
       {founderPage.teacherRoleInCaseLearning && (
         <section className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -355,7 +539,7 @@ const Founder = () => {
             {/* Educational Path Section */}
             <div className="mt-8 sm:mt-12">
               <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
-                Путь преподавателя в образовании
+                {language === 'ru' ? 'Путь преподавателя в образовании' : language === 'kz' ? 'Оқытушының білім берудегі жолы' : 'The Instructor\'s Path in Education'}
               </h3>
               <div className="bg-black text-white p-6 sm:p-8 lg:p-10 rounded-lg mb-6 sm:mb-8">
                 <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
@@ -370,7 +554,7 @@ const Founder = () => {
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DD0000]"></span>
                 </h3>
                 <p className="text-base sm:text-lg text-gray-300 mb-4">
-                  Такой путь — от производственных площадок до Executive MBA — обеспечивает преподавателю исключительное понимание:
+                  {language === 'ru' ? 'Такой путь — от производственных площадок до Executive MBA — обеспечивает преподавателю исключительное понимание:' : language === 'kz' ? 'Мұндай жол — өндірістік алаңдардан Executive MBA-ға дейін — оқытушыға ерекше түсінік береді:' : 'This path — from production facilities to Executive MBA — provides the instructor with an exceptional understanding of:'}
                 </p>
                 <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 space-y-2">
                   {founderPage.biography.whyTeachingExperienceImportant.points.map((point, index) => (
@@ -537,7 +721,7 @@ const Founder = () => {
               
               <div className="space-y-4 sm:space-y-6 text-gray-700 leading-relaxed">
                 <p className="text-lg sm:text-xl lg:text-2xl font-semibold">
-                  Разнообразное и уникальное образование преподавателя. Наш преподаватель обладает редким сочетанием юридического, финансового, управленческого и международного бизнес-образования.
+                  {language === 'ru' ? 'Разнообразное и уникальное образование преподавателя. Наш преподаватель обладает редким сочетанием юридического, финансового, управленческого и международного бизнес-образования.' : language === 'kz' ? 'Оқытушының алуан түрлі және бірегей білімі. Біздің оқытушы заңгерлік, қаржылық, басқарушылық және халықаралық бизнес-білімнің сирек кездесетін үйлесімділігіне ие.' : 'The instructor\'s diverse and unique education. Our instructor possesses a rare combination of legal, financial, managerial, and international business education.'}
                 </p>
                 <p className="text-base sm:text-lg">
                   {founderPage.biography.paragraph1}
