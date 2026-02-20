@@ -222,10 +222,10 @@ const Founder = () => {
               {/* Step 1 */}
               <div className="border-l-4 border-[#DD0000] pl-4 sm:pl-6">
                 <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3">
-                  {language === 'ru' ? '1. Начало карьеры — государственная служба и расследования' : language === 'kz' ? '1. Мансаптың басталуы — мемлекеттік қызмет және тергеу' : '1. Career Beginning — Government Service and Investigations'}
+                  {language === 'ru' ? '1. Начало карьеры — государственная служба' : language === 'kz' ? '1. Мансаптың басталуы — мемлекеттік қызмет' : '1. Career Beginning — Government Service'}
                 </h3>
                 <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-3">
-                  {language === 'ru' ? 'Преподаватель начал свой профессиональный путь с работы в органах уголовного преследования:' : language === 'kz' ? 'Оқытушы өзінің кәсіби жолын қылмыстық қудалау органдарында бастады:' : 'The instructor began his professional career in criminal prosecution agencies:'}
+                  {language === 'ru' ? 'Преподаватель начал свой профессиональный путь с работы в органах внутренних дел:' : language === 'kz' ? 'Оқытушы өзінің кәсіби жолын ішкі қызмет органдарында бастады:' : 'The instructor began his professional career in internal security agencies:'}
                 </p>
                 <ul className="list-none space-y-2 sm:space-y-3 pl-0 mb-4">
                   {(language === 'ru' ? [

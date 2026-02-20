@@ -613,8 +613,8 @@ export const defaultContent: SiteContent = {
             title: 'Опыт преподавателя',
             content: 'Наш преподаватель, прошедший обучение и изучивший:',
             items: [
-              'более 140 кейсов Harvard Business School',
-              'более 100 кейсов London Business School',
+              '140 кейсов Harvard Business School',
+              '100 кейсов London Business School',
               'а также имеющий 12+ лет опыта государственной службы',
               'и 12+ лет опыта в бизнесе и преподавании'
             ],
@@ -799,7 +799,6 @@ export const defaultContent: SiteContent = {
         'Более 100 кейсов London Business School',
         '12+ лет опыта государственной службы',
         '12+ лет опыта в бизнесе и преподавании',
-        '250+ кейсов изучено лично'
       ],
       image: '/founder-hero.jpeg'
     },
