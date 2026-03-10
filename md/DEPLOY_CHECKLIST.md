@@ -107,7 +107,7 @@
 
 ## 📧 Коммуникации
 
-- [ ] Email настроен (info@inteca.org)
+- [ ] Email настроен (info@inteca-ed.com)
 - [ ] Форма обратной связи работает
 - [ ] Social media ссылки актуальны
 - [ ] Contact page создан
