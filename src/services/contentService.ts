@@ -76,6 +76,8 @@ export const contentService = {
         .upsert({
           key: contentKey,
           data: updatedContent,
+        }, {
+          onConflict: 'key',
         })
 
       if (error) throw error
@@ -104,6 +106,8 @@ export const contentService = {
         .upsert({
           key: contentKey,
           data: defaultContent,
+        }, {
+          onConflict: 'key',
         })
 
       if (error) throw error
